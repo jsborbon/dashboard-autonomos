@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { HTMLButtonAttributes } from "svelte/elements";
-	import * as Select from "$lib/components/ui/select/index.js";
+	import * as Select from "./ui/select/index.js";
 	import { config } from "$lib/stores/index.js";
 	import { styles } from "$lib/registry/styles.js";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "../utils/utils.js";
 
 	let styleLabel = styles.filter((s) => s.name === $config.style)[0].label;
 	let selected = { value: $config.style, label: styleLabel };

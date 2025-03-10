@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Avatar from "$lib/components/ui/avatar/index.js";
+	import * as Avatar from "../ui/avatar/index.js";
 </script>
 
 <div class="space-y-8">

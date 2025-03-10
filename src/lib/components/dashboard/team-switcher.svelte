@@ -4,15 +4,15 @@
 	import PlusCircled from "svelte-radix/PlusCircled.svelte";
 
 	import { tick } from "svelte";
-	import { cn } from "$lib/utils.js";
-	import * as Avatar from "$lib/components/ui/avatar/index.js";
-	import { Button } from "$lib/components/ui/button/index.js";
-	import * as Command from "$lib/components/ui/command/index.js";
-	import * as Dialog from "$lib/components/ui/dialog/index.js";
-	import { Input } from "$lib/components/ui/input/index.js";
-	import { Label } from "$lib/components/ui/label/index.js";
-	import * as Popover from "$lib/components/ui/popover/index.js";
-	import * as Select from "$lib/components/ui/select/index.js";
+	import { cn } from "../../utils/utils.js";
+	import * as Avatar from "../ui/avatar/index.js";
+	import { Button } from "../ui/button/index.js";
+	import * as Command from "../ui/command/index.js";
+	import * as Dialog from "../ui/dialog/index.js";
+	import { Input } from "../ui/input/index.js";
+	import { Label } from "../ui/label/index.js";
+	import * as Popover from "../ui/popover/index.js";
+	import * as Select from "../ui/select/index.js";
 
 	let className: string | undefined | null = undefined;
 	export { className as class };

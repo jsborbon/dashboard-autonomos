@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Line } from "$lib/components/charts/index.js";
+	import { Line } from "../charts/index.js";
 </script>
 
 <Line />

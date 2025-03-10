@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Pie } from "$lib/components/charts/index.js";
+	import { Pie } from "../charts/index.js";
 </script>
 
 <Pie />

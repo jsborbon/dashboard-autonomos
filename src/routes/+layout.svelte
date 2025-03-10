@@ -1,6 +1,6 @@
 <script lang="ts">
 	import "../styles/globals.css";
-	import { Toaster as DefaultSonner } from "$lib/components/ui/sonner/index.js";
+	import { Toaster as DefaultSonner } from "../lib/components/ui/sonner/index.js";
 
 </script>
 

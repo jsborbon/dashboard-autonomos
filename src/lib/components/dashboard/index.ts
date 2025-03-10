@@ -1,4 +1,3 @@
-export { default as DashboardMainNav } from "./main-nav.svelte";
 export { default as Barchart } from "./barchart.svelte";
 export { default as Linechart } from "./linechart.svelte";
 export { default as Piechart } from "./piechart.svelte";
