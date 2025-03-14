@@ -78,3 +78,5 @@ vite.config.ts.timestamp-*
 .svelte-kit/output/server/nodes/0.js
 .svelte-kit/output/server/nodes/1.js
 .svelte-kit/output/server/nodes/2.js
+.svelte-kit/generated/server/internal.js
+.svelte-kit/generated/server/internal.js
