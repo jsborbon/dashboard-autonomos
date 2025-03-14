@@ -1,134 +1,179 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import * as Card from '../lib/components/ui/card/index.js';
-    import { chartCommonOptions, chartColors } from '../lib/utils/chartUtils'
-	import Chart from 'chart.js/auto';
+    import { onMount } from 'svelte';
+    import * as Card from '../lib/components/ui/card/index.js';
+    import { chartCommonOptions, chartColors } from '../lib/utils/chartUtils';
+    import Chart from 'chart.js/auto';
+    import { goto } from '$app/navigation';
+    import { auth, db } from '$lib/stores/firebase.js';
+    import { collection, getDocs } from 'firebase/firestore';
 
-	let selectedProfile: string = 'Programador Junior';
-	let userProgress: Record<string, number> = {};
-	let profileData = {
-		'Programador Junior': {
-			skills: {
-				'HTML/CSS': 60,
-				JavaScript: 80,
-				React: 60,
-				'Vue.js': 60
-			},
-			objectives: [
-				'Completar curso de JavaScript avanzado',
-				'Crear proyectos usando React y Vue.js',
-				'Aprender conceptos de Git y control de versiones'
-			]
-		},
-		'Full-Stack Developer': {
-			skills: {
-				React: 100,
-				'Node.js': 100,
-				MongoDB: 60,
-				'Express.js': 60,
-				PostgreSQL: 60,
-				GraphQL: 40
-			},
-			objectives: [
-				'Desarrollar una aplicación con GraphQL y React',
-				'Aprender Docker y Kubernetes',
-				'Implementar SSR con Next.js y una API en Express'
-			]
-		},
-		'Data Scientist': {
-			skills: {
-				Python: 80,
-				'Machine Learning': 60,
-				Pandas: 60,
-				TensorFlow: 60,
-				AWS: 40
-			},
-			objectives: [
-				'Completar un proyecto de análisis predictivo',
-				'Implementar un modelo de deep learning en TensorFlow',
-				'Crear dashboard interactivo con Plotly/Dash'
-			]
-		}
-	};
+    let selectedProfile: string = 'Programador Junior';
+    let userProgress: Record<string, number> = {};
+    let userProjects = [];
 
-	// Chart instances
-	let progressChart: Chart | null = null;
-	let profileColors = {
-		'Programador Junior': '#4F46E5',
-		'Full-Stack Developer': '#7C3AED',
-		'Data Scientist': '#2563EB'
-	};
+    let profileData = {
+        "Programador Junior": {
+            "skills": {
+                "HTML/CSS": 2,
+                "JavaScript": 3,
+                "React": 2,
+                "Vue.js": 2
+            },
+            "objectives": [
+                "Aprender los fundamentos de JavaScript",
+                "Crear pequeños proyectos en React y Vue.js",
+                "Familiarizarse con Git y control de versiones"
+            ]
+        },
+        "Frontend Developer": {
+            "skills": {
+                "React": 4,
+                "Vue.js": 4,
+                "Angular": 3,
+                "Svelte": 2,
+                "Next.js": 2
+            },
+            "objectives": [
+                "Construir una aplicación con Next.js",
+                "Crear una SPA con Vue.js o Angular",
+                "Mejorar el rendimiento con optimización de código"
+            ]
+        },
+        "Backend Developer": {
+            "skills": {
+                "Node.js": 4,
+                "Express.js": 3,
+                "Spring Boot": 3,
+                "Django": 2,
+                "Flask": 2
+            },
+            "objectives": [
+                "Crear una API básica con Node.js",
+                "Aprender autenticación con OAuth/JWT",
+                "Familiarizarse con despliegue en servidores"
+            ]
+        },
+        "Full-Stack Developer": {
+            "skills": {
+                "React": 4,
+                "Node.js": 4,
+                "MongoDB": 3,
+                "Express.js": 2,
+                "PostgreSQL": 2,
+                "GraphQL": 2
+            },
+            "objectives": [
+                "Desarrollar una aplicación simple con GraphQL y React",
+                "Aprender conceptos básicos de Docker",
+                "Implementar SSR con Next.js"
+            ]
+        },
+        "Mobile Developer": {
+            "skills": {
+                "Flutter": 3,
+                "React Native": 3,
+                "iOS": 2,
+                "Firebase": 2
+            },
+            "objectives": [
+                "Crear una pequeña app con Flutter",
+                "Aprender Swift o Kotlin",
+                "Explorar almacenamiento en Firebase"
+            ]
+        },
+        "DevOps Engineer": {
+            "skills": {
+                "Docker": 3,
+                "AWS": 3,
+                "CI/CD": 2,
+                "Terraform": 2,
+                "Kubernetes": 2
+            },
+            "objectives": [
+                "Automatizar despliegues simples",
+                "Aprender a usar Terraform",
+                "Implementar pipelines básicos en CI/CD"
+            ]
+        },
+        "Data Scientist": {
+            "skills": {
+                "Python": 3,
+                "Machine Learning": 2,
+                "Pandas": 2,
+                "TensorFlow": 2,
+                "AWS": 2
+            },
+            "objectives": [
+                "Realizar análisis de datos básicos",
+                "Aprender los fundamentos de Machine Learning",
+                "Explorar modelos de predicción con TensorFlow"
+            ]
+        }
+    };
 
-	async function loadUserProgress() {
-		userProgress = profileData[selectedProfile]?.skills || {};
-		renderCharts();
-	}
+    let progressChart: Chart | null = null;
+    let profileColors = {
+        'Programador Junior': '#4F46E5',
+        'Full-Stack Developer': '#7C3AED'
+    };
 
-	function renderCharts() {
-		if (!Object.keys(userProgress).length) return;
-		if (progressChart) progressChart.destroy();
-		
-		// Personalizar colores basados en el perfil seleccionado
-		const currentColor = profileColors[selectedProfile] || chartColors.progress.border;
-		
-		progressChart = new Chart(document.getElementById('progressChart') as HTMLCanvasElement, {
-			type: 'radar',
-			data: {
-				labels: Object.keys(userProgress),
-				datasets: [
-					{
-						label: 'Tu progreso',
-						data: Object.values(userProgress),
-						backgroundColor: `${currentColor}33`, // Color con transparencia
-						borderColor: currentColor,
-						borderWidth: 2,
-						pointBackgroundColor: currentColor,
-						pointRadius: 4
-					}
-				]
-			},
-			options: { 
-				...chartCommonOptions,
-				plugins: {
-					legend: {
-						labels: {
-							font: {
-								family: "'Inter', sans-serif",
-								size: 14
-							},
-							color: '#4B5563'
-						}
-					}
-				},
-				scales: {
-					r: {
-						angleLines: {
-							color: '#E5E7EB'
-						},
-						grid: {
-							color: '#E5E7EB'
-						},
-						pointLabels: {
-							font: {
-								size: 12,
-								family: "'Inter', sans-serif"
-							},
-							color: '#4B5563'
-						},
-						ticks: {
-							backdropColor: 'transparent',
-							color: '#6B7280'
-						}
-					}
-				}
-			}
-		});
-	}
+    async function loadProjectData() {
+        try {
+            const currentUser = auth.currentUser;
+            if (!currentUser) {
+                console.error('Usuario no autenticado');
+                await goto('/login');
+                return;
+            }
 
-	onMount(loadUserProgress);
+            const userId = currentUser.uid;
+            const proyectosRef = collection(db, 'usuarios', userId, 'proyectos');
+            const proyectosSnapshot = await getDocs(proyectosRef);
+
+            if (proyectosSnapshot.empty) {
+                console.log('No hay proyectos disponibles');
+                return;
+            }
+
+            userProjects = proyectosSnapshot.docs.map(doc => doc.data());
+            renderCharts();
+        } catch (error) {
+            console.error('Error al cargar los proyectos:', error);
+        }
+    }
+
+    async function loadUserProgress() {
+        await loadProjectData();
+        userProgress = profileData[selectedProfile]?.skills || {};
+        renderCharts();
+    }
+
+    function renderCharts() {
+        if (!Object.keys(userProgress).length) return;
+        if (progressChart) progressChart.destroy();
+        const currentColor = profileColors[selectedProfile] || chartColors.progress.border;
+        progressChart = new Chart(document.getElementById('progressChart') as HTMLCanvasElement, {
+            type: 'radar',
+            data: {
+                labels: Object.keys(userProgress),
+                datasets: [{
+                    label: 'Tu progreso',
+                    data: Object.values(userProgress),
+                    backgroundColor: `${currentColor}33`,
+                    borderColor: currentColor,
+                    borderWidth: 2,
+                    pointBackgroundColor: currentColor,
+                    pointRadius: 4
+                }]
+            },
+            options: chartCommonOptions
+        });
+    }
+
+    onMount(loadUserProgress);
 </script>
 
-<div class="p-6 max-w-7xl mx-auto bg-gray-50 dark:bg-gray-900 rounded-lg">
+<div class="p-6 mx-auto bg-gray-50 dark:bg-gray-900 rounded-lg">
 	<h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Dashboard de Desarrollo Profesional</h1>
 	
 	<div class="grid gap-6 md:grid-cols-4">

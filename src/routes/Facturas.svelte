@@ -140,6 +140,14 @@
 					options: {
 						...chartCommonOptions,
 						cutout: '60%',
+                        scales: {
+        x: {
+            display: false 
+        },
+        y: {
+            display: false 
+        }
+    },
 						plugins: {
 							...chartCommonOptions.plugins,
 							tooltip: {
