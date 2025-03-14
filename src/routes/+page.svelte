@@ -1,17 +1,26 @@
 <script lang="ts">
 	import Download from 'lucide-svelte/icons/download';
-	import { UserNav } from '../lib/components/dashboard/index.js';
+	import UserNav from '../lib/components/user-nav.svelte';
 	import { Button } from '../lib/components/ui/button/index.js';
+	import {
+		DropdownMenu,
+		DropdownMenuContent,
+		DropdownMenuItem,
+		DropdownMenuTrigger
+	} from '../lib/components/ui/dropdown-menu/index.js';
 	import * as Tabs from '../lib/components/ui/tabs/index.js';
 	import DatePickerWithRange from '../lib/components/date-picker-with-range.svelte';
 	import { ModeToggle } from '../lib/components/index.js';
-
 	import Facturas from './Facturas.svelte';
+	let facturasComponent: Facturas;
 	import Itinerarios from './Itinerarios.svelte';
 
+	let dateRange = { from: undefined, to: undefined };
 
+	function handleDateRangeChange(event: CustomEvent) {
+		dateRange = event.detail;
+	}
 </script>
-
 
 <Tabs.Root value="facturas" class="space-y-4">
 	<header class="border-b bg-white dark:bg-gray-800 shadow-sm">
@@ -38,15 +47,8 @@
 				<div
 					class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2"
 				>
-					<DatePickerWithRange on:change={()=>{/* handleDateRangeChange */}} />
-					<Button
-						size="sm"
-						class="bg-indigo-500 text-white hover:bg-indigo-600"
-						aria-label="Descargar Informes"
-					>
-						<Download class="mr-2 h-4 w-4" />
-						Descargar Informes
-					</Button>
+					<DatePickerWithRange on:change={handleDateRangeChange} />
+					
 				</div>
 				<ModeToggle />
 				<UserNav />
@@ -54,16 +56,15 @@
 		</div>
 	</header>
 
-
 	<div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 flex-1 space-y-4 p-4">
 		<!-- Sección de Facturación -->
 		<Tabs.Content value="facturas" class="space-y-4">
-			<Facturas/>
+			<Facturas bind:this={facturasComponent} {dateRange} />
 		</Tabs.Content>
 
 		<!-- Sección de Itinerarios Profesionales -->
 		<Tabs.Content value="itinerarios" class="space-y-4">
-			<Itinerarios/>
+			<Itinerarios {dateRange} />
 		</Tabs.Content>
 	</div>
 </Tabs.Root>

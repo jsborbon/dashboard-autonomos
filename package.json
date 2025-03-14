@@ -54,8 +54,10 @@
 		"d3-scale": "^4.0.2",
 		"file-saver": "^2.0.5",
 		"firebase": "^11.4.0",
+		"jspdf": "^3.0.0",
 		"lucide-svelte": "^0.447.0",
 		"mode-watcher": "^0.2.2",
+		"papaparse": "^5.5.2",
 		"svelte-radix": "^1.1.0",
 		"svelte-sonner": "^0.3.19",
 		"tailwindcss": "^4.0.12"

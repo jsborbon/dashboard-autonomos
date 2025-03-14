@@ -1,9 +1,9 @@
 <script lang="ts">
-	import * as DropdownMenu from "../ui/dropdown-menu/index.js";
-	import * as Avatar from "../ui/avatar/index.js";
-	import { Button } from "../ui/button/index.js";
-	import { auth } from "../../stores/firebase.js";
-	import { user } from '../../stores/store.js';
+	import * as DropdownMenu from "./ui/dropdown-menu/index.js";
+	import * as Avatar from "./ui/avatar/index.js";
+	import { Button } from "./ui/button/index.js";
+	import { auth } from "../stores/firebase.js";
+	import { user } from '../stores/store.js';
 
 	function logOut() {
 		auth.signOut();

@@ -7,6 +7,11 @@
 	import { goto } from '$app/navigation';
 	import { auth, db } from '$lib/stores/firebase.js';
 	import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+    import { exportToCSV, exportToPDF } from '$lib/utils/exportUtils';
+import { createEventDispatcher } from 'svelte';
+const dispatch = createEventDispatcher();
+
+	export let dateRange: { from?: Date; to?: Date } = {};
 
 	// Total amounts
 	let totalIncome = 0;
@@ -17,8 +22,6 @@
 	let incomeMap: Record<string, number> = {};
 	let expenseMap: Record<string, number> = {};
 
-	// Date range for filtering
-	let dateRange: { from?: Date; to?: Date } = {};
 
 	let invoiceData: InvoiceData = { months: [], income: [], expenses: [] };
 	let invoiceStats = { emitted: 0, received: 0, total: 0 };
@@ -30,7 +33,6 @@
 	let receiverRevenue: Record<string, number> = {};
 
 	// Chart instances
-	let progressChart: Chart | null = null;
 	let invoiceChart: Chart | null = null;
 	let invoiceTypeChart: Chart | null = null;
 	let emitterChart: Chart | null = null;
@@ -543,14 +545,25 @@
 
 				const date = new Date(dateString);
 
+				// Debug log for date parsing
+				console.log('Original date:', data.fechaEmision, 'Parsed date:', date);
+
 				// Apply date range filtering if provided
-				if (dateRange.from && date < dateRange.from) return;
-				if (dateRange.to && date > dateRange.to) return;
+				if (dateRange.from && date < new Date(dateRange.from)) {
+					console.log('Skipping - before range:', date);
+					return;
+				}
+				if (dateRange.to && date > new Date(dateRange.to)) {
+					console.log('Skipping - after range:', date);
+					return;
+				}
+				console.log('Date within range:', date);
 
-				const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-				const month = date.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
-
-				monthsMap.set(monthKey, month);
+				const monthKey = date.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+				if (!monthsMap.has(monthKey)) {
+					monthsMap.set(monthKey, { income: 0, expenses: 0 });
+				}
+				monthsMap.set(monthKey, monthsMap.get(monthKey));
 
 				// Process based on invoice type
 				if (data.tipoFactura?.toLowerCase() === 'emitida') {
@@ -581,7 +594,7 @@
 
 			// Sort months chronologically for proper timeline display
 			const sortedMonthKeys = Array.from(monthsMap.keys()).sort();
-			const sortedMonths = sortedMonthKeys.map((key) => monthsMap.get(key));
+			const sortedMonths = sortedMonthKeys.map((key) => key);
 
 			invoiceData = {
 				months: sortedMonths,
@@ -610,6 +623,25 @@
 		loadInvoiceData();
 	}
 
+    async function handleExportCSV() {
+		try {
+			await exportToCSV(invoiceData);
+			dispatch('exportCSV');
+		} catch (error) {
+			console.error('Error exporting CSV:', error);
+			dispatch('error', { error: 'Failed to export CSV' });
+		}
+	}
+
+	async function handleExportPDF() {
+		try {
+			await exportToPDF(invoiceData);
+			dispatch('exportPDF');
+		} catch (error) {
+			console.error('Error exporting PDF:', error);
+			dispatch('error', { error: 'Failed to export PDF' });
+		}
+	}
 	// Ejecutar al montar el componente
 	onMount(async () => {
 		await loadInvoiceData();
@@ -619,6 +651,27 @@
 <!-- Sección de Facturación -->
 
 {#if totalIncome > 0 || totalExpenses > 0}
+<!-- Botones de exportación -->
+<div class="flex justify-end gap-2 mt-4 mb-4">
+	<button
+		on:click={handleExportCSV}
+		class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors flex items-center"
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+		</svg>
+		Exportar CSV
+	</button>
+	<button
+		on:click={handleExportPDF}
+		class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors flex items-center"
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+		</svg>
+		Exportar PDF
+	</button>
+</div>
 	<div class="grid gap-4 md:grid-cols-3">
 		<Card.Root class="shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow">
 			<Card.Header class="pb-2">
@@ -676,6 +729,8 @@
 			</Card.Content>
 		</Card.Root>
 	</div>
+
+	
 {:else}
 	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
 		<p class="text-gray-600 dark:text-gray-300">

@@ -7,9 +7,45 @@
     import { auth, db } from '$lib/stores/firebase.js';
     import { collection, getDocs } from 'firebase/firestore';
 
+    export let dateRange: { from?: Date; to?: Date };
+
     let selectedProfile: string = 'Programador Junior';
     let userProgress: Record<string, number> = {};
     let userProjects = [];
+
+    $: if (dateRange) {
+        if (dateRange.from && dateRange.to) {
+            filterProjectsByDateRange();
+        }
+    }
+
+    function filterProjectsByDateRange() {
+        const from = new Date(dateRange.from);
+        const to = new Date(dateRange.to);
+
+        // Set time to start and end of day for more accurate comparison
+        from.setHours(0, 0, 0, 0);
+        to.setHours(23, 59, 59, 999);
+
+        // Filter projects based on date range
+        userProjects = userProjects.filter(project => {
+            // Handle both Timestamp and string date formats
+            const projectDate = project.fecha?.toDate ? 
+                project.fecha.toDate() : 
+                new Date(project.fecha);
+
+            if (!projectDate || isNaN(projectDate.getTime())) {
+                console.warn('Invalid date for project:', project.id);
+                return false;
+            }
+
+            projectDate.setHours(12, 0, 0, 0); // Normalize time to noon
+            return projectDate >= from && projectDate <= to;
+        });
+
+        // Update charts with filtered data
+        renderCharts();
+    }
 
     let profileData = {
         "Programador Junior": {
@@ -166,7 +202,14 @@
                     pointRadius: 4
                 }]
             },
-            options: chartCommonOptions
+            options: {...chartCommonOptions, scales: {
+        r: { 
+            ticks: {
+                display: false 
+            }
+        }
+    }
+                    }
         });
     }
 
