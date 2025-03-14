@@ -8,6 +8,14 @@
       "_internal.js"
     ]
   },
+  "_client.js": {
+    "file": "chunks/client.js",
+    "name": "client",
+    "imports": [
+      "_exports.js",
+      "_ssr2.js"
+    ]
+  },
   "_exports.js": {
     "file": "chunks/exports.js",
     "name": "exports"
@@ -35,6 +43,15 @@
     "file": "chunks/ssr2.js",
     "name": "ssr"
   },
+  "_store.js": {
+    "file": "chunks/store.js",
+    "name": "store",
+    "imports": [
+      "_ssr.js",
+      "_index.js",
+      "_ssr2.js"
+    ]
+  },
   "_stores.js": {
     "file": "chunks/stores.js",
     "name": "stores",
@@ -49,8 +66,7 @@
     "isEntry": true,
     "imports": [
       "_ssr.js",
-      "_exports.js",
-      "_ssr2.js"
+      "_client.js"
     ]
   },
   "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
@@ -75,7 +91,7 @@
       "_stores.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.BvxrPyMM.css"
+      "_app/immutable/assets/_layout.D7Nx7E9m.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -85,12 +101,24 @@
     "isEntry": true,
     "imports": [
       "_ssr.js",
+      "_store.js",
       "_index.js",
-      "_ssr2.js",
-      "_stores.js"
+      "_stores.js",
+      "_client.js"
     ],
     "css": [
       "_app/immutable/assets/_page.BQ3Q1uke.css"
+    ]
+  },
+  "src/routes/login/+page.svelte": {
+    "file": "entries/pages/login/_page.svelte.js",
+    "name": "entries/pages/login/_page.svelte",
+    "src": "src/routes/login/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js",
+      "_store.js",
+      "_client.js"
     ]
   }
 }

@@ -159,11 +159,11 @@ const validate_page_server_exports = validator(valid_page_server_exports);
 const validate_server_exports = validator(valid_server_exports);
 export {
   decode_params as a,
-  decode_pathname as b,
-  validate_layout_exports as c,
+  validate_layout_exports as b,
+  validate_page_server_exports as c,
   disable_search as d,
-  validate_page_server_exports as e,
-  validate_page_exports as f,
+  validate_page_exports as e,
+  decode_pathname as f,
   validate_server_exports as g,
   make_trackable as m,
   normalize_path as n,

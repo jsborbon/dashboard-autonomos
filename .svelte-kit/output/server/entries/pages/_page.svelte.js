@@ -1,17 +1,16 @@
-import { q as set_current_component, r as current_component, t as run_all, c as create_ssr_component, i as compute_rest_props, j as spread, e as each, l as escape_object, k as escape_attribute_value, v as validate_component, a as add_attribute, o as onDestroy, g as get_store_value, u as createEventDispatcher, s as setContext, p as getContext, b as subscribe, n as noop$1, f as escape, w as set_store_value, x as identity } from "../../chunks/ssr.js";
-import "chart.js/auto";
-import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { Chart, registerables } from "chart.js";
-import { dequal } from "dequal";
-import { d as derived, w as writable, r as readable, a as readonly } from "../../chunks/index.js";
-import { o as onMount } from "../../chunks/ssr2.js";
+import { q as set_current_component, r as current_component, t as run_all, c as create_ssr_component, i as compute_rest_props, j as spread, e as each, l as escape_object, k as escape_attribute_value, v as validate_component, g as get_store_value, s as setContext, p as getContext, a as add_attribute, b as subscribe, n as noop$1, f as escape } from "../../chunks/ssr.js";
+import { i as is_void, w as withGet, n as noop, a as isBrowser, b as isHTMLElement, c as isFunction, o as omit, e as effect, m as makeElement, s as styleToString$2, d as isElement, u as useEscapeKeydown, f as executeCallbacks, g as addEventListener$1, h as addMeltEventListener, F as FIRST_LAST_KEYS, k as kbd$1, p as portalAttr, j as createElHelpers, S as SELECTION_KEYS, l as isElementDisabled, q as safeOnMount, r as disabledAttr, t as getDirectionalKeys, v as createBitAttrs$1, x as createDispatcher, y as disabledAttrs, z as cn, A as flyAndScale, B as user, C as Button, D as buttonVariants, E as auth, G as db } from "../../chunks/store.js";
+import "dequal";
+import "clsx";
+import { d as derived, w as writable, a as readonly, r as readable } from "../../chunks/index.js";
 import { nanoid } from "nanoid/non-secure";
 import { flip, offset, shift, arrow, size, autoUpdate, computePosition } from "@floating-ui/dom";
 import { createFocusTrap as createFocusTrap$1 } from "focus-trap";
-import { tv } from "tailwind-variants";
 import { getLocalTimeZone, CalendarDateTime, CalendarDate, ZonedDateTime, parseZonedDateTime, parseDateTime, parseDate, toCalendar, getDayOfWeek, DateFormatter, startOfMonth, endOfMonth, isSameMonth, isSameDay, isToday } from "@internationalized/date";
 import "../../chunks/stores.js";
+import Chart from "chart.js/auto";
+import { g as goto } from "../../chunks/client.js";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
 const dirty_components = [];
 const binding_callbacks = [];
 let render_callbacks = [];
@@ -81,10 +80,6 @@ function update($$) {
     $$.after_update.forEach(add_render_callback);
   }
 }
-const void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
-function is_void(name2) {
-  return void_element_names.test(name2) || name2.toLowerCase() === "!doctype";
-}
 /**
  * @license lucide-svelte v0.447.0 - ISC
  *
@@ -140,73 +135,6 @@ const Icon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     })(tag)}`;
   })}${slots.default ? slots.default({}) : ``}</svg>`;
 });
-const Activity = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [
-    [
-      "path",
-      {
-        "d": "M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"
-      }
-    ]
-  ];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "activity" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Credit_card = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [
-    [
-      "rect",
-      {
-        "width": "20",
-        "height": "14",
-        "x": "2",
-        "y": "5",
-        "rx": "2"
-      }
-    ],
-    [
-      "line",
-      {
-        "x1": "2",
-        "x2": "22",
-        "y1": "10",
-        "y2": "10"
-      }
-    ]
-  ];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "credit-card" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Dollar_sign = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [
-    [
-      "line",
-      {
-        "x1": "12",
-        "x2": "12",
-        "y1": "2",
-        "y2": "22"
-      }
-    ],
-    [
-      "path",
-      {
-        "d": "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-      }
-    ]
-  ];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "dollar-sign" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
 const Download = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   const iconNode = [
     [
@@ -232,110 +160,6 @@ const Download = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     }
   })}`;
 });
-const Users = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [
-    [
-      "path",
-      {
-        "d": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-      }
-    ],
-    ["circle", { "cx": "9", "cy": "7", "r": "4" }],
-    ["path", { "d": "M22 21v-2a4 4 0 0 0-3-3.87" }],
-    ["path", { "d": "M16 3.13a4 4 0 0 1 0 7.75" }]
-  ];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "users" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-function cubicOut(t) {
-  const f = t - 1;
-  return f * f * f + 1;
-}
-function cn(...inputs) {
-  return twMerge(clsx(inputs));
-}
-function styleToString$4(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0) return str;
-    return `${str}${key}:${style[key]};`;
-  }, "");
-}
-function flyAndScale(node, params = { y: -8, x: 0, start: 0.95, duration: 150 }) {
-  const style = getComputedStyle(node);
-  const transform = style.transform === "none" ? "" : style.transform;
-  const scaleConversion = (valueA, scaleA, scaleB) => {
-    const [minA, maxA] = scaleA;
-    const [minB, maxB] = scaleB;
-    const percentage = (valueA - minA) / (maxA - minA);
-    const valueB = percentage * (maxB - minB) + minB;
-    return valueB;
-  };
-  return {
-    duration: params.duration ?? 200,
-    delay: 0,
-    css: (t) => {
-      const y = scaleConversion(t, [0, 1], [params.y ?? 5, 0]);
-      const x = scaleConversion(t, [0, 1], [params.x ?? 0, 0]);
-      const scale2 = scaleConversion(t, [0, 1], [params.start ?? 0.95, 1]);
-      return styleToString$4({
-        transform: `${transform} translate3d(${x}px, ${y}px, 0) scale(${scale2})`,
-        opacity: t
-      });
-    },
-    easing: cubicOut
-  };
-}
-const Main_nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<nav${add_attribute("class", cn("flex items-center space-x-4 lg:space-x-6", className), 0)}><a href="/" class="hover:text-primary text-sm font-medium transition-colors" data-svelte-h="svelte-1gl09cz">Overview</a> <a href="/" class="text-muted-foreground hover:text-primary text-sm font-medium transition-colors" data-svelte-h="svelte-uyw3oj">Customers</a> <a href="/" class="text-muted-foreground hover:text-primary text-sm font-medium transition-colors" data-svelte-h="svelte-zcurmk">Products</a> <a href="/" class="text-muted-foreground hover:text-primary text-sm font-medium transition-colors" data-svelte-h="svelte-3h547t">Settings</a></nav>`;
-});
-const css = {
-  code: ".chart-container.svelte-7uhayy{width:100%;height:350px;position:relative}",
-  map: '{"version":3,"file":"bar.svelte","sources":["bar.svelte"],"sourcesContent":["<script lang=\\"ts\\">import { onMount } from \\"svelte\\";\\nimport { Chart, registerables } from \\"chart.js\\";\\nlet barChartCanvas;\\nChart.register(...registerables);\\nconst data = [\\n  { name: \\"Jan\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Feb\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Mar\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Apr\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"May\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Jun\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Jul\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Aug\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Sep\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Oct\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Nov\\", total: Math.floor(Math.random() * 5e3) + 1e3 },\\n  { name: \\"Dec\\", total: Math.floor(Math.random() * 5e3) + 1e3 }\\n];\\nonMount(() => {\\n  new Chart(barChartCanvas, {\\n    type: \\"bar\\",\\n    data: {\\n      labels: data.map((d) => d.name),\\n      datasets: [\\n        {\\n          label: \\"Total Sales\\",\\n          data: data.map((d) => d.total),\\n          backgroundColor: \\"rgba(54, 162, 235, 0.6)\\",\\n          borderColor: \\"rgba(54, 162, 235, 1)\\",\\n          borderWidth: 1,\\n          borderRadius: 5\\n        }\\n      ]\\n    },\\n    options: {\\n      responsive: true,\\n      maintainAspectRatio: false,\\n      scales: {\\n        x: {\\n          grid: { display: false }\\n        },\\n        y: {\\n          beginAtZero: true,\\n          grid: { color: \\"rgba(200, 200, 200, 0.3)\\" }\\n        }\\n      },\\n      plugins: {\\n        legend: { display: false }\\n      }\\n    }\\n  });\\n});\\n<\/script>\\n\\n<div class=\\"chart-container\\">\\n\\t<canvas bind:this={barChartCanvas}></canvas>\\n</div>\\n\\n<style>\\n\\t.chart-container {\\n\\t\\twidth: 100%;\\n\\t\\theight: 350px;\\n\\t\\tposition: relative;\\n\\t}\\n</style>"],"names":[],"mappings":"AA2DC,8BAAiB,CAChB,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,KAAK,CACb,QAAQ,CAAE,QACX"}'
-};
-const Bar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let barChartCanvas;
-  Chart.register(...registerables);
-  $$result.css.add(css);
-  return `<div class="chart-container svelte-7uhayy"><canvas${add_attribute("this", barChartCanvas, 0)}></canvas> </div>`;
-});
-const Line = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let lineChartCanvas;
-  Chart.register(...registerables);
-  return `<canvas${add_attribute("this", lineChartCanvas, 0)}></canvas>`;
-});
-const Pie = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let pieChartCanvas;
-  Chart.register(...registerables);
-  return `<canvas${add_attribute("this", pieChartCanvas, 0)}></canvas>`;
-});
-const Barchart = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Bar, "Bar").$$render($$result, {}, {}, {})}`;
-});
-const Linechart = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Line, "Line").$$render($$result, {}, {}, {})}`;
-});
-const Piechart = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Pie, "Pie").$$render($$result, {}, {}, {})}`;
-});
-function back(array, index, increment, loop = true) {
-  const previousIndex = index - increment;
-  if (previousIndex <= 0) {
-    return loop ? array[array.length - 1] : array[0];
-  }
-  return array[previousIndex];
-}
-function forward(array, index, increment, loop = true) {
-  const nextIndex = index + increment;
-  if (nextIndex > array.length - 1) {
-    return loop ? array[0] : array[array.length - 1];
-  }
-  return array[nextIndex];
-}
 function next(array, index, loop = true) {
   if (index === array.length - 1) {
     return loop ? array[0] : array[index];
@@ -354,15 +178,6 @@ function last(array) {
 function wrapArray(array, startIndex) {
   return array.map((_, index) => array[(startIndex + index) % array.length]);
 }
-function toggle(item, array, compare = dequal) {
-  const itemIdx = array.findIndex((innerItem) => compare(innerItem, item));
-  if (itemIdx !== -1) {
-    array.splice(itemIdx, 1);
-  } else {
-    array.push(item);
-  }
-  return array;
-}
 function chunk(arr, size2) {
   const result = [];
   for (let i = 0; i < arr.length; i += size2) {
@@ -373,308 +188,17 @@ function chunk(arr, size2) {
 function isValidIndex(index, arr) {
   return index >= 0 && index < arr.length;
 }
-function styleToString$3(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0)
-      return str;
-    return str + `${key}:${style[key]};`;
-  }, "");
-}
-function disabledAttr(disabled) {
-  return disabled ? true : void 0;
-}
-({
-  style: styleToString$3({
-    position: "absolute",
-    opacity: 0,
-    "pointer-events": "none",
-    margin: 0,
-    transform: "translateX(-100%)"
-  })
-});
-function portalAttr(portal) {
-  if (portal !== null) {
-    return "";
-  }
-  return void 0;
-}
-function lightable(value) {
-  function subscribe2(run) {
-    run(value);
-    return () => {
-    };
-  }
-  return { subscribe: subscribe2 };
-}
-function getElementByMeltId(id) {
-  if (!isBrowser$1)
-    return null;
-  const el = document.querySelector(`[data-melt-id="${id}"]`);
-  return isHTMLElement$1(el) ? el : null;
-}
-const hiddenAction = (obj) => {
-  return new Proxy(obj, {
-    get(target, prop, receiver) {
-      return Reflect.get(target, prop, receiver);
-    },
-    ownKeys(target) {
-      return Reflect.ownKeys(target).filter((key) => key !== "action");
-    }
-  });
-};
-const isFunctionWithParams = (fn) => {
-  return typeof fn === "function";
-};
-makeElement("empty");
-function makeElement(name2, args) {
-  const { stores, action, returned } = args ?? {};
-  const derivedStore = (() => {
-    if (stores && returned) {
-      return derived(stores, (values) => {
-        const result = returned(values);
-        if (isFunctionWithParams(result)) {
-          const fn = (...args2) => {
-            return hiddenAction({
-              ...result(...args2),
-              [`data-melt-${name2}`]: "",
-              action: action ?? noop
-            });
-          };
-          fn.action = action ?? noop;
-          return fn;
-        }
-        return hiddenAction({
-          ...result,
-          [`data-melt-${name2}`]: "",
-          action: action ?? noop
-        });
-      });
-    } else {
-      const returnedFn = returned;
-      const result = returnedFn?.();
-      if (isFunctionWithParams(result)) {
-        const resultFn = (...args2) => {
-          return hiddenAction({
-            ...result(...args2),
-            [`data-melt-${name2}`]: "",
-            action: action ?? noop
-          });
-        };
-        resultFn.action = action ?? noop;
-        return lightable(resultFn);
-      }
-      return lightable(hiddenAction({
-        ...result,
-        [`data-melt-${name2}`]: "",
-        action: action ?? noop
-      }));
-    }
-  })();
-  const actionFn = action ?? (() => {
-  });
-  actionFn.subscribe = derivedStore.subscribe;
-  return actionFn;
-}
-function createElHelpers(prefix) {
-  const name2 = (part) => part ? `${prefix}-${part}` : prefix;
-  const attribute = (part) => `data-melt-${prefix}${part ? `-${part}` : ""}`;
-  const selector2 = (part) => `[data-melt-${prefix}${part ? `-${part}` : ""}]`;
-  const getEl = (part) => document.querySelector(selector2(part));
-  return {
-    name: name2,
-    attribute,
-    selector: selector2,
-    getEl
-  };
-}
-const isBrowser$1 = typeof document !== "undefined";
-const isFunction = (v) => typeof v === "function";
-function isElement(element) {
-  return element instanceof Element;
-}
-function isHTMLElement$1(element) {
-  return element instanceof HTMLElement;
-}
-function isHTMLInputElement$1(element) {
-  return element instanceof HTMLInputElement;
-}
-function isHTMLLabelElement(element) {
-  return element instanceof HTMLLabelElement;
-}
-function isHTMLButtonElement(element) {
-  return element instanceof HTMLButtonElement;
-}
-function isElementDisabled(element) {
-  const ariaDisabled = element.getAttribute("aria-disabled");
-  const disabled = element.getAttribute("disabled");
-  const dataDisabled = element.hasAttribute("data-disabled");
-  if (ariaDisabled === "true" || disabled !== null || dataDisabled) {
-    return true;
-  }
-  return false;
-}
-function isObject(value) {
-  return value !== null && typeof value === "object";
-}
-function isReadable(value) {
-  return isObject(value) && "subscribe" in value;
-}
-function executeCallbacks$1(...callbacks) {
-  return (...args) => {
-    for (const callback of callbacks) {
-      if (typeof callback === "function") {
-        callback(...args);
-      }
-    }
-  };
-}
-function noop() {
-}
-function addEventListener$2(target, event, handler, options) {
-  const events = Array.isArray(event) ? event : [event];
-  events.forEach((_event) => target.addEventListener(_event, handler, options));
-  return () => {
-    events.forEach((_event) => target.removeEventListener(_event, handler, options));
-  };
-}
-function addMeltEventListener(target, event, handler, options) {
-  const events = Array.isArray(event) ? event : [event];
-  if (typeof handler === "function") {
-    const handlerWithMelt = withMelt((_event) => handler(_event));
-    events.forEach((_event) => target.addEventListener(_event, handlerWithMelt, options));
-    return () => {
-      events.forEach((_event) => target.removeEventListener(_event, handlerWithMelt, options));
-    };
-  }
-  return () => noop();
-}
-function dispatchMeltEvent(originalEvent) {
-  const node = originalEvent.currentTarget;
-  if (!isHTMLElement$1(node))
-    return null;
-  const customMeltEvent = new CustomEvent(`m-${originalEvent.type}`, {
-    detail: {
-      originalEvent
-    },
-    cancelable: true
-  });
-  node.dispatchEvent(customMeltEvent);
-  return customMeltEvent;
-}
-function withMelt(handler) {
-  return (event) => {
-    const customEvent = dispatchMeltEvent(event);
-    if (customEvent?.defaultPrevented)
-      return;
-    return handler(event);
-  };
-}
 function addHighlight(element) {
   element.setAttribute("data-highlighted", "");
 }
 function removeHighlight(element) {
   element.removeAttribute("data-highlighted");
 }
-const safeOnMount = (fn) => {
-  try {
-    onMount(fn);
-  } catch {
-    return fn;
-  }
-};
-const safeOnDestroy = (fn) => {
-  try {
-    onDestroy(fn);
-  } catch {
-    return fn;
-  }
-};
-function getOptions(el) {
-  return Array.from(el.querySelectorAll('[role="option"]:not([data-disabled])')).filter((el2) => isHTMLElement$1(el2));
-}
 function getElemDirection(elem) {
   const style = window.getComputedStyle(elem);
   const direction = style.getPropertyValue("direction");
   return direction;
 }
-function omit$1(obj, ...keys) {
-  const result = {};
-  for (const key of Object.keys(obj)) {
-    if (!keys.includes(key)) {
-      result[key] = obj[key];
-    }
-  }
-  return result;
-}
-function stripValues(inputObject, toStrip, recursive) {
-  return Object.fromEntries(Object.entries(inputObject).filter(([_, value]) => !dequal(value, toStrip)));
-}
-function removeUndefined$2(obj) {
-  const result = {};
-  for (const key in obj) {
-    const value = obj[key];
-    if (value !== void 0) {
-      result[key] = value;
-    }
-  }
-  return result;
-}
-function withGet(store) {
-  return {
-    ...store,
-    get: () => get_store_value(store)
-  };
-}
-withGet.writable = function(initial) {
-  const internal = writable(initial);
-  let value = initial;
-  return {
-    subscribe: internal.subscribe,
-    set(newValue) {
-      internal.set(newValue);
-      value = newValue;
-    },
-    update(updater) {
-      const newValue = updater(value);
-      internal.set(newValue);
-      value = newValue;
-    },
-    get() {
-      return value;
-    }
-  };
-};
-withGet.derived = function(stores, fn) {
-  const subscribers = /* @__PURE__ */ new Map();
-  const get = () => {
-    const values = Array.isArray(stores) ? stores.map((store) => store.get()) : stores.get();
-    return fn(values);
-  };
-  const subscribe2 = (subscriber) => {
-    const unsubscribers = [];
-    const storesArr = Array.isArray(stores) ? stores : [stores];
-    storesArr.forEach((store) => {
-      unsubscribers.push(store.subscribe(() => {
-        subscriber(get());
-      }));
-    });
-    subscriber(get());
-    subscribers.set(subscriber, unsubscribers);
-    return () => {
-      const unsubscribers2 = subscribers.get(subscriber);
-      if (unsubscribers2) {
-        for (const unsubscribe of unsubscribers2) {
-          unsubscribe();
-        }
-      }
-      subscribers.delete(subscriber);
-    };
-  };
-  return {
-    get,
-    subscribe: subscribe2
-  };
-};
 const overridable = (_store, onChange) => {
   const store = withGet(_store);
   const update2 = (updater, sideEffect) => {
@@ -697,7 +221,7 @@ const overridable = (_store, onChange) => {
     set
   };
 };
-function sleep$1(ms) {
+function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 function generateId$2() {
@@ -709,60 +233,6 @@ function generateIds(args) {
     return acc;
   }, {});
 }
-const kbd$2 = {
-  ALT: "Alt",
-  ARROW_DOWN: "ArrowDown",
-  ARROW_LEFT: "ArrowLeft",
-  ARROW_RIGHT: "ArrowRight",
-  ARROW_UP: "ArrowUp",
-  BACKSPACE: "Backspace",
-  CAPS_LOCK: "CapsLock",
-  CONTROL: "Control",
-  END: "End",
-  ENTER: "Enter",
-  ESCAPE: "Escape",
-  F1: "F1",
-  F10: "F10",
-  F11: "F11",
-  F12: "F12",
-  F2: "F2",
-  F3: "F3",
-  F4: "F4",
-  F5: "F5",
-  F6: "F6",
-  F7: "F7",
-  F8: "F8",
-  F9: "F9",
-  HOME: "Home",
-  META: "Meta",
-  PAGE_DOWN: "PageDown",
-  PAGE_UP: "PageUp",
-  SHIFT: "Shift",
-  SPACE: " ",
-  TAB: "Tab"
-};
-const FIRST_KEYS = [kbd$2.ARROW_DOWN, kbd$2.PAGE_UP, kbd$2.HOME];
-const LAST_KEYS = [kbd$2.ARROW_UP, kbd$2.PAGE_DOWN, kbd$2.END];
-const FIRST_LAST_KEYS = [...FIRST_KEYS, ...LAST_KEYS];
-const SELECTION_KEYS = [kbd$2.ENTER, kbd$2.SPACE];
-const getNextKey = (dir = "ltr", orientation = "horizontal") => {
-  return {
-    horizontal: dir === "rtl" ? kbd$2.ARROW_LEFT : kbd$2.ARROW_RIGHT,
-    vertical: kbd$2.ARROW_DOWN
-  }[orientation];
-};
-const getPrevKey = (dir = "ltr", orientation = "horizontal") => {
-  return {
-    horizontal: dir === "rtl" ? kbd$2.ARROW_RIGHT : kbd$2.ARROW_LEFT,
-    vertical: kbd$2.ARROW_UP
-  }[orientation];
-};
-const getDirectionalKeys = (dir = "ltr", orientation = "horizontal") => {
-  return {
-    nextKey: getNextKey(dir, orientation),
-    prevKey: getPrevKey(dir, orientation)
-  };
-};
 function debounce(fn, wait = 500) {
   let timeout = null;
   return function(...args) {
@@ -855,20 +325,7 @@ function derivedVisible(obj) {
   const { open, forceVisible, activeTrigger } = obj;
   return derived([open, forceVisible, activeTrigger], ([$open, $forceVisible, $activeTrigger]) => ($open || $forceVisible) && $activeTrigger !== null);
 }
-function effect(stores, fn) {
-  let cb = void 0;
-  const destroy = derived(stores, (stores2) => {
-    cb?.();
-    cb = fn(stores2);
-  }).subscribe(noop);
-  const unsub = () => {
-    destroy();
-    cb?.();
-  };
-  safeOnDestroy(unsub);
-  return unsub;
-}
-function toWritableStores$1(properties) {
+function toWritableStores(properties) {
   const result = {};
   Object.keys(properties).forEach((key) => {
     const propertyKey = key;
@@ -878,11 +335,11 @@ function toWritableStores$1(properties) {
   return result;
 }
 function handleRovingFocus(nextElement) {
-  if (!isBrowser$1)
+  if (!isBrowser)
     return;
-  sleep$1(1).then(() => {
+  sleep(1).then(() => {
     const currentFocusedElement = document.activeElement;
-    if (!isHTMLElement$1(currentFocusedElement) || currentFocusedElement === nextElement)
+    if (!isHTMLElement(currentFocusedElement) || currentFocusedElement === nextElement)
       return;
     currentFocusedElement.tabIndex = -1;
     if (nextElement) {
@@ -899,7 +356,7 @@ function getNextFocusable(currentElement) {
   const currentIndex = focusableElements.indexOf(currentElement);
   const nextIndex = currentIndex + 1;
   const nextElement = focusableElements[nextIndex];
-  if (nextIndex < focusableElements.length && isHTMLElement$1(nextElement)) {
+  if (nextIndex < focusableElements.length && isHTMLElement(nextElement)) {
     return nextElement;
   }
   return null;
@@ -909,18 +366,18 @@ function getPreviousFocusable(currentElement) {
   const currentIndex = focusableElements.indexOf(currentElement);
   const previousIndex = currentIndex - 1;
   const prevElement = focusableElements[previousIndex];
-  if (previousIndex >= 0 && isHTMLElement$1(prevElement)) {
+  if (previousIndex >= 0 && isHTMLElement(prevElement)) {
     return prevElement;
   }
   return null;
 }
 const ignoredKeys = /* @__PURE__ */ new Set(["Shift", "Control", "Alt", "Meta", "CapsLock", "NumLock"]);
-const defaults$c = {
+const defaults$7 = {
   onMatch: handleRovingFocus,
   getCurrentItem: () => document.activeElement
 };
 function createTypeaheadSearch(args = {}) {
-  const withDefaults = { ...defaults$c, ...args };
+  const withDefaults = { ...defaults$7, ...args };
   const typed = withGet(writable([]));
   const resetTyped = debounce(() => {
     typed.update(() => []);
@@ -943,14 +400,14 @@ function createTypeaheadSearch(args = {}) {
     });
     const isRepeated = $typed.length > 1 && $typed.every((char) => char === $typed[0]);
     const normalizeSearch = isRepeated ? $typed[0] : $typed.join("");
-    const currentItemIndex = isHTMLElement$1(currentItem) ? candidateItems.indexOf(currentItem) : -1;
+    const currentItemIndex = isHTMLElement(currentItem) ? candidateItems.indexOf(currentItem) : -1;
     let wrappedItems = wrapArray(candidateItems, Math.max(currentItemIndex, 0));
     const excludeCurrentItem = normalizeSearch.length === 1;
     if (excludeCurrentItem) {
       wrappedItems = wrappedItems.filter((v) => v !== currentItem);
     }
     const nextItem = wrappedItems.find((item) => item?.innerText && item.innerText.toLowerCase().startsWith(normalizeSearch.toLowerCase()));
-    if (isHTMLElement$1(nextItem) && nextItem !== currentItem) {
+    if (isHTMLElement(nextItem) && nextItem !== currentItem) {
       withDefaults.onMatch(nextItem);
     }
     resetTyped();
@@ -963,7 +420,7 @@ function createTypeaheadSearch(args = {}) {
 }
 function getPortalParent(node) {
   let parent = node.parentElement;
-  while (isHTMLElement$1(parent) && !parent.hasAttribute("data-portal")) {
+  while (isHTMLElement(parent) && !parent.hasAttribute("data-portal")) {
     parent = parent.parentElement;
   }
   return parent || "body";
@@ -976,25 +433,9 @@ function getPortalDestination(node, portalProp) {
     return document.body;
   return null;
 }
-function createClickOutsideIgnore(meltId) {
-  return (e) => {
-    const target = e.target;
-    const triggerEl = getElementByMeltId(meltId);
-    if (!triggerEl || !isElement(target))
-      return false;
-    const id = triggerEl.id;
-    if (isHTMLLabelElement(target) && id === target.htmlFor) {
-      return true;
-    }
-    if (target.closest(`label[for="${id}"]`)) {
-      return true;
-    }
-    return false;
-  };
-}
 async function handleFocus(args) {
   const { prop, defaultEl } = args;
-  await Promise.all([sleep$1(1), tick]);
+  await Promise.all([sleep(1), tick]);
   if (prop === void 0) {
     defaultEl?.focus();
     return;
@@ -1002,26 +443,26 @@ async function handleFocus(args) {
   const returned = isFunction(prop) ? prop(defaultEl) : prop;
   if (typeof returned === "string") {
     const el = document.querySelector(returned);
-    if (!isHTMLElement$1(el))
+    if (!isHTMLElement(el))
       return;
     el.focus();
-  } else if (isHTMLElement$1(returned)) {
+  } else if (isHTMLElement(returned)) {
     returned.focus();
   }
 }
-const defaults$b = {
+const defaults$6 = {
   src: "",
   delayMs: 0,
   onLoadingStatusChange: void 0
 };
 const createAvatar = (props) => {
-  const withDefaults = { ...defaults$b, ...props };
-  const options = toWritableStores$1(omit$1(withDefaults, "loadingStatus", "onLoadingStatusChange"));
+  const withDefaults = { ...defaults$6, ...props };
+  const options = toWritableStores(omit(withDefaults, "loadingStatus", "onLoadingStatusChange"));
   const { src, delayMs } = options;
   const loadingStatusWritable = withDefaults.loadingStatus ?? writable("loading");
   const loadingStatus = overridable(loadingStatusWritable, withDefaults?.onLoadingStatusChange);
   effect([src, delayMs], ([$src, $delayMs]) => {
-    if (isBrowser$1) {
+    if (isBrowser) {
       const image2 = new Image();
       image2.src = $src;
       image2.onload = () => {
@@ -1042,7 +483,7 @@ const createAvatar = (props) => {
   const image = makeElement("avatar-image", {
     stores: [src, loadingStatus],
     returned: ([$src, $loadingStatus]) => {
-      const imageStyles = styleToString$3({
+      const imageStyles = styleToString$2({
         display: $loadingStatus === "loaded" ? "block" : "none"
       });
       return {
@@ -1055,7 +496,7 @@ const createAvatar = (props) => {
     stores: [loadingStatus],
     returned: ([$loadingStatus]) => {
       return {
-        style: $loadingStatus === "loaded" ? styleToString$3({
+        style: $loadingStatus === "loaded" ? styleToString$2({
           display: "none"
         }) : void 0,
         hidden: $loadingStatus === "loaded" ? true : void 0
@@ -1071,76 +512,6 @@ const createAvatar = (props) => {
       loadingStatus
     },
     options
-  };
-};
-readable(void 0, (set) => {
-  function clicked(event) {
-    set(event);
-    set(void 0);
-  }
-  const unsubscribe = addEventListener$2(document, "pointerup", clicked, {
-    passive: false,
-    capture: true
-  });
-  return unsubscribe;
-});
-const documentEscapeKeyStore = readable(void 0, (set) => {
-  function keydown(event) {
-    if (event && event.key === kbd$2.ESCAPE) {
-      set(event);
-    }
-    set(void 0);
-  }
-  const unsubscribe = addEventListener$2(document, "keydown", keydown, {
-    passive: false
-  });
-  return unsubscribe;
-});
-const useEscapeKeydown = (node, config = {}) => {
-  let unsub = noop;
-  function update2(config2 = {}) {
-    unsub();
-    const options = { enabled: true, ...config2 };
-    const enabled = isReadable(options.enabled) ? options.enabled : readable(options.enabled);
-    unsub = executeCallbacks$1(
-      // Handle escape keydowns
-      documentEscapeKeyStore.subscribe((e) => {
-        if (!e || !get_store_value(enabled))
-          return;
-        const target = e.target;
-        if (!isHTMLElement$1(target) || target.closest("[data-escapee]") !== node) {
-          return;
-        }
-        e.preventDefault();
-        if (options.ignore) {
-          if (isFunction(options.ignore)) {
-            if (options.ignore(e))
-              return;
-          } else if (Array.isArray(options.ignore)) {
-            if (options.ignore.length > 0 && options.ignore.some((ignoreEl) => {
-              return ignoreEl && target === ignoreEl;
-            }))
-              return;
-          }
-        }
-        options.handler?.(e);
-      }),
-      effect(enabled, ($enabled) => {
-        if ($enabled) {
-          node.dataset.escapee = "";
-        } else {
-          delete node.dataset.escapee;
-        }
-      })
-    );
-  }
-  update2(config);
-  return {
-    update: update2,
-    destroy() {
-      node.removeAttribute("data-escapee");
-      unsub();
-    }
   };
 };
 const defaultConfig$1 = {
@@ -1171,7 +542,7 @@ function useFloating(reference, floating, opts = {}) {
       padding: options.overflowPadding
     }));
   }
-  const arrowOffset = isHTMLElement$1(arrowEl) ? arrowEl.offsetHeight / 2 : 0;
+  const arrowOffset = isHTMLElement(arrowEl) ? arrowEl.offsetHeight / 2 : 0;
   if (options.gutter || options.offset) {
     const data = options.gutter ? { mainAxis: options.gutter } : options.offset;
     if (data?.mainAxis != null) {
@@ -1207,7 +578,7 @@ function useFloating(reference, floating, opts = {}) {
   function compute() {
     if (!reference || !floating)
       return;
-    if (isHTMLElement$1(reference) && !reference.ownerDocument.documentElement.contains(reference))
+    if (isHTMLElement(reference) && !reference.ownerDocument.documentElement.contains(reference))
       return;
     const { placement, strategy } = options;
     computePosition(reference, floating, {
@@ -1225,7 +596,7 @@ function useFloating(reference, floating, opts = {}) {
         top: `${y}px`,
         left: `${x}px`
       });
-      if (isHTMLElement$1(arrowEl) && data.middlewareData.arrow) {
+      if (isHTMLElement(arrowEl) && data.middlewareData.arrow) {
         const { x: x2, y: y2 } = data.middlewareData.arrow;
         const dir = data.placement.split("-")[0];
         arrowEl.setAttribute("data-side", dir);
@@ -1318,7 +689,7 @@ const useModal = (node, config) => {
   function update2(config2) {
     unsubInteractOutside();
     const { open, onClose, shouldCloseOnInteractOutside, closeOnInteractOutside } = config2;
-    sleep$1(100).then(() => {
+    sleep(100).then(() => {
       if (open) {
         visibleModals.push(node);
       } else {
@@ -1400,7 +771,7 @@ const usePopper = (popperElement, args) => {
   if (opts.modal !== null) {
     callbacks.push(useModal(popperElement, {
       onClose: () => {
-        if (isHTMLElement$1(anchorElement)) {
+        if (isHTMLElement(anchorElement)) {
           open.set(false);
           anchorElement.focus();
         }
@@ -1408,7 +779,7 @@ const usePopper = (popperElement, args) => {
       shouldCloseOnInteractOutside: (e) => {
         if (e.defaultPrevented)
           return false;
-        if (isHTMLElement$1(anchorElement) && anchorElement.contains(e.target)) {
+        if (isHTMLElement(anchorElement) && anchorElement.contains(e.target)) {
           return false;
         }
         return true;
@@ -1425,7 +796,7 @@ const usePopper = (popperElement, args) => {
       ...opts.escapeKeydown
     }).destroy);
   }
-  const unsubscribe = executeCallbacks$1(...callbacks);
+  const unsubscribe = executeCallbacks(...callbacks);
   return {
     destroy() {
       unsubscribe();
@@ -1434,7 +805,7 @@ const usePopper = (popperElement, args) => {
 };
 const usePortal = (el, target = "body") => {
   let targetEl;
-  if (!isHTMLElement$1(target) && typeof target !== "string") {
+  if (!isHTMLElement(target) && typeof target !== "string") {
     return {
       destroy: noop
     };
@@ -1504,7 +875,7 @@ const useInteractOutside = (node, config) => {
           resetPointerState();
         };
         if (e.pointerType === "touch") {
-          unsubClick = addEventListener$2(documentObj, "click", handler, {
+          unsubClick = addEventListener$1(documentObj, "click", handler, {
             capture: true,
             once: true
           });
@@ -1512,7 +883,7 @@ const useInteractOutside = (node, config) => {
         }
         handler(e);
       };
-      unsub = executeCallbacks$1(addEventListener$2(documentObj, "pointerdown", onPointerDown, true), addEventListener$2(documentObj, "pointerup", onPointerUp, true));
+      unsub = executeCallbacks(addEventListener$1(documentObj, "pointerdown", onPointerDown, true), addEventListener$1(documentObj, "pointerup", onPointerUp, true));
     } else {
       const onMouseUp = (e) => {
         if (ignoreEmulatedMouseEvents) {
@@ -1529,7 +900,7 @@ const useInteractOutside = (node, config) => {
         }
         resetPointerState();
       };
-      unsub = executeCallbacks$1(addEventListener$2(documentObj, "mousedown", onPointerDown, true), addEventListener$2(documentObj, "mouseup", onMouseUp, true), addEventListener$2(documentObj, "touchstart", onPointerDown, true), addEventListener$2(documentObj, "touchend", onTouchEnd, true));
+      unsub = executeCallbacks(addEventListener$1(documentObj, "mousedown", onPointerDown, true), addEventListener$1(documentObj, "mouseup", onMouseUp, true), addEventListener$1(documentObj, "touchstart", onPointerDown, true), addEventListener$1(documentObj, "touchend", onTouchEnd, true));
     }
   }
   function shouldTriggerInteractOutside(e) {
@@ -1569,557 +940,14 @@ function isOrContainsTarget(node, target) {
 function getOwnerDocument(el) {
   return el?.ownerDocument ?? document;
 }
-function toReadableStores(properties) {
-  const result = {};
-  Object.keys(properties).forEach((key) => {
-    const propertyKey = key;
-    const value = properties[propertyKey];
-    if (isReadable(value)) {
-      result[propertyKey] = withGet(value);
-    } else {
-      result[propertyKey] = withGet(readable(value));
-    }
-  });
-  return result;
-}
-const defaults$a = {
-  prefix: "",
-  disabled: readable(false),
-  required: readable(false),
-  name: readable(void 0)
-};
-function createHiddenInput(props) {
-  const withDefaults = {
-    ...defaults$a,
-    ...removeUndefined$2(props)
-  };
-  const { name: elName } = createElHelpers(withDefaults.prefix);
-  const { value, name: name2, disabled, required } = toReadableStores(omit$1(withDefaults, "prefix"));
-  const nameStore = name2;
-  const hiddenInput = makeElement(elName("hidden-input"), {
-    stores: [value, nameStore, disabled, required],
-    returned: ([$value, $name, $disabled, $required]) => {
-      return {
-        name: $name,
-        value: $value?.toString(),
-        "aria-hidden": "true",
-        hidden: true,
-        disabled: $disabled,
-        required: $required,
-        tabIndex: -1,
-        style: styleToString$3({
-          position: "absolute",
-          opacity: 0,
-          "pointer-events": "none",
-          margin: 0,
-          transform: "translateX(-100%)"
-        })
-      };
-    },
-    action: (node) => {
-      const unsub = value.subscribe((newValue) => {
-        node.value = newValue;
-        node.dispatchEvent(new Event("change", { bubbles: true }));
-      });
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  return hiddenInput;
-}
-function createLabel() {
-  const root = makeElement("label", {
-    action: (node) => {
-      const mouseDown = addMeltEventListener(node, "mousedown", (e) => {
-        if (!e.defaultPrevented && e.detail > 1) {
-          e.preventDefault();
-        }
-      });
-      return {
-        destroy: mouseDown
-      };
-    }
-  });
-  return {
-    elements: {
-      root
-    }
-  };
-}
-const INTERACTION_KEYS = [kbd$2.ARROW_LEFT, kbd$2.ESCAPE, kbd$2.ARROW_RIGHT, kbd$2.SHIFT, kbd$2.CAPS_LOCK, kbd$2.CONTROL, kbd$2.ALT, kbd$2.META, kbd$2.ENTER, kbd$2.F1, kbd$2.F2, kbd$2.F3, kbd$2.F4, kbd$2.F5, kbd$2.F6, kbd$2.F7, kbd$2.F8, kbd$2.F9, kbd$2.F10, kbd$2.F11, kbd$2.F12];
-const defaults$9 = {
-  positioning: {
-    placement: "bottom",
-    sameWidth: true
-  },
-  scrollAlignment: "nearest",
-  loop: true,
-  defaultOpen: false,
-  closeOnOutsideClick: true,
-  preventScroll: true,
-  closeOnEscape: true,
-  forceVisible: false,
-  portal: void 0,
-  builder: "listbox",
-  disabled: false,
-  required: false,
-  name: void 0,
-  typeahead: true,
-  highlightOnHover: true,
-  onOutsideClick: void 0
-};
-const listboxIdParts = ["trigger", "menu", "label"];
-function createListbox(props) {
-  const withDefaults = { ...defaults$9, ...props };
-  const activeTrigger = withGet(writable(null));
-  const highlightedItem = withGet(writable(null));
-  const selectedWritable = withDefaults.selected ?? writable(withDefaults.defaultSelected);
-  const selected = overridable(selectedWritable, withDefaults?.onSelectedChange);
-  const highlighted = derived(highlightedItem, ($highlightedItem) => $highlightedItem ? getOptionProps($highlightedItem) : void 0);
-  const openWritable = withDefaults.open ?? writable(withDefaults.defaultOpen);
-  const open = overridable(openWritable, withDefaults?.onOpenChange);
-  const options = toWritableStores$1({
-    ...omit$1(withDefaults, "open", "defaultOpen", "builder", "ids"),
-    multiple: withDefaults.multiple ?? false
-  });
-  const { scrollAlignment, loop, closeOnOutsideClick, closeOnEscape, preventScroll, portal, forceVisible, positioning, multiple, arrowSize, disabled, required, typeahead, name: nameProp, highlightOnHover, onOutsideClick } = options;
-  const { name: name2, selector: selector2 } = createElHelpers(withDefaults.builder);
-  const ids = toWritableStores$1({ ...generateIds(listboxIdParts), ...withDefaults.ids });
-  const { handleTypeaheadSearch } = createTypeaheadSearch({
-    onMatch: (element) => {
-      highlightedItem.set(element);
-      element.scrollIntoView({ block: scrollAlignment.get() });
-    },
-    getCurrentItem() {
-      return highlightedItem.get();
-    }
-  });
-  function getOptionProps(el) {
-    const value = el.getAttribute("data-value");
-    const label2 = el.getAttribute("data-label");
-    const disabled2 = el.hasAttribute("data-disabled");
-    return {
-      value: value ? JSON.parse(value) : value,
-      label: label2 ?? el.textContent ?? void 0,
-      disabled: disabled2 ? true : false
-    };
-  }
-  const setOption = (newOption) => {
-    selected.update(($option) => {
-      const $multiple = multiple.get();
-      if ($multiple) {
-        const optionArr = Array.isArray($option) ? [...$option] : [];
-        return toggle(newOption, optionArr, (itemA, itemB) => dequal(itemA.value, itemB.value));
-      }
-      return newOption;
-    });
-  };
-  function selectItem(item) {
-    const props2 = getOptionProps(item);
-    setOption(props2);
-  }
-  async function openMenu() {
-    open.set(true);
-    const triggerEl = document.getElementById(ids.trigger.get());
-    if (!triggerEl)
-      return;
-    if (triggerEl !== activeTrigger.get())
-      activeTrigger.set(triggerEl);
-    await tick();
-    const menuElement = document.getElementById(ids.menu.get());
-    if (!isHTMLElement$1(menuElement))
-      return;
-    const selectedItem = menuElement.querySelector("[aria-selected=true]");
-    if (!isHTMLElement$1(selectedItem))
-      return;
-    highlightedItem.set(selectedItem);
-  }
-  function closeMenu() {
-    open.set(false);
-    highlightedItem.set(null);
-  }
-  const isVisible = derivedVisible({ open, forceVisible, activeTrigger });
-  const isSelected = derived([selected], ([$selected]) => {
-    return (value) => {
-      if (Array.isArray($selected)) {
-        return $selected.some((o) => dequal(o.value, value));
-      }
-      if (isObject(value)) {
-        return dequal($selected?.value, stripValues(value, void 0));
-      }
-      return dequal($selected?.value, value);
-    };
-  });
-  const isHighlighted = derived([highlighted], ([$value]) => {
-    return (item) => {
-      return dequal($value?.value, item);
-    };
-  });
-  const trigger = makeElement(name2("trigger"), {
-    stores: [open, highlightedItem, disabled, ids.menu, ids.trigger, ids.label],
-    returned: ([$open, $highlightedItem, $disabled, $menuId, $triggerId, $labelId]) => {
-      return {
-        "aria-activedescendant": $highlightedItem?.id,
-        "aria-autocomplete": "list",
-        "aria-controls": $menuId,
-        "aria-expanded": $open,
-        "aria-labelledby": $labelId,
-        // autocomplete: 'off',
-        id: $triggerId,
-        role: "combobox",
-        disabled: disabledAttr($disabled),
-        type: withDefaults.builder === "select" ? "button" : void 0
-      };
-    },
-    action: (node) => {
-      const isInput = isHTMLInputElement$1(node);
-      const unsubscribe = executeCallbacks$1(
-        addMeltEventListener(node, "click", () => {
-          node.focus();
-          const $open = open.get();
-          if ($open) {
-            closeMenu();
-          } else {
-            openMenu();
-          }
-        }),
-        // Handle all input key events including typing, meta, and navigation.
-        addMeltEventListener(node, "keydown", (e) => {
-          const $open = open.get();
-          if (!$open) {
-            if (INTERACTION_KEYS.includes(e.key)) {
-              return;
-            }
-            if (e.key === kbd$2.TAB) {
-              return;
-            }
-            if (e.key === kbd$2.BACKSPACE && isInput && node.value === "") {
-              return;
-            }
-            if (e.key === kbd$2.SPACE && isHTMLButtonElement(node)) {
-              return;
-            }
-            openMenu();
-            tick().then(() => {
-              const $selectedItem = selected.get();
-              if ($selectedItem)
-                return;
-              const menuEl = document.getElementById(ids.menu.get());
-              if (!isHTMLElement$1(menuEl))
-                return;
-              const enabledItems = Array.from(menuEl.querySelectorAll(`${selector2("item")}:not([data-disabled]):not([data-hidden])`)).filter((item) => isHTMLElement$1(item));
-              if (!enabledItems.length)
-                return;
-              if (e.key === kbd$2.ARROW_DOWN) {
-                highlightedItem.set(enabledItems[0]);
-                enabledItems[0].scrollIntoView({ block: scrollAlignment.get() });
-              } else if (e.key === kbd$2.ARROW_UP) {
-                highlightedItem.set(last(enabledItems));
-                last(enabledItems).scrollIntoView({ block: scrollAlignment.get() });
-              }
-            });
-          }
-          if (e.key === kbd$2.TAB) {
-            closeMenu();
-            return;
-          }
-          if (e.key === kbd$2.ENTER && !e.isComposing || e.key === kbd$2.SPACE && isHTMLButtonElement(node)) {
-            e.preventDefault();
-            const $highlightedItem = highlightedItem.get();
-            if ($highlightedItem) {
-              selectItem($highlightedItem);
-            }
-            if (!multiple.get()) {
-              closeMenu();
-            }
-          }
-          if (e.key === kbd$2.ARROW_UP && e.altKey) {
-            closeMenu();
-          }
-          if (FIRST_LAST_KEYS.includes(e.key)) {
-            e.preventDefault();
-            const menuElement = document.getElementById(ids.menu.get());
-            if (!isHTMLElement$1(menuElement))
-              return;
-            const itemElements = getOptions(menuElement);
-            if (!itemElements.length)
-              return;
-            const candidateNodes = itemElements.filter((opt) => !isElementDisabled(opt) && opt.dataset.hidden === void 0);
-            const $currentItem = highlightedItem.get();
-            const currentIndex = $currentItem ? candidateNodes.indexOf($currentItem) : -1;
-            const $loop = loop.get();
-            const $scrollAlignment = scrollAlignment.get();
-            let nextItem;
-            switch (e.key) {
-              case kbd$2.ARROW_DOWN:
-                nextItem = next(candidateNodes, currentIndex, $loop);
-                break;
-              case kbd$2.ARROW_UP:
-                nextItem = prev(candidateNodes, currentIndex, $loop);
-                break;
-              case kbd$2.PAGE_DOWN:
-                nextItem = forward(candidateNodes, currentIndex, 10, $loop);
-                break;
-              case kbd$2.PAGE_UP:
-                nextItem = back(candidateNodes, currentIndex, 10, $loop);
-                break;
-              case kbd$2.HOME:
-                nextItem = candidateNodes[0];
-                break;
-              case kbd$2.END:
-                nextItem = last(candidateNodes);
-                break;
-              default:
-                return;
-            }
-            highlightedItem.set(nextItem);
-            nextItem?.scrollIntoView({ block: $scrollAlignment });
-          } else if (typeahead.get()) {
-            const menuEl = document.getElementById(ids.menu.get());
-            if (!isHTMLElement$1(menuEl))
-              return;
-            handleTypeaheadSearch(e.key, getOptions(menuEl));
-          }
-        })
-      );
-      let unsubEscapeKeydown = noop;
-      const escape2 = useEscapeKeydown(node, {
-        handler: closeMenu,
-        enabled: derived([open, closeOnEscape], ([$open, $closeOnEscape]) => {
-          return $open && $closeOnEscape;
-        })
-      });
-      if (escape2 && escape2.destroy) {
-        unsubEscapeKeydown = escape2.destroy;
-      }
-      return {
-        destroy() {
-          unsubscribe();
-          unsubEscapeKeydown();
-        }
-      };
-    }
-  });
-  const menu = makeElement(name2("menu"), {
-    stores: [isVisible, ids.menu],
-    returned: ([$isVisible, $menuId]) => {
-      return {
-        hidden: $isVisible ? void 0 : true,
-        id: $menuId,
-        role: "listbox",
-        style: styleToString$3({ display: $isVisible ? void 0 : "none" })
-      };
-    },
-    action: (node) => {
-      let unsubPopper = noop;
-      const unsubscribe = executeCallbacks$1(
-        // Bind the popper portal to the input element.
-        effect([isVisible, portal, closeOnOutsideClick, positioning, activeTrigger], ([$isVisible, $portal, $closeOnOutsideClick, $positioning, $activeTrigger]) => {
-          unsubPopper();
-          if (!$isVisible || !$activeTrigger)
-            return;
-          tick().then(() => {
-            unsubPopper();
-            const ignoreHandler = createClickOutsideIgnore(ids.trigger.get());
-            unsubPopper = usePopper(node, {
-              anchorElement: $activeTrigger,
-              open,
-              options: {
-                floating: $positioning,
-                focusTrap: null,
-                modal: {
-                  closeOnInteractOutside: $closeOnOutsideClick,
-                  onClose: closeMenu,
-                  open: $isVisible,
-                  shouldCloseOnInteractOutside: (e) => {
-                    onOutsideClick.get()?.(e);
-                    if (e.defaultPrevented)
-                      return false;
-                    const target = e.target;
-                    if (!isElement(target))
-                      return false;
-                    if (target === $activeTrigger || $activeTrigger.contains(target)) {
-                      return false;
-                    }
-                    if (ignoreHandler(e))
-                      return false;
-                    return true;
-                  }
-                },
-                escapeKeydown: null,
-                portal: getPortalDestination(node, $portal)
-              }
-            }).destroy;
-          });
-        })
-      );
-      return {
-        destroy: () => {
-          unsubscribe();
-          unsubPopper();
-        }
-      };
-    }
-  });
-  const { elements: { root: labelBuilder } } = createLabel();
-  const { action: labelAction } = get_store_value(labelBuilder);
-  const label = makeElement(name2("label"), {
-    stores: [ids.label, ids.trigger],
-    returned: ([$labelId, $triggerId]) => {
-      return {
-        id: $labelId,
-        for: $triggerId
-      };
-    },
-    action: labelAction
-  });
-  const option = makeElement(name2("option"), {
-    stores: [isSelected],
-    returned: ([$isSelected]) => (props2) => {
-      const selected2 = $isSelected(props2.value);
-      return {
-        "data-value": JSON.stringify(props2.value),
-        "data-label": props2.label,
-        "data-disabled": disabledAttr(props2.disabled),
-        "aria-disabled": props2.disabled ? true : void 0,
-        "aria-selected": selected2,
-        "data-selected": selected2 ? "" : void 0,
-        id: generateId$2(),
-        role: "option"
-      };
-    },
-    action: (node) => {
-      const unsubscribe = executeCallbacks$1(addMeltEventListener(node, "click", (e) => {
-        if (isElementDisabled(node)) {
-          e.preventDefault();
-          return;
-        }
-        selectItem(node);
-        if (!multiple.get()) {
-          closeMenu();
-        }
-      }), effect(highlightOnHover, ($highlightOnHover) => {
-        if (!$highlightOnHover)
-          return;
-        const unsub = executeCallbacks$1(addMeltEventListener(node, "mouseover", () => {
-          highlightedItem.set(node);
-        }), addMeltEventListener(node, "mouseleave", () => {
-          highlightedItem.set(null);
-        }));
-        return unsub;
-      }));
-      return { destroy: unsubscribe };
-    }
-  });
-  const group = makeElement(name2("group"), {
-    returned: () => {
-      return (groupId) => ({
-        role: "group",
-        "aria-labelledby": groupId
-      });
-    }
-  });
-  const groupLabel = makeElement(name2("group-label"), {
-    returned: () => {
-      return (groupId) => ({
-        id: groupId
-      });
-    }
-  });
-  const hiddenInput = createHiddenInput({
-    value: derived([selected], ([$selected]) => {
-      const value = Array.isArray($selected) ? $selected.map((o) => o.value) : $selected?.value;
-      return typeof value === "string" ? value : JSON.stringify(value);
-    }),
-    name: readonly(nameProp),
-    required,
-    prefix: withDefaults.builder
-  });
-  const arrow2 = makeElement(name2("arrow"), {
-    stores: arrowSize,
-    returned: ($arrowSize) => ({
-      "data-arrow": true,
-      style: styleToString$3({
-        position: "absolute",
-        width: `var(--arrow-size, ${$arrowSize}px)`,
-        height: `var(--arrow-size, ${$arrowSize}px)`
-      })
-    })
-  });
-  safeOnMount(() => {
-    if (!isBrowser$1)
-      return;
-    const menuEl = document.getElementById(ids.menu.get());
-    const triggerEl = document.getElementById(ids.trigger.get());
-    if (triggerEl) {
-      activeTrigger.set(triggerEl);
-    }
-    if (!menuEl)
-      return;
-    const selectedEl = menuEl.querySelector("[data-selected]");
-    if (!isHTMLElement$1(selectedEl))
-      return;
-  });
-  effect([highlightedItem], ([$highlightedItem]) => {
-    if (!isBrowser$1)
-      return;
-    const menuElement = document.getElementById(ids.menu.get());
-    if (!isHTMLElement$1(menuElement))
-      return;
-    getOptions(menuElement).forEach((node) => {
-      if (node === $highlightedItem) {
-        addHighlight(node);
-      } else {
-        removeHighlight(node);
-      }
-    });
-  });
-  effect([open], ([$open]) => {
-    if (!isBrowser$1)
-      return;
-    let unsubScroll = noop;
-    if (preventScroll.get() && $open) {
-      unsubScroll = removeScroll();
-    }
-    return () => {
-      unsubScroll();
-    };
-  });
-  return {
-    ids,
-    elements: {
-      trigger,
-      group,
-      option,
-      menu,
-      groupLabel,
-      label,
-      hiddenInput,
-      arrow: arrow2
-    },
-    states: {
-      open,
-      selected,
-      highlighted,
-      highlightedItem
-    },
-    helpers: {
-      isSelected,
-      isHighlighted,
-      closeMenu
-    },
-    options
-  };
-}
 const SUB_OPEN_KEYS = {
-  ltr: [...SELECTION_KEYS, kbd$2.ARROW_RIGHT]
+  ltr: [...SELECTION_KEYS, kbd$1.ARROW_RIGHT]
 };
 const SUB_CLOSE_KEYS = {
-  ltr: [kbd$2.ARROW_LEFT]
+  ltr: [kbd$1.ARROW_LEFT]
 };
 const menuIdParts = ["menu", "trigger"];
-const defaults$8 = {
+const defaults$5 = {
   arrowSize: 8,
   positioning: {
     placement: "bottom"
@@ -2154,7 +982,7 @@ function createMenuBuilder(opts) {
     };
   }));
   const { typed, handleTypeaheadSearch } = createTypeaheadSearch();
-  const rootIds = toWritableStores$1({ ...generateIds(menuIdParts), ...opts.ids });
+  const rootIds = toWritableStores({ ...generateIds(menuIdParts), ...opts.ids });
   const isVisible = derivedVisible({
     open: rootOpen,
     forceVisible,
@@ -2166,7 +994,7 @@ function createMenuBuilder(opts) {
       return {
         role: "menu",
         hidden: $isVisible ? void 0 : true,
-        style: styleToString$3({
+        style: styleToString$2({
           display: $isVisible ? void 0 : "none"
         }),
         id: $rootMenuId,
@@ -2196,7 +1024,7 @@ function createMenuBuilder(opts) {
                   onOutsideClick.get()?.(e);
                   if (e.defaultPrevented)
                     return false;
-                  if (isHTMLElement$1($rootActiveTrigger) && $rootActiveTrigger.contains(e.target)) {
+                  if (isHTMLElement($rootActiveTrigger) && $rootActiveTrigger.contains(e.target)) {
                     return false;
                   }
                   return true;
@@ -2213,10 +1041,10 @@ function createMenuBuilder(opts) {
           }).destroy;
         });
       });
-      const unsubEvents = executeCallbacks$1(addMeltEventListener(node, "keydown", (e) => {
+      const unsubEvents = executeCallbacks(addMeltEventListener(node, "keydown", (e) => {
         const target = e.target;
         const menuEl = e.currentTarget;
-        if (!isHTMLElement$1(target) || !isHTMLElement$1(menuEl))
+        if (!isHTMLElement(target) || !isHTMLElement(menuEl))
           return;
         const isKeyDownInside = target.closest('[role="menu"]') === menuEl;
         if (!isKeyDownInside)
@@ -2224,7 +1052,7 @@ function createMenuBuilder(opts) {
         if (FIRST_LAST_KEYS.includes(e.key)) {
           handleMenuNavigation(e, loop.get() ?? false);
         }
-        if (e.key === kbd$2.TAB) {
+        if (e.key === kbd$1.TAB) {
           e.preventDefault();
           rootOpen.set(false);
           handleTabNavigation(e, nextFocusable, prevFocusable);
@@ -2263,19 +1091,19 @@ function createMenuBuilder(opts) {
           return p;
         return node;
       });
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", (e) => {
+      const unsub = executeCallbacks(addMeltEventListener(node, "click", (e) => {
         const $rootOpen = rootOpen.get();
         const triggerEl = e.currentTarget;
-        if (!isHTMLElement$1(triggerEl))
+        if (!isHTMLElement(triggerEl))
           return;
         handleOpen(triggerEl);
         if (!$rootOpen)
           e.preventDefault();
       }), addMeltEventListener(node, "keydown", (e) => {
         const triggerEl = e.currentTarget;
-        if (!isHTMLElement$1(triggerEl))
+        if (!isHTMLElement(triggerEl))
           return;
-        if (!(SELECTION_KEYS.includes(e.key) || e.key === kbd$2.ARROW_DOWN))
+        if (!(SELECTION_KEYS.includes(e.key) || e.key === kbd$1.ARROW_DOWN))
           return;
         e.preventDefault();
         handleOpen(triggerEl);
@@ -2299,7 +1127,7 @@ function createMenuBuilder(opts) {
     stores: arrowSize,
     returned: ($arrowSize) => ({
       "data-arrow": true,
-      style: styleToString$3({
+      style: styleToString$2({
         position: "absolute",
         width: `var(--arrow-size, ${$arrowSize}px)`,
         height: `var(--arrow-size, ${$arrowSize}px)`
@@ -2312,7 +1140,7 @@ function createMenuBuilder(opts) {
       return {
         hidden: $isVisible ? void 0 : true,
         tabindex: -1,
-        style: styleToString$3({
+        style: styleToString$2({
           display: $isVisible ? void 0 : "none"
         }),
         "aria-hidden": "true",
@@ -2361,9 +1189,9 @@ function createMenuBuilder(opts) {
     action: (node) => {
       setMeltMenuAttribute(node, selector2);
       applyAttrsIfDisabled(node);
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "pointerdown", (e) => {
+      const unsub = executeCallbacks(addMeltEventListener(node, "pointerdown", (e) => {
         const itemEl = e.currentTarget;
-        if (!isHTMLElement$1(itemEl))
+        if (!isHTMLElement(itemEl))
           return;
         if (isElementDisabled(itemEl)) {
           e.preventDefault();
@@ -2371,7 +1199,7 @@ function createMenuBuilder(opts) {
         }
       }), addMeltEventListener(node, "click", (e) => {
         const itemEl = e.currentTarget;
-        if (!isHTMLElement$1(itemEl))
+        if (!isHTMLElement(itemEl))
           return;
         if (isElementDisabled(itemEl)) {
           e.preventDefault();
@@ -2382,7 +1210,7 @@ function createMenuBuilder(opts) {
           return;
         }
         if (closeOnItemClick.get()) {
-          sleep$1(1).then(() => {
+          sleep(1).then(() => {
             rootOpen.set(false);
           });
         }
@@ -2441,9 +1269,9 @@ function createMenuBuilder(opts) {
       action: (node) => {
         setMeltMenuAttribute(node, selector2);
         applyAttrsIfDisabled(node);
-        const unsub = executeCallbacks$1(addMeltEventListener(node, "pointerdown", (e) => {
+        const unsub = executeCallbacks(addMeltEventListener(node, "pointerdown", (e) => {
           const itemEl = e.currentTarget;
-          if (!isHTMLElement$1(itemEl))
+          if (!isHTMLElement(itemEl))
             return;
           if (isElementDisabled(itemEl)) {
             e.preventDefault();
@@ -2451,7 +1279,7 @@ function createMenuBuilder(opts) {
           }
         }), addMeltEventListener(node, "click", (e) => {
           const itemEl = e.currentTarget;
-          if (!isHTMLElement$1(itemEl))
+          if (!isHTMLElement(itemEl))
             return;
           if (isElementDisabled(itemEl)) {
             e.preventDefault();
@@ -2475,7 +1303,7 @@ function createMenuBuilder(opts) {
           onItemKeyDown(e);
         }), addMeltEventListener(node, "pointermove", (e) => {
           const itemEl = e.currentTarget;
-          if (!isHTMLElement$1(itemEl))
+          if (!isHTMLElement(itemEl))
             return;
           if (isElementDisabled(itemEl)) {
             onItemLeave(e);
@@ -2543,9 +1371,9 @@ function createMenuBuilder(opts) {
       },
       action: (node) => {
         setMeltMenuAttribute(node, selector2);
-        const unsub = executeCallbacks$1(addMeltEventListener(node, "pointerdown", (e) => {
+        const unsub = executeCallbacks(addMeltEventListener(node, "pointerdown", (e) => {
           const itemEl = e.currentTarget;
-          if (!isHTMLElement$1(itemEl))
+          if (!isHTMLElement(itemEl))
             return;
           const itemValue = node.dataset.value;
           const disabled = node.dataset.disabled;
@@ -2555,7 +1383,7 @@ function createMenuBuilder(opts) {
           }
         }), addMeltEventListener(node, "click", (e) => {
           const itemEl = e.currentTarget;
-          if (!isHTMLElement$1(itemEl))
+          if (!isHTMLElement(itemEl))
             return;
           const itemValue = node.dataset.value;
           const disabled = node.dataset.disabled;
@@ -2564,7 +1392,7 @@ function createMenuBuilder(opts) {
             return;
           }
           if (e.defaultPrevented) {
-            if (!isHTMLElement$1(itemEl))
+            if (!isHTMLElement(itemEl))
               return;
             handleRovingFocus(itemEl);
             return;
@@ -2579,7 +1407,7 @@ function createMenuBuilder(opts) {
           onItemKeyDown(e);
         }), addMeltEventListener(node, "pointermove", (e) => {
           const itemEl = e.currentTarget;
-          if (!isHTMLElement$1(itemEl))
+          if (!isHTMLElement(itemEl))
             return;
           const itemValue = node.dataset.value;
           const disabled = node.dataset.disabled;
@@ -2622,7 +1450,7 @@ function createMenuBuilder(opts) {
     orientation: "horizontal"
   });
   const subMenuDefaults = {
-    ...defaults$8,
+    ...defaults$5,
     disabled: false,
     positioning: {
       placement: "right-start",
@@ -2633,12 +1461,12 @@ function createMenuBuilder(opts) {
     const withDefaults = { ...subMenuDefaults, ...args };
     const subOpenWritable = withDefaults.open ?? writable(false);
     const subOpen = overridable(subOpenWritable, withDefaults?.onOpenChange);
-    const options = toWritableStores$1(omit$1(withDefaults, "ids"));
+    const options = toWritableStores(omit(withDefaults, "ids"));
     const { positioning: positioning2, arrowSize: arrowSize2, disabled } = options;
     const subActiveTrigger = withGet(writable(null));
     const subOpenTimer = withGet(writable(null));
     const pointerGraceTimer = withGet(writable(0));
-    const subIds = toWritableStores$1({ ...generateIds(menuIdParts), ...withDefaults.ids });
+    const subIds = toWritableStores({ ...generateIds(menuIdParts), ...withDefaults.ids });
     safeOnMount(() => {
       const subTrigger2 = document.getElementById(subIds.trigger.get());
       if (subTrigger2) {
@@ -2656,7 +1484,7 @@ function createMenuBuilder(opts) {
         return {
           role: "menu",
           hidden: $subIsVisible ? void 0 : true,
-          style: styleToString$3({
+          style: styleToString$2({
             display: $subIsVisible ? void 0 : "none"
           }),
           id: $subMenuId,
@@ -2685,7 +1513,7 @@ function createMenuBuilder(opts) {
               open: subOpen,
               options: {
                 floating: $positioning,
-                portal: isHTMLElement$1(parentMenuEl) ? parentMenuEl : void 0,
+                portal: isHTMLElement(parentMenuEl) ? parentMenuEl : void 0,
                 modal: null,
                 focusTrap: null,
                 escapeKeydown: null
@@ -2693,13 +1521,13 @@ function createMenuBuilder(opts) {
             }).destroy;
           });
         });
-        const unsubEvents = executeCallbacks$1(addMeltEventListener(node, "keydown", (e) => {
-          if (e.key === kbd$2.ESCAPE) {
+        const unsubEvents = executeCallbacks(addMeltEventListener(node, "keydown", (e) => {
+          if (e.key === kbd$1.ESCAPE) {
             return;
           }
           const target = e.target;
           const menuEl = e.currentTarget;
-          if (!isHTMLElement$1(target) || !isHTMLElement$1(menuEl))
+          if (!isHTMLElement(target) || !isHTMLElement(menuEl))
             return;
           const isKeyDownInside = target.closest('[role="menu"]') === menuEl;
           if (!isKeyDownInside)
@@ -2723,7 +1551,7 @@ function createMenuBuilder(opts) {
             });
             return;
           }
-          if (e.key === kbd$2.TAB) {
+          if (e.key === kbd$1.TAB) {
             e.preventDefault();
             rootOpen.set(false);
             handleTabNavigation(e, nextFocusable, prevFocusable);
@@ -2739,7 +1567,7 @@ function createMenuBuilder(opts) {
           if (isUsingKeyboard.get()) {
             const target = e.target;
             const submenuEl = document.getElementById(subIds.menu.get());
-            if (!isHTMLElement$1(submenuEl) || !isHTMLElement$1(target))
+            if (!isHTMLElement(submenuEl) || !isHTMLElement(target))
               return;
             if (!submenuEl.contains(target) && target !== $subActiveTrigger) {
               subOpen.set(false);
@@ -2747,7 +1575,7 @@ function createMenuBuilder(opts) {
           } else {
             const menuEl = e.currentTarget;
             const relatedTarget = e.relatedTarget;
-            if (!isHTMLElement$1(relatedTarget) || !isHTMLElement$1(menuEl))
+            if (!isHTMLElement(relatedTarget) || !isHTMLElement(menuEl))
               return;
             if (!menuEl.contains(relatedTarget) && relatedTarget !== $subActiveTrigger) {
               subOpen.set(false);
@@ -2790,11 +1618,11 @@ function createMenuBuilder(opts) {
           window.clearTimeout(pointerGraceTimer.get());
           pointerGraceIntent.set(null);
         };
-        const unsubEvents = executeCallbacks$1(addMeltEventListener(node, "click", (e) => {
+        const unsubEvents = executeCallbacks(addMeltEventListener(node, "click", (e) => {
           if (e.defaultPrevented)
             return;
           const triggerEl = e.currentTarget;
-          if (!isHTMLElement$1(triggerEl) || isElementDisabled(triggerEl))
+          if (!isHTMLElement(triggerEl) || isElementDisabled(triggerEl))
             return;
           handleRovingFocus(triggerEl);
           if (!subOpen.get()) {
@@ -2810,10 +1638,10 @@ function createMenuBuilder(opts) {
         }), addMeltEventListener(node, "keydown", (e) => {
           const $typed = typed.get();
           const triggerEl = e.currentTarget;
-          if (!isHTMLElement$1(triggerEl) || isElementDisabled(triggerEl))
+          if (!isHTMLElement(triggerEl) || isElementDisabled(triggerEl))
             return;
           const isTypingAhead = $typed.length > 0;
-          if (isTypingAhead && e.key === kbd$2.SPACE)
+          if (isTypingAhead && e.key === kbd$1.SPACE)
             return;
           if (SUB_OPEN_KEYS["ltr"].includes(e.key)) {
             if (!subOpen.get()) {
@@ -2825,7 +1653,7 @@ function createMenuBuilder(opts) {
             if (!menuId)
               return;
             const menuEl = document.getElementById(menuId);
-            if (!isHTMLElement$1(menuEl))
+            if (!isHTMLElement(menuEl))
               return;
             const firstItem = getMenuItems(menuEl)[0];
             handleRovingFocus(firstItem);
@@ -2837,7 +1665,7 @@ function createMenuBuilder(opts) {
           if (e.defaultPrevented)
             return;
           const triggerEl = e.currentTarget;
-          if (!isHTMLElement$1(triggerEl))
+          if (!isHTMLElement(triggerEl))
             return;
           if (!isFocusWithinSubmenu(subIds.menu.get())) {
             handleRovingFocus(triggerEl);
@@ -2888,11 +1716,11 @@ function createMenuBuilder(opts) {
           }
         }), addMeltEventListener(node, "focusout", (e) => {
           const triggerEl = e.currentTarget;
-          if (!isHTMLElement$1(triggerEl))
+          if (!isHTMLElement(triggerEl))
             return;
           removeHighlight(triggerEl);
           const relatedTarget = e.relatedTarget;
-          if (!isHTMLElement$1(relatedTarget))
+          if (!isHTMLElement(relatedTarget))
             return;
           const menuId = triggerEl.getAttribute("aria-controls");
           if (!menuId)
@@ -2916,7 +1744,7 @@ function createMenuBuilder(opts) {
       stores: arrowSize2,
       returned: ($arrowSize) => ({
         "data-arrow": true,
-        style: styleToString$3({
+        style: styleToString$2({
           position: "absolute",
           width: `var(--arrow-size, ${$arrowSize}px)`,
           height: `var(--arrow-size, ${$arrowSize}px)`
@@ -2930,15 +1758,15 @@ function createMenuBuilder(opts) {
       }
     });
     effect([pointerGraceIntent], ([$pointerGraceIntent]) => {
-      if (!isBrowser$1 || $pointerGraceIntent)
+      if (!isBrowser || $pointerGraceIntent)
         return;
       window.clearTimeout(pointerGraceTimer.get());
     });
     effect([subOpen], ([$subOpen]) => {
-      if (!isBrowser$1)
+      if (!isBrowser)
         return;
       if ($subOpen && isUsingKeyboard.get()) {
-        sleep$1(1).then(() => {
+        sleep(1).then(() => {
           const menuEl = document.getElementById(subIds.menu.get());
           if (!menuEl)
             return;
@@ -2952,7 +1780,7 @@ function createMenuBuilder(opts) {
         const focusedItem = currentFocusedItem.get();
         const subTriggerEl = document.getElementById(subIds.trigger.get());
         if (focusedItem) {
-          sleep$1(1).then(() => {
+          sleep(1).then(() => {
             const menuEl = document.getElementById(subIds.menu.get());
             if (!menuEl)
               return;
@@ -2981,23 +1809,23 @@ function createMenuBuilder(opts) {
   };
   safeOnMount(() => {
     const triggerEl = document.getElementById(rootIds.trigger.get());
-    if (isHTMLElement$1(triggerEl) && rootOpen.get()) {
+    if (isHTMLElement(triggerEl) && rootOpen.get()) {
       rootActiveTrigger.set(triggerEl);
     }
     const unsubs = [];
     const handlePointer = () => isUsingKeyboard.set(false);
     const handleKeyDown = () => {
       isUsingKeyboard.set(true);
-      unsubs.push(executeCallbacks$1(addEventListener$2(document, "pointerdown", handlePointer, { capture: true, once: true }), addEventListener$2(document, "pointermove", handlePointer, { capture: true, once: true })));
+      unsubs.push(executeCallbacks(addEventListener$1(document, "pointerdown", handlePointer, { capture: true, once: true }), addEventListener$1(document, "pointermove", handlePointer, { capture: true, once: true })));
     };
     const keydownListener = (e) => {
-      if (e.key === kbd$2.ESCAPE && closeOnEscape.get()) {
+      if (e.key === kbd$1.ESCAPE && closeOnEscape.get()) {
         rootOpen.set(false);
         return;
       }
     };
-    unsubs.push(addEventListener$2(document, "keydown", handleKeyDown, { capture: true }));
-    unsubs.push(addEventListener$2(document, "keydown", keydownListener));
+    unsubs.push(addEventListener$1(document, "keydown", handleKeyDown, { capture: true }));
+    unsubs.push(addEventListener$1(document, "keydown", keydownListener));
     return () => {
       unsubs.forEach((unsub) => unsub());
     };
@@ -3008,7 +1836,7 @@ function createMenuBuilder(opts) {
     }
   });
   effect([rootOpen], ([$rootOpen]) => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     if (!$rootOpen) {
       const $rootActiveTrigger = rootActiveTrigger.get();
@@ -3021,13 +1849,13 @@ function createMenuBuilder(opts) {
     }
   });
   effect([rootOpen, preventScroll], ([$rootOpen, $preventScroll]) => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     const unsubs = [];
     if ($rootOpen && $preventScroll) {
       unsubs.push(removeScroll());
     }
-    sleep$1(1).then(() => {
+    sleep(1).then(() => {
       const menuEl = document.getElementById(rootIds.menu.get());
       if (menuEl && $rootOpen && isUsingKeyboard.get()) {
         if (disableFocusFirstItem.get()) {
@@ -3045,17 +1873,17 @@ function createMenuBuilder(opts) {
     };
   });
   effect(rootOpen, ($rootOpen) => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     const handlePointer = () => isUsingKeyboard.set(false);
     const handleKeyDown = (e) => {
       isUsingKeyboard.set(true);
-      if (e.key === kbd$2.ESCAPE && $rootOpen && closeOnEscape.get()) {
+      if (e.key === kbd$1.ESCAPE && $rootOpen && closeOnEscape.get()) {
         rootOpen.set(false);
         return;
       }
     };
-    return executeCallbacks$1(addEventListener$2(document, "pointerdown", handlePointer, { capture: true, once: true }), addEventListener$2(document, "pointermove", handlePointer, { capture: true, once: true }), addEventListener$2(document, "keydown", handleKeyDown, { capture: true }));
+    return executeCallbacks(addEventListener$1(document, "pointerdown", handlePointer, { capture: true, once: true }), addEventListener$1(document, "pointermove", handlePointer, { capture: true, once: true }), addEventListener$1(document, "keydown", handleKeyDown, { capture: true }));
   });
   function handleOpen(triggerEl) {
     rootOpen.update((prev2) => {
@@ -3070,7 +1898,7 @@ function createMenuBuilder(opts) {
   }
   function onItemFocusIn(e) {
     const itemEl = e.currentTarget;
-    if (!isHTMLElement$1(itemEl))
+    if (!isHTMLElement(itemEl))
       return;
     const $currentFocusedItem = currentFocusedItem.get();
     if ($currentFocusedItem) {
@@ -3081,7 +1909,7 @@ function createMenuBuilder(opts) {
   }
   function onItemFocusOut(e) {
     const itemEl = e.currentTarget;
-    if (!isHTMLElement$1(itemEl))
+    if (!isHTMLElement(itemEl))
       return;
     removeHighlight(itemEl);
   }
@@ -3095,7 +1923,7 @@ function createMenuBuilder(opts) {
       return;
     }
     const target = e.target;
-    if (!isHTMLElement$1(target))
+    if (!isHTMLElement(target))
       return;
     const parentMenuEl = getParentMenu(target);
     if (!parentMenuEl)
@@ -3112,7 +1940,7 @@ function createMenuBuilder(opts) {
       return;
     const target = e.target;
     const currentTarget = e.currentTarget;
-    if (!isHTMLElement$1(currentTarget) || !isHTMLElement$1(target))
+    if (!isHTMLElement(currentTarget) || !isHTMLElement(target))
       return;
     const $lastPointerX = lastPointerX.get();
     const pointerXHasChanged = $lastPointerX !== e.clientX;
@@ -3133,7 +1961,7 @@ function createMenuBuilder(opts) {
       return;
     }
     const currentTarget = e.currentTarget;
-    if (!isHTMLElement$1(currentTarget))
+    if (!isHTMLElement(currentTarget))
       return;
     handleRovingFocus(currentTarget);
   }
@@ -3145,14 +1973,14 @@ function createMenuBuilder(opts) {
   function onItemKeyDown(e) {
     const $typed = typed.get();
     const isTypingAhead = $typed.length > 0;
-    if (isTypingAhead && e.key === kbd$2.SPACE) {
+    if (isTypingAhead && e.key === kbd$1.SPACE) {
       e.preventDefault();
       return;
     }
     if (SELECTION_KEYS.includes(e.key)) {
       e.preventDefault();
       const itemEl = e.currentTarget;
-      if (!isHTMLElement$1(itemEl))
+      if (!isHTMLElement(itemEl))
         return;
       itemEl.click();
     }
@@ -3168,7 +1996,7 @@ function createMenuBuilder(opts) {
   }
   function getParentMenu(element) {
     const parentMenuEl = element.closest('[role="menu"]');
-    if (!isHTMLElement$1(parentMenuEl))
+    if (!isHTMLElement(parentMenuEl))
       return null;
     return parentMenuEl;
   }
@@ -3203,20 +2031,20 @@ function handleTabNavigation(e, nextFocusable, prevFocusable) {
     const $prevFocusable = prevFocusable.get();
     if ($prevFocusable) {
       e.preventDefault();
-      sleep$1(1).then(() => $prevFocusable.focus());
+      sleep(1).then(() => $prevFocusable.focus());
       prevFocusable.set(null);
     }
   } else {
     const $nextFocusable = nextFocusable.get();
     if ($nextFocusable) {
       e.preventDefault();
-      sleep$1(1).then(() => $nextFocusable.focus());
+      sleep(1).then(() => $nextFocusable.focus());
       nextFocusable.set(null);
     }
   }
 }
 function getMenuItems(menuElement) {
-  return Array.from(menuElement.querySelectorAll(`[data-melt-menu-id="${menuElement.id}"]`)).filter((item) => isHTMLElement$1(item));
+  return Array.from(menuElement.querySelectorAll(`[data-melt-menu-id="${menuElement.id}"]`)).filter((item) => isHTMLElement(item));
 }
 function applyAttrsIfDisabled(element) {
   if (!element || !isElementDisabled(element))
@@ -3225,7 +2053,7 @@ function applyAttrsIfDisabled(element) {
   element.setAttribute("aria-disabled", "true");
 }
 function clearTimerStore(timerStore) {
-  if (!isBrowser$1)
+  if (!isBrowser)
     return;
   const timer = timerStore.get();
   if (timer) {
@@ -3240,7 +2068,7 @@ function setMeltMenuAttribute(element, selector2) {
   if (!element)
     return;
   const menuEl = element.closest(`${selector2()}, ${selector2("submenu")}`);
-  if (!isHTMLElement$1(menuEl))
+  if (!isHTMLElement(menuEl))
     return;
   element.setAttribute("data-melt-menu-id", menuEl.id);
 }
@@ -3248,7 +2076,7 @@ function handleMenuNavigation(e, loop) {
   e.preventDefault();
   const currentFocusedItem = document.activeElement;
   const currentTarget = e.currentTarget;
-  if (!isHTMLElement$1(currentFocusedItem) || !isHTMLElement$1(currentTarget))
+  if (!isHTMLElement(currentFocusedItem) || !isHTMLElement(currentTarget))
     return;
   const menuItems = getMenuItems(currentTarget);
   if (!menuItems.length)
@@ -3262,24 +2090,24 @@ function handleMenuNavigation(e, loop) {
   const currentIndex = candidateNodes.indexOf(currentFocusedItem);
   let nextIndex;
   switch (e.key) {
-    case kbd$2.ARROW_DOWN:
+    case kbd$1.ARROW_DOWN:
       if (loop) {
         nextIndex = currentIndex < candidateNodes.length - 1 ? currentIndex + 1 : 0;
       } else {
         nextIndex = currentIndex < candidateNodes.length - 1 ? currentIndex + 1 : currentIndex;
       }
       break;
-    case kbd$2.ARROW_UP:
+    case kbd$1.ARROW_UP:
       if (loop) {
         nextIndex = currentIndex > 0 ? currentIndex - 1 : candidateNodes.length - 1;
       } else {
         nextIndex = currentIndex < 0 ? candidateNodes.length - 1 : currentIndex > 0 ? currentIndex - 1 : 0;
       }
       break;
-    case kbd$2.HOME:
+    case kbd$1.HOME:
       nextIndex = 0;
       break;
-    case kbd$2.END:
+    case kbd$1.END:
       nextIndex = candidateNodes.length - 1;
       break;
     default:
@@ -3309,10 +2137,10 @@ function isPointInPolygon(point, polygon) {
 }
 function isFocusWithinSubmenu(submenuId) {
   const activeEl = document.activeElement;
-  if (!isHTMLElement$1(activeEl))
+  if (!isHTMLElement(activeEl))
     return false;
   const submenuEl = activeEl.closest(`[data-id="${submenuId}"]`);
-  return isHTMLElement$1(submenuEl);
+  return isHTMLElement(submenuEl);
 }
 function stateAttr$1(open) {
   return open ? "open" : "closed";
@@ -3578,12 +2406,12 @@ function dateStore(store, defaultValue) {
   };
 }
 function initAnnouncer() {
-  if (!isBrowser$1)
+  if (!isBrowser)
     return null;
   let el = document.querySelector("[data-melt-announcer]");
-  if (!isHTMLElement$1(el)) {
+  if (!isHTMLElement(el)) {
     const div = document.createElement("div");
-    div.style.cssText = styleToString$3({
+    div.style.cssText = styleToString$2({
       border: "0px",
       clip: "rect(0px, 0px, 0px, 0px)",
       "clip-path": "inset(50%)",
@@ -3609,10 +2437,10 @@ function initAnnouncer() {
     return log;
   }
   function getLog(kind) {
-    if (!isHTMLElement$1(el))
+    if (!isHTMLElement(el))
       return null;
     const log = el.querySelector(`[aria-live="${kind}"]`);
-    if (!isHTMLElement$1(log))
+    if (!isHTMLElement(log))
       return null;
     return log;
   }
@@ -3623,7 +2451,7 @@ function initAnnouncer() {
 function getAnnouncer() {
   const announcer = initAnnouncer();
   function announce(value, kind = "assertive", timeout = 7500) {
-    if (!announcer || !isBrowser$1)
+    if (!announcer || !isBrowser)
       return;
     const log = announcer.getLog(kind);
     const content = document.createElement("div");
@@ -3649,7 +2477,7 @@ function getAnnouncer() {
   };
 }
 function isCalendarCell(node) {
-  if (!isHTMLElement$1(node))
+  if (!isHTMLElement(node))
     return false;
   if (!node.hasAttribute("data-melt-calendar-cell"))
     return false;
@@ -3724,7 +2552,7 @@ function getSelectableCells(calendarId) {
   if (!node)
     return [];
   const selectableSelector = `[data-melt-calendar-cell]:not([data-disabled]):not([data-outside-visible-months])`;
-  return Array.from(node.querySelectorAll(selectableSelector)).filter((el) => isHTMLElement$1(el));
+  return Array.from(node.querySelectorAll(selectableSelector)).filter((el) => isHTMLElement(el));
 }
 function setPlaceholderToNodeValue(node, placeholder) {
   const cellValue = node.getAttribute("data-value");
@@ -3732,283 +2560,7 @@ function setPlaceholderToNodeValue(node, placeholder) {
     return;
   placeholder.set(parseStringToDateValue(cellValue, get_store_value(placeholder)));
 }
-const defaults$7 = {
-  isDateDisabled: void 0,
-  isDateUnavailable: void 0,
-  value: void 0,
-  preventDeselect: false,
-  numberOfMonths: 1,
-  pagedNavigation: false,
-  weekStartsOn: 0,
-  fixedWeeks: false,
-  calendarLabel: "Event Date",
-  locale: "en",
-  minValue: void 0,
-  maxValue: void 0,
-  disabled: false,
-  readonly: false,
-  weekdayFormat: "narrow"
-};
-({
-  ...omit$1(defaults$7, "isDateDisabled", "isDateUnavailable", "value", "locale", "disabled", "readonly", "minValue", "maxValue", "weekdayFormat")
-});
-const { name: name$3 } = createElHelpers("dialog");
-const defaults$6 = {
-  preventScroll: true,
-  closeOnEscape: true,
-  closeOnOutsideClick: true,
-  role: "dialog",
-  defaultOpen: false,
-  portal: void 0,
-  forceVisible: false,
-  openFocus: void 0,
-  closeFocus: void 0,
-  onOutsideClick: void 0
-};
-const dialogIdParts = ["content", "title", "description"];
-function createDialog(props) {
-  const withDefaults = { ...defaults$6, ...props };
-  const options = toWritableStores$1(omit$1(withDefaults, "ids"));
-  const { preventScroll, closeOnEscape, closeOnOutsideClick, role, portal, forceVisible, openFocus, closeFocus, onOutsideClick } = options;
-  const activeTrigger = withGet.writable(null);
-  const ids = toWritableStores$1({
-    ...generateIds(dialogIdParts),
-    ...withDefaults.ids
-  });
-  const openWritable = withDefaults.open ?? writable(withDefaults.defaultOpen);
-  const open = overridable(openWritable, withDefaults?.onOpenChange);
-  const isVisible = derived([open, forceVisible], ([$open, $forceVisible]) => {
-    return $open || $forceVisible;
-  });
-  let unsubScroll = noop;
-  function handleOpen(e) {
-    const el = e.currentTarget;
-    const triggerEl = e.currentTarget;
-    if (!isHTMLElement$1(el) || !isHTMLElement$1(triggerEl))
-      return;
-    open.set(true);
-    activeTrigger.set(triggerEl);
-  }
-  function handleClose() {
-    open.set(false);
-    handleFocus({
-      prop: closeFocus.get(),
-      defaultEl: activeTrigger.get()
-    });
-  }
-  const trigger = makeElement(name$3("trigger"), {
-    stores: [open],
-    returned: ([$open]) => {
-      return {
-        "aria-haspopup": "dialog",
-        "aria-expanded": $open,
-        type: "button"
-      };
-    },
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", (e) => {
-        handleOpen(e);
-      }), addMeltEventListener(node, "keydown", (e) => {
-        if (e.key !== kbd$2.ENTER && e.key !== kbd$2.SPACE)
-          return;
-        e.preventDefault();
-        handleOpen(e);
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  const overlay = makeElement(name$3("overlay"), {
-    stores: [isVisible, open],
-    returned: ([$isVisible, $open]) => {
-      return {
-        hidden: $isVisible ? void 0 : true,
-        tabindex: -1,
-        style: styleToString$3({
-          display: $isVisible ? void 0 : "none"
-        }),
-        "aria-hidden": true,
-        "data-state": $open ? "open" : "closed"
-      };
-    },
-    action: (node) => {
-      let unsubEscapeKeydown = noop;
-      if (closeOnEscape.get()) {
-        const escapeKeydown = useEscapeKeydown(node, {
-          handler: () => {
-            handleClose();
-          }
-        });
-        if (escapeKeydown && escapeKeydown.destroy) {
-          unsubEscapeKeydown = escapeKeydown.destroy;
-        }
-      }
-      return {
-        destroy() {
-          unsubEscapeKeydown();
-        }
-      };
-    }
-  });
-  const content = makeElement(name$3("content"), {
-    stores: [isVisible, ids.content, ids.description, ids.title, open],
-    returned: ([$isVisible, $contentId, $descriptionId, $titleId, $open]) => {
-      return {
-        id: $contentId,
-        role: role.get(),
-        "aria-describedby": $descriptionId,
-        "aria-labelledby": $titleId,
-        "aria-modal": $isVisible ? "true" : void 0,
-        "data-state": $open ? "open" : "closed",
-        tabindex: -1,
-        hidden: $isVisible ? void 0 : true,
-        style: styleToString$3({
-          display: $isVisible ? void 0 : "none"
-        })
-      };
-    },
-    action: (node) => {
-      let activate = noop;
-      let deactivate = noop;
-      const destroy = executeCallbacks$1(effect([open, closeOnOutsideClick, closeOnEscape], ([$open, $closeOnOutsideClick, $closeOnEscape]) => {
-        if (!$open)
-          return;
-        const focusTrap = createFocusTrap({
-          immediate: false,
-          escapeDeactivates: $closeOnEscape,
-          clickOutsideDeactivates: $closeOnOutsideClick,
-          allowOutsideClick: true,
-          returnFocusOnDeactivate: false,
-          fallbackFocus: node
-        });
-        activate = focusTrap.activate;
-        deactivate = focusTrap.deactivate;
-        const ac = focusTrap.useFocusTrap(node);
-        if (ac && ac.destroy) {
-          return ac.destroy;
-        } else {
-          return focusTrap.deactivate;
-        }
-      }), effect([closeOnOutsideClick, open], ([$closeOnOutsideClick, $open]) => {
-        return useModal(node, {
-          open: $open,
-          closeOnInteractOutside: $closeOnOutsideClick,
-          onClose() {
-            handleClose();
-          },
-          shouldCloseOnInteractOutside(e) {
-            onOutsideClick.get()?.(e);
-            if (e.defaultPrevented)
-              return false;
-            return true;
-          }
-        }).destroy;
-      }), effect([closeOnEscape], ([$closeOnEscape]) => {
-        if (!$closeOnEscape)
-          return noop;
-        return useEscapeKeydown(node, { handler: handleClose }).destroy;
-      }), effect([isVisible], ([$isVisible]) => {
-        tick().then(() => {
-          if (!$isVisible) {
-            deactivate();
-          } else {
-            activate();
-          }
-        });
-      }));
-      return {
-        destroy: () => {
-          unsubScroll();
-          destroy();
-        }
-      };
-    }
-  });
-  const portalled = makeElement(name$3("portalled"), {
-    stores: portal,
-    returned: ($portal) => ({
-      "data-portal": portalAttr($portal)
-    }),
-    action: (node) => {
-      const unsubPortal = effect([portal], ([$portal]) => {
-        if ($portal === null)
-          return noop;
-        const portalDestination = getPortalDestination(node, $portal);
-        if (portalDestination === null)
-          return noop;
-        return usePortal(node, portalDestination).destroy;
-      });
-      return {
-        destroy() {
-          unsubPortal();
-        }
-      };
-    }
-  });
-  const title = makeElement(name$3("title"), {
-    stores: [ids.title],
-    returned: ([$titleId]) => ({
-      id: $titleId
-    })
-  });
-  const description = makeElement(name$3("description"), {
-    stores: [ids.description],
-    returned: ([$descriptionId]) => ({
-      id: $descriptionId
-    })
-  });
-  const close = makeElement(name$3("close"), {
-    returned: () => ({
-      type: "button"
-    }),
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
-        handleClose();
-      }), addMeltEventListener(node, "keydown", (e) => {
-        if (e.key !== kbd$2.SPACE && e.key !== kbd$2.ENTER)
-          return;
-        e.preventDefault();
-        handleClose();
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  effect([open, preventScroll], ([$open, $preventScroll]) => {
-    if (!isBrowser$1)
-      return;
-    if ($preventScroll && $open)
-      unsubScroll = removeScroll();
-    if ($open) {
-      const contentEl = document.getElementById(ids.content.get());
-      handleFocus({ prop: openFocus.get(), defaultEl: contentEl });
-    }
-    return () => {
-      if (!forceVisible.get()) {
-        unsubScroll();
-      }
-    };
-  });
-  return {
-    ids,
-    elements: {
-      content,
-      trigger,
-      title,
-      description,
-      overlay,
-      close,
-      portalled
-    },
-    states: {
-      open
-    },
-    options
-  };
-}
-const defaults$5 = {
+const defaults$4 = {
   arrowSize: 8,
   positioning: {
     placement: "bottom"
@@ -4028,8 +2580,8 @@ const defaults$5 = {
   onOutsideClick: void 0
 };
 function createDropdownMenu(props) {
-  const withDefaults = { ...defaults$5, ...props };
-  const rootOptions = toWritableStores$1(omit$1(withDefaults, "ids"));
+  const withDefaults = { ...defaults$4, ...props };
+  const rootOptions = toWritableStores(omit(withDefaults, "ids"));
   const openWritable = withDefaults.open ?? writable(withDefaults.defaultOpen);
   const rootOpen = overridable(openWritable, withDefaults?.onOpenChange);
   const rootActiveTrigger = withGet(writable(null));
@@ -4052,7 +2604,7 @@ function createDropdownMenu(props) {
     options
   };
 }
-const defaults$4 = {
+const defaults$3 = {
   positioning: {
     placement: "bottom"
   },
@@ -4072,13 +2624,13 @@ const defaults$4 = {
 const { name: name$2 } = createElHelpers("popover");
 const popoverIdParts = ["trigger", "content"];
 function createPopover(args) {
-  const withDefaults = { ...defaults$4, ...args };
-  const options = toWritableStores$1(omit$1(withDefaults, "open", "ids"));
+  const withDefaults = { ...defaults$3, ...args };
+  const options = toWritableStores(omit(withDefaults, "open", "ids"));
   const { positioning, arrowSize, disableFocusTrap, preventScroll, closeOnEscape, closeOnOutsideClick, portal, forceVisible, openFocus, closeFocus, onOutsideClick } = options;
   const openWritable = withDefaults.open ?? writable(withDefaults.defaultOpen);
   const open = overridable(openWritable, withDefaults?.onOpenChange);
   const activeTrigger = withGet.writable(null);
-  const ids = toWritableStores$1({ ...generateIds(popoverIdParts), ...withDefaults.ids });
+  const ids = toWritableStores({ ...generateIds(popoverIdParts), ...withDefaults.ids });
   safeOnMount(() => {
     activeTrigger.set(document.getElementById(ids.trigger.get()));
   });
@@ -4092,9 +2644,9 @@ function createPopover(args) {
     stores: [isVisible, portal, ids.content],
     returned: ([$isVisible, $portal, $contentId]) => {
       return {
-        hidden: $isVisible && isBrowser$1 ? void 0 : true,
+        hidden: $isVisible && isBrowser ? void 0 : true,
         tabindex: -1,
-        style: styleToString$3({
+        style: styleToString$2({
           display: $isVisible ? void 0 : "none"
         }),
         id: $contentId,
@@ -4186,10 +2738,10 @@ function createPopover(args) {
       };
     },
     action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
+      const unsub = executeCallbacks(addMeltEventListener(node, "click", () => {
         toggleOpen(node);
       }), addMeltEventListener(node, "keydown", (e) => {
-        if (e.key !== kbd$2.ENTER && e.key !== kbd$2.SPACE)
+        if (e.key !== kbd$1.ENTER && e.key !== kbd$1.SPACE)
           return;
         e.preventDefault();
         toggleOpen(node);
@@ -4205,7 +2757,7 @@ function createPopover(args) {
       return {
         hidden: $isVisible ? void 0 : true,
         tabindex: -1,
-        style: styleToString$3({
+        style: styleToString$2({
           display: $isVisible ? void 0 : "none"
         }),
         "aria-hidden": "true",
@@ -4248,7 +2800,7 @@ function createPopover(args) {
     stores: arrowSize,
     returned: ($arrowSize) => ({
       "data-arrow": true,
-      style: styleToString$3({
+      style: styleToString$2({
         position: "absolute",
         width: `var(--arrow-size, ${$arrowSize}px)`,
         height: `var(--arrow-size, ${$arrowSize}px)`
@@ -4260,14 +2812,14 @@ function createPopover(args) {
       type: "button"
     }),
     action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", (e) => {
+      const unsub = executeCallbacks(addMeltEventListener(node, "click", (e) => {
         if (e.defaultPrevented)
           return;
         handleClose();
       }), addMeltEventListener(node, "keydown", (e) => {
         if (e.defaultPrevented)
           return;
-        if (e.key !== kbd$2.ENTER && e.key !== kbd$2.SPACE)
+        if (e.key !== kbd$1.ENTER && e.key !== kbd$1.SPACE)
           return;
         e.preventDefault();
         toggleOpen();
@@ -4278,14 +2830,14 @@ function createPopover(args) {
     }
   });
   effect([open, activeTrigger, preventScroll], ([$open, $activeTrigger, $preventScroll]) => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     const unsubs = [];
     if ($open) {
       if (!$activeTrigger) {
         tick().then(() => {
           const triggerEl2 = document.getElementById(ids.trigger.get());
-          if (!isHTMLElement$1(triggerEl2))
+          if (!isHTMLElement(triggerEl2))
             return;
           activeTrigger.set(triggerEl2);
         });
@@ -4318,7 +2870,7 @@ function createPopover(args) {
 function stateAttr(open) {
   return open ? "open" : "closed";
 }
-const defaults$3 = {
+const defaults$2 = {
   isDateDisabled: void 0,
   isDateUnavailable: void 0,
   value: void 0,
@@ -4342,12 +2894,12 @@ const defaults$3 = {
 const { name: name$1 } = createElHelpers("calendar");
 const rangeCalendarIdParts = ["calendar", "accessibleHeading"];
 function createRangeCalendar(props) {
-  const withDefaults = { ...defaults$3, ...props };
-  const options = toWritableStores$1({
-    ...omit$1(withDefaults, "value", "placeholder")
+  const withDefaults = { ...defaults$2, ...props };
+  const options = toWritableStores({
+    ...omit(withDefaults, "value", "placeholder")
   });
   const { preventDeselect, numberOfMonths, pagedNavigation, weekStartsOn, fixedWeeks, calendarLabel, locale, minValue, maxValue, disabled, readonly: readonly2, weekdayFormat } = options;
-  const ids = toWritableStores$1({ ...generateIds(rangeCalendarIdParts), ...withDefaults.ids });
+  const ids = toWritableStores({ ...generateIds(rangeCalendarIdParts), ...withDefaults.ids });
   const defaultDate = getDefaultDate({
     defaultValue: withDefaults.defaultValue?.start,
     defaultPlaceholder: withDefaults.defaultPlaceholder
@@ -4516,7 +3068,7 @@ function createRangeCalendar(props) {
       };
     },
     action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
+      const unsub = executeCallbacks(addMeltEventListener(node, "click", () => {
         prevPage();
       }));
       return {
@@ -4538,7 +3090,7 @@ function createRangeCalendar(props) {
       };
     },
     action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
+      const unsub = executeCallbacks(addMeltEventListener(node, "click", () => {
         nextPage();
       }));
       return {
@@ -4656,7 +3208,7 @@ function createRangeCalendar(props) {
           disabled: disabled2 ? true : false
         };
       };
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", (e) => {
+      const unsub = executeCallbacks(addMeltEventListener(node, "click", (e) => {
         const args = getElArgs();
         if (args.disabled)
           return;
@@ -4689,7 +3241,7 @@ function createRangeCalendar(props) {
     formatter.setLocale($locale);
   });
   effect([placeholder], ([$placeholder]) => {
-    if (!isBrowser$1 || !$placeholder)
+    if (!isBrowser || !$placeholder)
       return;
     const $visibleMonths = visibleMonths.get();
     if ($visibleMonths.some((month) => isSameMonth(month, $placeholder))) {
@@ -4712,7 +3264,7 @@ function createRangeCalendar(props) {
   });
   effect([weekStartsOn, locale, fixedWeeks, numberOfMonths], ([$weekStartsOn, $locale, $fixedWeeks, $numberOfMonths]) => {
     const $placeholder = placeholder.get();
-    if (!isBrowser$1 || !$placeholder)
+    if (!isBrowser || !$placeholder)
       return;
     const defaultMonthProps = {
       weekStartsOn: $weekStartsOn,
@@ -4726,10 +3278,10 @@ function createRangeCalendar(props) {
     }));
   });
   effect([fullCalendarLabel], ([$fullCalendarLabel]) => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     const node = document.getElementById(ids.accessibleHeading.get());
-    if (!isHTMLElement$1(node))
+    if (!isHTMLElement(node))
       return;
     node.textContent = $fullCalendarLabel;
   });
@@ -4746,10 +3298,10 @@ function createRangeCalendar(props) {
     });
   });
   function createAccessibleHeading(node, label) {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     const div = document.createElement("div");
-    div.style.cssText = styleToString$3({
+    div.style.cssText = styleToString$2({
       border: "0px",
       clip: "rect(0px, 0px, 0px, 0px)",
       "clip-path": "inset(50%)",
@@ -4813,7 +3365,7 @@ function createRangeCalendar(props) {
   function prevYear() {
     placeholder.subtract({ years: 1 });
   }
-  const ARROW_KEYS = [kbd$2.ARROW_DOWN, kbd$2.ARROW_UP, kbd$2.ARROW_LEFT, kbd$2.ARROW_RIGHT];
+  const ARROW_KEYS = [kbd$1.ARROW_DOWN, kbd$1.ARROW_UP, kbd$1.ARROW_LEFT, kbd$1.ARROW_RIGHT];
   function setYear(year) {
     placeholder.setDate({ year });
   }
@@ -4872,7 +3424,7 @@ function createRangeCalendar(props) {
       });
     }
   }
-  const SELECT_KEYS = [kbd$2.ENTER, kbd$2.SPACE];
+  const SELECT_KEYS = [kbd$1.ENTER, kbd$1.SPACE];
   function handleCalendarKeydown(e) {
     const currentCell = e.target;
     if (!isCalendarCell(currentCell))
@@ -4880,19 +3432,19 @@ function createRangeCalendar(props) {
     if (!ARROW_KEYS.includes(e.key) && !SELECT_KEYS.includes(e.key))
       return;
     e.preventDefault();
-    if (e.key === kbd$2.ARROW_DOWN) {
+    if (e.key === kbd$1.ARROW_DOWN) {
       shiftFocus(currentCell, 7);
     }
-    if (e.key === kbd$2.ARROW_UP) {
+    if (e.key === kbd$1.ARROW_UP) {
       shiftFocus(currentCell, -7);
     }
-    if (e.key === kbd$2.ARROW_LEFT) {
+    if (e.key === kbd$1.ARROW_LEFT) {
       shiftFocus(currentCell, -1);
     }
-    if (e.key === kbd$2.ARROW_RIGHT) {
+    if (e.key === kbd$1.ARROW_RIGHT) {
       shiftFocus(currentCell, 1);
     }
-    if (e.key === kbd$2.SPACE || e.key === kbd$2.ENTER) {
+    if (e.key === kbd$1.SPACE || e.key === kbd$1.ENTER) {
       const cellValue = currentCell.getAttribute("data-value");
       if (!cellValue)
         return;
@@ -5038,32 +3590,13 @@ function createRangeCalendar(props) {
     ids
   };
 }
-function createSelect(props) {
-  const listbox = createListbox({ ...props, builder: "select" });
-  const selectedLabel = derived(listbox.states.selected, ($selected) => {
-    if (Array.isArray($selected)) {
-      return $selected.map((o) => o.label).join(", ");
-    }
-    return $selected?.label ?? "";
-  });
-  return {
-    ...listbox,
-    elements: {
-      ...listbox.elements
-    },
-    states: {
-      ...listbox.states,
-      selectedLabel
-    }
-  };
-}
-const defaults$2 = {
+const defaults$1 = {
   orientation: "horizontal",
   decorative: false
 };
 const createSeparator = (props) => {
-  const withDefaults = { ...defaults$2, ...props };
-  const options = toWritableStores$1(withDefaults);
+  const withDefaults = { ...defaults$1, ...props };
+  const options = toWritableStores(withDefaults);
   const { orientation, decorative } = options;
   const root = makeElement("separator", {
     stores: [orientation, decorative],
@@ -5084,7 +3617,7 @@ const createSeparator = (props) => {
     options
   };
 };
-const defaults$1 = {
+const defaults = {
   orientation: "horizontal",
   activateOnFocus: true,
   loop: true,
@@ -5092,8 +3625,8 @@ const defaults$1 = {
 };
 const { name, selector } = createElHelpers("tabs");
 function createTabs(props) {
-  const withDefaults = { ...defaults$1, ...props };
-  const options = toWritableStores$1(omit$1(withDefaults, "defaultValue", "value", "onValueChange", "autoSet"));
+  const withDefaults = { ...defaults, ...props };
+  const options = toWritableStores(omit(withDefaults, "defaultValue", "value", "onValueChange", "autoSet"));
   const { orientation, activateOnFocus, loop } = options;
   const valueWritable = withDefaults.value ?? writable(withDefaults.defaultValue);
   const value = overridable(valueWritable, withDefaults?.onValueChange);
@@ -5133,7 +3666,7 @@ function createTabs(props) {
           $value = tabValue;
           value.set(tabValue);
         }
-        const sourceOfTruth = isBrowser$1 ? $value : ssrValue;
+        const sourceOfTruth = isBrowser ? $value : ssrValue;
         const isActive = sourceOfTruth === tabValue;
         return {
           type: "button",
@@ -5148,7 +3681,7 @@ function createTabs(props) {
       };
     },
     action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "focus", () => {
+      const unsub = executeCallbacks(addMeltEventListener(node, "focus", () => {
         const disabled = node.dataset.disabled === "true";
         const tabValue = node.dataset.value;
         if (activateOnFocus.get() && !disabled && tabValue !== void 0) {
@@ -5170,13 +3703,13 @@ function createTabs(props) {
         if (!tabValue)
           return;
         const el = e.currentTarget;
-        if (!isHTMLElement$1(el))
+        if (!isHTMLElement(el))
           return;
         const rootEl = el.closest(selector());
-        if (!isHTMLElement$1(rootEl))
+        if (!isHTMLElement(rootEl))
           return;
         const $loop = loop.get();
-        const triggers = Array.from(rootEl.querySelectorAll('[role="tab"]')).filter((trigger2) => isHTMLElement$1(trigger2));
+        const triggers = Array.from(rootEl.querySelectorAll('[role="tab"]')).filter((trigger2) => isHTMLElement(trigger2));
         const enabledTriggers = triggers.filter((el2) => !el2.hasAttribute("data-disabled"));
         const triggerIdx = enabledTriggers.findIndex((el2) => el2 === e.target);
         const dir = getElemDirection(rootEl);
@@ -5189,14 +3722,14 @@ function createTabs(props) {
           e.preventDefault();
           const prevEl = prev(enabledTriggers, triggerIdx, $loop);
           prevEl.focus();
-        } else if (e.key === kbd$2.ENTER || e.key === kbd$2.SPACE) {
+        } else if (e.key === kbd$1.ENTER || e.key === kbd$1.SPACE) {
           e.preventDefault();
           value.set(tabValue);
-        } else if (e.key === kbd$2.HOME) {
+        } else if (e.key === kbd$1.HOME) {
           e.preventDefault();
           const firstTrigger = enabledTriggers[0];
           firstTrigger.focus();
-        } else if (e.key === kbd$2.END) {
+        } else if (e.key === kbd$1.END) {
           e.preventDefault();
           const lastTrigger = last(enabledTriggers);
           lastTrigger.focus();
@@ -5215,7 +3748,7 @@ function createTabs(props) {
           role: "tabpanel",
           // TODO: improve
           "aria-labelledby": tabValue,
-          hidden: isBrowser$1 ? $value === tabValue ? void 0 : true : ssrValue === tabValue ? void 0 : true,
+          hidden: isBrowser ? $value === tabValue ? void 0 : true : ssrValue === tabValue ? void 0 : true,
           tabindex: 0
         };
       };
@@ -5234,34 +3767,10 @@ function createTabs(props) {
     options
   };
 }
-function createBitAttrs$1(bit, parts) {
-  const attrs = {};
-  parts.forEach((part) => {
-    attrs[part] = {
-      [`data-${bit}-${part}`]: ""
-    };
-  });
-  return (part) => attrs[part];
-}
-function disabledAttrs(disabled) {
-  return disabled ? { "aria-disabled": "true", "data-disabled": "" } : { "aria-disabled": void 0, "data-disabled": void 0 };
-}
-function createDispatcher() {
-  const dispatch = createEventDispatcher();
-  return (e) => {
-    const { originalEvent } = e.detail;
-    const { cancelable } = e;
-    const type = originalEvent.type;
-    const shouldContinue = dispatch(type, { originalEvent, currentTarget: originalEvent.currentTarget }, { cancelable });
-    if (!shouldContinue) {
-      e.preventDefault();
-    }
-  };
-}
 function generateId$1() {
   return nanoid(10);
 }
-function removeUndefined$1(obj) {
+function removeUndefined(obj) {
   const result = {};
   for (const key in obj) {
     const value = obj[key];
@@ -5281,12 +3790,6 @@ function getOptionUpdater(options) {
     }
   };
 }
-function arraysAreEqual(arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    return false;
-  }
-  return arr1.every((value, index) => value === arr2[index]);
-}
 function getAvatarData() {
   const NAME2 = "avatar";
   const PARTS2 = ["root", "image", "fallback"];
@@ -5295,10 +3798,10 @@ function getAvatarData() {
     PARTS: PARTS2
   };
 }
-function setCtx$6(props) {
+function setCtx$4(props) {
   const { NAME: NAME2, PARTS: PARTS2 } = getAvatarData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const avatar = { ...createAvatar(removeUndefined$1(props)), getAttrs: getAttrs2 };
+  const getAttrs = createBitAttrs$1(NAME2, PARTS2);
+  const avatar = { ...createAvatar(removeUndefined(props)), getAttrs };
   setContext(NAME2, avatar);
   return {
     ...avatar,
@@ -5315,7 +3818,7 @@ function getImage(src = "") {
   }
   return avatar;
 }
-function getCtx$7() {
+function getCtx$4() {
   const { NAME: NAME2 } = getAvatarData();
   return getContext(NAME2);
 }
@@ -5326,7 +3829,7 @@ const Avatar$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
   let { onLoadingStatusChange = void 0 } = $$props;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { states: { loadingStatus: localLoadingStatus }, updateOption, getAttrs: getAttrs2 } = setCtx$6({
+  const { states: { loadingStatus: localLoadingStatus }, updateOption, getAttrs } = setCtx$4({
     src: "",
     delayMs,
     onLoadingStatusChange: ({ next: next2 }) => {
@@ -5335,7 +3838,7 @@ const Avatar$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
       return next2;
     }
   });
-  const attrs = getAttrs2("root");
+  const attrs = getAttrs("root");
   if ($$props.delayMs === void 0 && $$bindings.delayMs && delayMs !== void 0) $$bindings.delayMs(delayMs);
   if ($$props.loadingStatus === void 0 && $$bindings.loadingStatus && loadingStatus !== void 0) $$bindings.loadingStatus(loadingStatus);
   if ($$props.onLoadingStatusChange === void 0 && $$bindings.onLoadingStatusChange && onLoadingStatusChange !== void 0) $$bindings.onLoadingStatusChange(onLoadingStatusChange);
@@ -5382,9 +3885,9 @@ const Avatar_fallback$1 = create_ssr_component(($$result, $$props, $$bindings, s
   let $fallback, $$unsubscribe_fallback;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { fallback }, getAttrs: getAttrs2 } = getCtx$7();
+  const { elements: { fallback }, getAttrs } = getCtx$4();
   $$unsubscribe_fallback = subscribe(fallback, (value) => $fallback = value);
-  const attrs = getAttrs2("fallback");
+  const attrs = getAttrs("fallback");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   builder = $fallback;
@@ -5394,63 +3897,12 @@ const Avatar_fallback$1 = create_ssr_component(($$result, $$props, $$bindings, s
   $$unsubscribe_fallback();
   return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<span${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</span>`}`;
 });
-function getAttrs(builders) {
-  const attrs = {};
-  builders.forEach((builder) => {
-    Object.keys(builder).forEach((key) => {
-      if (key !== "action") {
-        attrs[key] = builder[key];
-      }
-    });
-  });
-  return attrs;
-}
-const Button$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["href", "type", "builders", "el"]);
-  let { href = void 0 } = $$props;
-  let { type = void 0 } = $$props;
-  let { builders = [] } = $$props;
-  let { el = void 0 } = $$props;
-  const attrs = { "data-button-root": "" };
-  if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
-  if ($$props.type === void 0 && $$bindings.type && type !== void 0) $$bindings.type(type);
-  if ($$props.builders === void 0 && $$bindings.builders && builders !== void 0) $$bindings.builders(builders);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  return `${builders && builders.length ? ` ${((tag) => {
-    return tag ? `<${href ? "a" : "button"}${spread(
-      [
-        {
-          type: escape_attribute_value(href ? void 0 : type)
-        },
-        { href: escape_attribute_value(href) },
-        { tabindex: "0" },
-        escape_object(getAttrs(builders)),
-        escape_object($$restProps),
-        escape_object(attrs)
-      ],
-      {}
-    )}${add_attribute("this", el, 0)}>${is_void(tag) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
-  })(href ? "a" : "button")}` : ` ${((tag) => {
-    return tag ? `<${href ? "a" : "button"}${spread(
-      [
-        {
-          type: escape_attribute_value(href ? void 0 : type)
-        },
-        { href: escape_attribute_value(href) },
-        { tabindex: "0" },
-        escape_object($$restProps),
-        escape_object(attrs)
-      ],
-      {}
-    )}${add_attribute("this", el, 0)}>${is_void(tag) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
-  })(href ? "a" : "button")}`}`;
-});
 function getPositioningUpdater(store) {
   return (props = {}) => {
-    return updatePositioning$3(store, props);
+    return updatePositioning$2(store, props);
   };
 }
-function updatePositioning$3(store, props) {
+function updatePositioning$2(store, props) {
   const defaultPositioningProps = {
     side: "bottom",
     align: "center",
@@ -5495,7 +3947,7 @@ function getMenuData() {
   const RADIO_GROUP_NAME = "menu-radiogroup";
   const CHECKBOX_ITEM_NAME = "menu-checkboxitem";
   const RADIO_ITEM_NAME = "menu-radioitem";
-  const GROUP_NAME2 = "menu-group";
+  const GROUP_NAME = "menu-group";
   const PARTS2 = [
     "arrow",
     "checkbox-indicator",
@@ -5518,20 +3970,20 @@ function getMenuData() {
     RADIO_GROUP_NAME,
     CHECKBOX_ITEM_NAME,
     RADIO_ITEM_NAME,
-    GROUP_NAME: GROUP_NAME2,
+    GROUP_NAME,
     PARTS: PARTS2
   };
 }
-function getCtx$6() {
+function getCtx$3() {
   const { NAME: NAME2 } = getMenuData();
   return getContext(NAME2);
 }
-function setCtx$5(props) {
+function setCtx$3(props) {
   const { NAME: NAME2, PARTS: PARTS2 } = getMenuData();
-  const getAttrs2 = createBitAttrs$1("menu", PARTS2);
+  const getAttrs = createBitAttrs$1("menu", PARTS2);
   const dropdownMenu = {
-    ...createDropdownMenu({ ...removeUndefined$1(props), forceVisible: true }),
-    getAttrs: getAttrs2
+    ...createDropdownMenu({ ...removeUndefined(props), forceVisible: true }),
+    getAttrs
   };
   setContext(NAME2, dropdownMenu);
   return {
@@ -5539,26 +3991,19 @@ function setCtx$5(props) {
     updateOption: getOptionUpdater(dropdownMenu.options)
   };
 }
-function setGroupCtx() {
-  const { GROUP_NAME: GROUP_NAME2 } = getMenuData();
-  const { elements: { group }, getAttrs: getAttrs2 } = getCtx$6();
-  const id = generateId$1();
-  setContext(GROUP_NAME2, id);
-  return { group, id, getAttrs: getAttrs2 };
-}
 function getGroupLabel() {
-  const { GROUP_NAME: GROUP_NAME2 } = getMenuData();
-  const id = getContext(GROUP_NAME2) ?? generateId$1();
-  const { elements: { groupLabel }, getAttrs: getAttrs2 } = getCtx$6();
-  return { groupLabel, id, getAttrs: getAttrs2 };
+  const { GROUP_NAME } = getMenuData();
+  const id = getContext(GROUP_NAME) ?? generateId$1();
+  const { elements: { groupLabel }, getAttrs } = getCtx$3();
+  return { groupLabel, id, getAttrs };
 }
-function updatePositioning$2(props) {
+function updatePositioning$1(props) {
   const defaultPlacement = {
     side: "bottom",
     align: "center"
   };
   const withDefaults = { ...defaultPlacement, ...props };
-  const { options: { positioning } } = getCtx$6();
+  const { options: { positioning } } = getCtx$3();
   const updater = getPositioningUpdater(positioning);
   updater(withDefaults);
 }
@@ -5571,7 +4016,7 @@ const Menu_item = create_ssr_component(($$result, $$props, $$bindings, slots) =>
   let { asChild = false } = $$props;
   let { disabled = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { item }, getAttrs: getAttrs2 } = getCtx$6();
+  const { elements: { item }, getAttrs } = getCtx$3();
   $$unsubscribe_item = subscribe(item, (value) => $item = value);
   createDispatcher();
   if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
@@ -5580,7 +4025,7 @@ const Menu_item = create_ssr_component(($$result, $$props, $$bindings, slots) =>
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   builder = $item;
   attrs = {
-    ...getAttrs2("item"),
+    ...getAttrs("item"),
     ...disabledAttrs(disabled)
   };
   {
@@ -5598,33 +4043,15 @@ const Menu_item = create_ssr_component(($$result, $$props, $$bindings, slots) =>
     )}${add_attribute("this", el, 0)}>${is_void(tag) ? "" : `${slots.default ? slots.default({ builder }) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
   })(href ? "a" : "div")}`}`;
 });
-const Menu_group = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $group, $$unsubscribe_group;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { group, id, getAttrs: getAttrs2 } = setGroupCtx();
-  $$unsubscribe_group = subscribe(group, (value) => $group = value);
-  const attrs = getAttrs2("group");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $group(id);
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_group();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
 const Menu_label = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let builder;
   let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
   let $groupLabel, $$unsubscribe_groupLabel;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { groupLabel, id, getAttrs: getAttrs2 } = getGroupLabel();
+  const { groupLabel, id, getAttrs } = getGroupLabel();
   $$unsubscribe_groupLabel = subscribe(groupLabel, (value) => $groupLabel = value);
-  const attrs = getAttrs2("label");
+  const attrs = getAttrs("label");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   builder = $groupLabel(id);
@@ -5640,9 +4067,9 @@ const Menu_separator = create_ssr_component(($$result, $$props, $$bindings, slot
   let $separator, $$unsubscribe_separator;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { separator }, getAttrs: getAttrs2 } = getCtx$6();
+  const { elements: { separator }, getAttrs } = getCtx$3();
   $$unsubscribe_separator = subscribe(separator, (value) => $separator = value);
-  const attrs = getAttrs2("separator");
+  const attrs = getAttrs("separator");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   builder = $separator;
@@ -5660,19 +4087,19 @@ function getPopoverData() {
     PARTS: PARTS2
   };
 }
-function setCtx$4(props) {
+function setCtx$2(props) {
   const { NAME: NAME2, PARTS: PARTS2 } = getPopoverData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
+  const getAttrs = createBitAttrs$1(NAME2, PARTS2);
   const popover = {
     ...createPopover({
       positioning: {
         placement: "bottom",
         gutter: 0
       },
-      ...removeUndefined$1(props),
+      ...removeUndefined(props),
       forceVisible: true
     }),
-    getAttrs: getAttrs2
+    getAttrs
   };
   setContext(NAME2, popover);
   return {
@@ -5680,305 +4107,20 @@ function setCtx$4(props) {
     updateOption: getOptionUpdater(popover.options)
   };
 }
-function getCtx$5() {
+function getCtx$2() {
   const { NAME: NAME2 } = getPopoverData();
   return getContext(NAME2);
 }
-function updatePositioning$1(props) {
+function updatePositioning(props) {
   const defaultPlacement = {
     side: "bottom",
     align: "center"
   };
   const withDefaults = { ...defaultPlacement, ...props };
-  const { options: { positioning } } = getCtx$5();
+  const { options: { positioning } } = getCtx$2();
   const updater = getPositioningUpdater(positioning);
   updater(withDefaults);
 }
-function getDialogData() {
-  const NAME2 = "dialog";
-  const PARTS2 = [
-    "close",
-    "content",
-    "description",
-    "overlay",
-    "portal",
-    "title",
-    "trigger"
-  ];
-  return {
-    NAME: NAME2,
-    PARTS: PARTS2
-  };
-}
-function setCtx$3(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getDialogData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const dialog = {
-    ...createDialog({ ...removeUndefined$1(props), role: "dialog", forceVisible: true }),
-    getAttrs: getAttrs2
-  };
-  setContext(NAME2, dialog);
-  return {
-    ...dialog,
-    updateOption: getOptionUpdater(dialog.options)
-  };
-}
-function getCtx$4() {
-  const { NAME: NAME2 } = getDialogData();
-  return getContext(NAME2);
-}
-const Dialog = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $idValues, $$unsubscribe_idValues;
-  let { preventScroll = void 0 } = $$props;
-  let { closeOnEscape = void 0 } = $$props;
-  let { closeOnOutsideClick = void 0 } = $$props;
-  let { portal = void 0 } = $$props;
-  let { open = void 0 } = $$props;
-  let { onOpenChange = void 0 } = $$props;
-  let { openFocus = void 0 } = $$props;
-  let { closeFocus = void 0 } = $$props;
-  let { onOutsideClick = void 0 } = $$props;
-  const { states: { open: localOpen }, updateOption, ids } = setCtx$3({
-    closeOnEscape,
-    preventScroll,
-    closeOnOutsideClick,
-    portal,
-    forceVisible: true,
-    defaultOpen: open,
-    openFocus,
-    closeFocus,
-    onOutsideClick,
-    onOpenChange: ({ next: next2 }) => {
-      if (open !== next2) {
-        onOpenChange?.(next2);
-        open = next2;
-      }
-      return next2;
-    }
-  });
-  const idValues = derived([ids.content, ids.description, ids.title], ([$contentId, $descriptionId, $titleId]) => ({
-    content: $contentId,
-    description: $descriptionId,
-    title: $titleId
-  }));
-  $$unsubscribe_idValues = subscribe(idValues, (value) => $idValues = value);
-  if ($$props.preventScroll === void 0 && $$bindings.preventScroll && preventScroll !== void 0) $$bindings.preventScroll(preventScroll);
-  if ($$props.closeOnEscape === void 0 && $$bindings.closeOnEscape && closeOnEscape !== void 0) $$bindings.closeOnEscape(closeOnEscape);
-  if ($$props.closeOnOutsideClick === void 0 && $$bindings.closeOnOutsideClick && closeOnOutsideClick !== void 0) $$bindings.closeOnOutsideClick(closeOnOutsideClick);
-  if ($$props.portal === void 0 && $$bindings.portal && portal !== void 0) $$bindings.portal(portal);
-  if ($$props.open === void 0 && $$bindings.open && open !== void 0) $$bindings.open(open);
-  if ($$props.onOpenChange === void 0 && $$bindings.onOpenChange && onOpenChange !== void 0) $$bindings.onOpenChange(onOpenChange);
-  if ($$props.openFocus === void 0 && $$bindings.openFocus && openFocus !== void 0) $$bindings.openFocus(openFocus);
-  if ($$props.closeFocus === void 0 && $$bindings.closeFocus && closeFocus !== void 0) $$bindings.closeFocus(closeFocus);
-  if ($$props.onOutsideClick === void 0 && $$bindings.onOutsideClick && onOutsideClick !== void 0) $$bindings.onOutsideClick(onOutsideClick);
-  open !== void 0 && localOpen.set(open);
-  {
-    updateOption("preventScroll", preventScroll);
-  }
-  {
-    updateOption("closeOnEscape", closeOnEscape);
-  }
-  {
-    updateOption("closeOnOutsideClick", closeOnOutsideClick);
-  }
-  {
-    updateOption("portal", portal);
-  }
-  {
-    updateOption("openFocus", openFocus);
-  }
-  {
-    updateOption("closeFocus", closeFocus);
-  }
-  {
-    updateOption("onOutsideClick", onOutsideClick);
-  }
-  $$unsubscribe_idValues();
-  return `${slots.default ? slots.default({ ids: $idValues }) : ``}`;
-});
-const Dialog_title$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["level", "asChild", "id", "el"]);
-  let $title, $$unsubscribe_title;
-  let { level = "h2" } = $$props;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { title }, ids, getAttrs: getAttrs2 } = getCtx$4();
-  $$unsubscribe_title = subscribe(title, (value) => $title = value);
-  const attrs = getAttrs2("title");
-  if ($$props.level === void 0 && $$bindings.level && level !== void 0) $$bindings.level(level);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.title.set(id);
-    }
-  }
-  builder = $title;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_title();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `${((tag) => {
-    return tag ? `<${level}${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${is_void(tag) ? "" : `${slots.default ? slots.default({ builder }) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
-  })(level)}`}`;
-});
-const Dialog_close = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $close, $$unsubscribe_close;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { close }, getAttrs: getAttrs2 } = getCtx$4();
-  $$unsubscribe_close = subscribe(close, (value) => $close = value);
-  createDispatcher();
-  const attrs = getAttrs2("close");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $close;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_close();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-const Dialog_portal$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $portalled, $$unsubscribe_portalled;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { portalled }, getAttrs: getAttrs2 } = getCtx$4();
-  $$unsubscribe_portalled = subscribe(portalled, (value) => $portalled = value);
-  const attrs = getAttrs2("portal");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $portalled;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_portalled();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
-const Dialog_content$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "transition",
-    "transitionConfig",
-    "inTransition",
-    "inTransitionConfig",
-    "outTransition",
-    "outTransitionConfig",
-    "asChild",
-    "id",
-    "el"
-  ]);
-  let $content, $$unsubscribe_content;
-  let $open, $$unsubscribe_open;
-  let { transition = void 0 } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  let { inTransition = void 0 } = $$props;
-  let { inTransitionConfig = void 0 } = $$props;
-  let { outTransition = void 0 } = $$props;
-  let { outTransitionConfig = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { content }, states: { open }, ids, getAttrs: getAttrs2 } = getCtx$4();
-  $$unsubscribe_content = subscribe(content, (value) => $content = value);
-  $$unsubscribe_open = subscribe(open, (value) => $open = value);
-  const attrs = getAttrs2("content");
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
-  if ($$props.inTransitionConfig === void 0 && $$bindings.inTransitionConfig && inTransitionConfig !== void 0) $$bindings.inTransitionConfig(inTransitionConfig);
-  if ($$props.outTransition === void 0 && $$bindings.outTransition && outTransition !== void 0) $$bindings.outTransition(outTransition);
-  if ($$props.outTransitionConfig === void 0 && $$bindings.outTransitionConfig && outTransitionConfig !== void 0) $$bindings.outTransitionConfig(outTransitionConfig);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.content.set(id);
-    }
-  }
-  builder = $content;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_content();
-  $$unsubscribe_open();
-  return `${asChild && $open ? `${slots.default ? slots.default({ builder }) : ``}` : `${transition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && outTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${outTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${$open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : ``}`}`}`}`}`}`;
-});
-const Dialog_overlay$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "transition",
-    "transitionConfig",
-    "inTransition",
-    "inTransitionConfig",
-    "outTransition",
-    "outTransitionConfig",
-    "asChild",
-    "el"
-  ]);
-  let $overlay, $$unsubscribe_overlay;
-  let $open, $$unsubscribe_open;
-  let { transition = void 0 } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  let { inTransition = void 0 } = $$props;
-  let { inTransitionConfig = void 0 } = $$props;
-  let { outTransition = void 0 } = $$props;
-  let { outTransitionConfig = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { overlay }, states: { open }, getAttrs: getAttrs2 } = getCtx$4();
-  $$unsubscribe_overlay = subscribe(overlay, (value) => $overlay = value);
-  $$unsubscribe_open = subscribe(open, (value) => $open = value);
-  const attrs = getAttrs2("overlay");
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
-  if ($$props.inTransitionConfig === void 0 && $$bindings.inTransitionConfig && inTransitionConfig !== void 0) $$bindings.inTransitionConfig(inTransitionConfig);
-  if ($$props.outTransition === void 0 && $$bindings.outTransition && outTransition !== void 0) $$bindings.outTransition(outTransition);
-  if ($$props.outTransitionConfig === void 0 && $$bindings.outTransitionConfig && outTransitionConfig !== void 0) $$bindings.outTransitionConfig(outTransitionConfig);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $overlay;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_overlay();
-  $$unsubscribe_open();
-  return `${asChild && $open ? `${slots.default ? slots.default({ builder }) : ``}` : `${transition && $open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : `${inTransition && outTransition && $open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : `${inTransition && $open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : `${outTransition && $open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : `${$open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : ``}`}`}`}`}`}`;
-});
-const Dialog_description$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "id", "el"]);
-  let $description, $$unsubscribe_description;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { description }, ids, getAttrs: getAttrs2 } = getCtx$4();
-  $$unsubscribe_description = subscribe(description, (value) => $description = value);
-  const attrs = getAttrs2("description");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.description.set(id);
-    }
-  }
-  builder = $description;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_description();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
 const Menu = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $idValues, $$unsubscribe_idValues;
   let { closeOnOutsideClick = void 0 } = $$props;
@@ -5994,7 +4136,7 @@ const Menu = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { disableFocusFirstItem = void 0 } = $$props;
   let { closeOnItemClick = void 0 } = $$props;
   let { onOutsideClick = void 0 } = $$props;
-  const { states: { open: localOpen }, updateOption, ids } = setCtx$5({
+  const { states: { open: localOpen }, updateOption, ids } = setCtx$3({
     closeOnOutsideClick,
     closeOnEscape,
     portal,
@@ -6114,11 +4256,11 @@ const Menu_content = create_ssr_component(($$result, $$props, $$bindings, slots)
   let { strategy = "absolute" } = $$props;
   let { overlap = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { menu }, states: { open }, ids, getAttrs: getAttrs2 } = getCtx$6();
+  const { elements: { menu }, states: { open }, ids, getAttrs } = getCtx$3();
   $$unsubscribe_menu = subscribe(menu, (value) => $menu = value);
   $$unsubscribe_open = subscribe(open, (value) => $open = value);
   createDispatcher();
-  const attrs = getAttrs2("content");
+  const attrs = getAttrs("content");
   if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
   if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
   if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
@@ -6150,7 +4292,7 @@ const Menu_content = create_ssr_component(($$result, $$props, $$bindings, slots)
   }
   {
     if ($open) {
-      updatePositioning$2({
+      updatePositioning$1({
         side,
         align,
         sideOffset,
@@ -6176,10 +4318,10 @@ const Menu_trigger = create_ssr_component(($$result, $$props, $$bindings, slots)
   let { asChild = false } = $$props;
   let { id = void 0 } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { trigger }, ids, getAttrs: getAttrs2 } = getCtx$6();
+  const { elements: { trigger }, ids, getAttrs } = getCtx$3();
   $$unsubscribe_trigger = subscribe(trigger, (value) => $trigger = value);
   createDispatcher();
-  const attrs = getAttrs2("trigger");
+  const attrs = getAttrs("trigger");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
@@ -6195,35 +4337,6 @@ const Menu_trigger = create_ssr_component(($$result, $$props, $$bindings, slots)
   $$unsubscribe_trigger();
   return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
 });
-function getLabelData() {
-  const NAME2 = "label";
-  const PARTS2 = ["root"];
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  return {
-    NAME: NAME2,
-    getAttrs: getAttrs2
-  };
-}
-const Label$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $root, $$unsubscribe_root;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { root } } = createLabel();
-  $$unsubscribe_root = subscribe(root, (value) => $root = value);
-  createDispatcher();
-  const { getAttrs: getAttrs2 } = getLabelData();
-  const attrs = getAttrs2("root");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $root;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_root();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<label${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</label>`}`;
-});
 const Popover = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $idValues, $$unsubscribe_idValues;
   let { disableFocusTrap = void 0 } = $$props;
@@ -6236,7 +4349,7 @@ const Popover = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { openFocus = void 0 } = $$props;
   let { closeFocus = void 0 } = $$props;
   let { onOutsideClick = void 0 } = $$props;
-  const { updateOption, states: { open: localOpen }, ids } = setCtx$4({
+  const { updateOption, states: { open: localOpen }, ids } = setCtx$2({
     disableFocusTrap,
     closeOnEscape,
     closeOnOutsideClick,
@@ -6341,10 +4454,10 @@ const Popover_content$1 = create_ssr_component(($$result, $$props, $$bindings, s
   let { strategy = "absolute" } = $$props;
   let { overlap = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { content }, states: { open }, ids, getAttrs: getAttrs2 } = getCtx$5();
+  const { elements: { content }, states: { open }, ids, getAttrs } = getCtx$2();
   $$unsubscribe_content = subscribe(content, (value) => $content = value);
   $$unsubscribe_open = subscribe(open, (value) => $open = value);
-  const attrs = getAttrs2("content");
+  const attrs = getAttrs("content");
   if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
   if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
   if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
@@ -6376,7 +4489,7 @@ const Popover_content$1 = create_ssr_component(($$result, $$props, $$bindings, s
   }
   {
     if ($open) {
-      updatePositioning$1({
+      updatePositioning({
         side,
         align,
         sideOffset,
@@ -6404,11 +4517,11 @@ const Popover_trigger = create_ssr_component(($$result, $$props, $$bindings, slo
   let { asChild = false } = $$props;
   let { id = void 0 } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { trigger }, states: { open }, ids, getAttrs: getAttrs2 } = getCtx$5();
+  const { elements: { trigger }, states: { open }, ids, getAttrs } = getCtx$2();
   $$unsubscribe_trigger = subscribe(trigger, (value) => $trigger = value);
   $$unsubscribe_open = subscribe(open, (value) => $open = value);
   createDispatcher();
-  const bitsAttrs = getAttrs2("trigger");
+  const bitsAttrs = getAttrs("trigger");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
@@ -6447,17 +4560,17 @@ function getRangeCalendarData() {
   ];
   return { NAME: NAME2, PARTS: PARTS2 };
 }
-function setCtx$2(props) {
+function setCtx$1(props) {
   const { NAME: NAME2, PARTS: PARTS2 } = getRangeCalendarData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const rangeCalendar = { ...createRangeCalendar(removeUndefined$1(props)), getAttrs: getAttrs2 };
+  const getAttrs = createBitAttrs$1(NAME2, PARTS2);
+  const rangeCalendar = { ...createRangeCalendar(removeUndefined(props)), getAttrs };
   setContext(NAME2, rangeCalendar);
   return {
     ...rangeCalendar,
     updateOption: getOptionUpdater(rangeCalendar.options)
   };
 }
-function getCtx$3() {
+function getCtx$1() {
   const { NAME: NAME2 } = getRangeCalendarData();
   return getContext(NAME2);
 }
@@ -6516,7 +4629,7 @@ const Range_calendar$1 = create_ssr_component(($$result, $$props, $$bindings, sl
   let { startValue = void 0 } = $$props;
   let { numberOfMonths = void 0 } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { calendar }, states: { value: localValue, placeholder: localPlaceholder, months: localMonths, weekdays, startValue: localStartValue, endValue }, updateOption, ids, getAttrs: getAttrs2 } = setCtx$2({
+  const { elements: { calendar }, states: { value: localValue, placeholder: localPlaceholder, months: localMonths, weekdays, startValue: localStartValue, endValue }, updateOption, ids, getAttrs } = setCtx$1({
     defaultPlaceholder: placeholder,
     defaultValue: value,
     preventDeselect,
@@ -6553,7 +4666,7 @@ const Range_calendar$1 = create_ssr_component(($$result, $$props, $$bindings, sl
   $$unsubscribe_weekdays = subscribe(weekdays, (value2) => $weekdays = value2);
   $$unsubscribe_localStartValue = subscribe(localStartValue, (value2) => $localStartValue = value2);
   $$unsubscribe_endValue = subscribe(endValue, (value2) => $endValue = value2);
-  const attrs = getAttrs2("root");
+  const attrs = getAttrs("root");
   createDispatcher();
   let months = $localMonths;
   if ($$props.placeholder === void 0 && $$bindings.placeholder && placeholder !== void 0) $$bindings.placeholder(placeholder);
@@ -6665,11 +4778,11 @@ const Range_calendar_day$1 = create_ssr_component(($$result, $$props, $$bindings
   let { month } = $$props;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { cell }, helpers: { isDateDisabled, isDateUnavailable }, getAttrs: getAttrs2 } = getCtx$3();
+  const { elements: { cell }, helpers: { isDateDisabled, isDateUnavailable }, getAttrs } = getCtx$1();
   $$unsubscribe_cell = subscribe(cell, (value) => $cell = value);
   $$unsubscribe_isDateDisabled = subscribe(isDateDisabled, (value) => $isDateDisabled = value);
   $$unsubscribe_isDateUnavailable = subscribe(isDateUnavailable, (value) => $isDateUnavailable = value);
-  const attrs = getAttrs2("day");
+  const attrs = getAttrs("day");
   createDispatcher();
   if ($$props.date === void 0 && $$bindings.date && date !== void 0) $$bindings.date(date);
   if ($$props.month === void 0 && $$bindings.month && month !== void 0) $$bindings.month(month);
@@ -6692,9 +4805,9 @@ const Range_calendar_grid$1 = create_ssr_component(($$result, $$props, $$binding
   let $grid, $$unsubscribe_grid;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { grid }, getAttrs: getAttrs2 } = getCtx$3();
+  const { elements: { grid }, getAttrs } = getCtx$1();
   $$unsubscribe_grid = subscribe(grid, (value) => $grid = value);
-  const attrs = getAttrs2("grid");
+  const attrs = getAttrs("grid");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   builder = $grid;
@@ -6708,8 +4821,8 @@ const Range_calendar_grid_body$1 = create_ssr_component(($$result, $$props, $$bi
   let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { getAttrs: getAttrs2 } = getCtx$3();
-  const attrs = getAttrs2("grid-body");
+  const { getAttrs } = getCtx$1();
+  const attrs = getAttrs("grid-body");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<tbody${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({}) : ``}</tbody>`}`;
@@ -6722,14 +4835,14 @@ const Range_calendar_cell$1 = create_ssr_component(($$result, $$props, $$binding
   let { date } = $$props;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { helpers: { isDateDisabled, isDateUnavailable }, getAttrs: getAttrs2 } = getCtx$3();
+  const { helpers: { isDateDisabled, isDateUnavailable }, getAttrs } = getCtx$1();
   $$unsubscribe_isDateDisabled = subscribe(isDateDisabled, (value) => $isDateDisabled = value);
   $$unsubscribe_isDateUnavailable = subscribe(isDateUnavailable, (value) => $isDateUnavailable = value);
   if ($$props.date === void 0 && $$bindings.date && date !== void 0) $$bindings.date(date);
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   attrs = {
-    ...getAttrs2("cell"),
+    ...getAttrs("cell"),
     "aria-disabled": $isDateDisabled(date) || $isDateUnavailable(date),
     role: "gridcell"
   };
@@ -6741,9 +4854,9 @@ const Range_calendar_grid_head$1 = create_ssr_component(($$result, $$props, $$bi
   let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { getAttrs: getAttrs2 } = getCtx$3();
+  const { getAttrs } = getCtx$1();
   const attrs = {
-    ...getAttrs2("grid-head"),
+    ...getAttrs("grid-head"),
     "aria-hidden": true
   };
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
@@ -6754,8 +4867,8 @@ const Range_calendar_head_cell$1 = create_ssr_component(($$result, $$props, $$bi
   let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { getAttrs: getAttrs2 } = getCtx$3();
-  const attrs = getAttrs2("head-cell");
+  const { getAttrs } = getCtx$1();
+  const attrs = getAttrs("head-cell");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<th${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({}) : ``}</th>`}`;
@@ -6764,8 +4877,8 @@ const Range_calendar_grid_row$1 = create_ssr_component(($$result, $$props, $$bin
   let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { getAttrs: getAttrs2 } = getCtx$3();
-  const attrs = getAttrs2("grid-row");
+  const { getAttrs } = getCtx$1();
+  const attrs = getAttrs("grid-row");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<tr${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ attrs }) : ``}</tr>`}`;
@@ -6774,8 +4887,8 @@ const Range_calendar_header$1 = create_ssr_component(($$result, $$props, $$bindi
   let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { getAttrs: getAttrs2 } = getCtx$3();
-  const attrs = getAttrs2("header");
+  const { getAttrs } = getCtx$1();
+  const attrs = getAttrs("header");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<header${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ attrs }) : ``}</header>`}`;
@@ -6787,10 +4900,10 @@ const Range_calendar_heading$1 = create_ssr_component(($$result, $$props, $$bind
   let $headingValue, $$unsubscribe_headingValue;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { heading }, states: { headingValue }, getAttrs: getAttrs2 } = getCtx$3();
+  const { elements: { heading }, states: { headingValue }, getAttrs } = getCtx$1();
   $$unsubscribe_heading = subscribe(heading, (value) => $heading = value);
   $$unsubscribe_headingValue = subscribe(headingValue, (value) => $headingValue = value);
-  const attrs = getAttrs2("heading");
+  const attrs = getAttrs("heading");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   builder = $heading;
@@ -6807,9 +4920,9 @@ const Range_calendar_next_button$1 = create_ssr_component(($$result, $$props, $$
   let $nextButton, $$unsubscribe_nextButton;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { nextButton }, getAttrs: getAttrs2 } = getCtx$3();
+  const { elements: { nextButton }, getAttrs } = getCtx$1();
   $$unsubscribe_nextButton = subscribe(nextButton, (value) => $nextButton = value);
-  const attrs = getAttrs2("next-button");
+  const attrs = getAttrs("next-button");
   createDispatcher();
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
@@ -6826,9 +4939,9 @@ const Range_calendar_prev_button$1 = create_ssr_component(($$result, $$props, $$
   let $prevButton, $$unsubscribe_prevButton;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { prevButton }, getAttrs: getAttrs2 } = getCtx$3();
+  const { elements: { prevButton }, getAttrs } = getCtx$1();
   $$unsubscribe_prevButton = subscribe(prevButton, (value) => $prevButton = value);
-  const attrs = getAttrs2("prev-button");
+  const attrs = getAttrs("prev-button");
   createDispatcher();
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
@@ -6838,385 +4951,6 @@ const Range_calendar_prev_button$1 = create_ssr_component(($$result, $$props, $$
   }
   $$unsubscribe_prevButton();
   return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-function getSelectData() {
-  const NAME2 = "select";
-  const GROUP_NAME2 = "select-group";
-  const ITEM_NAME = "select-item";
-  const PARTS2 = [
-    "arrow",
-    "content",
-    "group",
-    "item",
-    "indicator",
-    "input",
-    "label",
-    "trigger",
-    "value"
-  ];
-  return {
-    NAME: NAME2,
-    GROUP_NAME: GROUP_NAME2,
-    ITEM_NAME,
-    PARTS: PARTS2
-  };
-}
-function getCtx$2() {
-  const { NAME: NAME2 } = getSelectData();
-  return getContext(NAME2);
-}
-function setCtx$1(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getSelectData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const select = {
-    ...createSelect({ ...removeUndefined$1(props), forceVisible: true }),
-    getAttrs: getAttrs2
-  };
-  setContext(NAME2, select);
-  return {
-    ...select,
-    updateOption: getOptionUpdater(select.options)
-  };
-}
-function setItemCtx(value) {
-  const { ITEM_NAME } = getSelectData();
-  const select = getCtx$2();
-  setContext(ITEM_NAME, value);
-  return select;
-}
-function getItemIndicator() {
-  const { ITEM_NAME } = getSelectData();
-  const { helpers: { isSelected }, getAttrs: getAttrs2 } = getCtx$2();
-  const value = getContext(ITEM_NAME);
-  return {
-    value,
-    isSelected,
-    getAttrs: getAttrs2
-  };
-}
-function updatePositioning(props) {
-  const defaultPlacement = {
-    side: "bottom",
-    align: "center",
-    sameWidth: true
-  };
-  const withDefaults = { ...defaultPlacement, ...props };
-  const { options: { positioning } } = getCtx$2();
-  const updater = getPositioningUpdater(positioning);
-  updater(withDefaults);
-}
-const Select = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $idValues, $$unsubscribe_idValues;
-  let { required = void 0 } = $$props;
-  let { disabled = void 0 } = $$props;
-  let { preventScroll = void 0 } = $$props;
-  let { loop = void 0 } = $$props;
-  let { closeOnEscape = void 0 } = $$props;
-  let { closeOnOutsideClick = void 0 } = $$props;
-  let { portal = void 0 } = $$props;
-  let { name: name2 = void 0 } = $$props;
-  let { multiple = false } = $$props;
-  let { selected = void 0 } = $$props;
-  let { onSelectedChange = void 0 } = $$props;
-  let { open = void 0 } = $$props;
-  let { onOpenChange = void 0 } = $$props;
-  let { items = [] } = $$props;
-  let { onOutsideClick = void 0 } = $$props;
-  let { typeahead = void 0 } = $$props;
-  const { states: { open: localOpen, selected: localSelected }, updateOption, ids } = setCtx$1({
-    required,
-    disabled,
-    preventScroll,
-    loop,
-    closeOnEscape,
-    closeOnOutsideClick,
-    portal,
-    name: name2,
-    onOutsideClick,
-    multiple,
-    forceVisible: true,
-    defaultSelected: Array.isArray(selected) ? [...selected] : selected,
-    defaultOpen: open,
-    onSelectedChange: ({ next: next2 }) => {
-      if (Array.isArray(next2)) {
-        if (!Array.isArray(selected) || !arraysAreEqual(selected, next2)) {
-          onSelectedChange?.(next2);
-          selected = next2;
-          return next2;
-        }
-        return next2;
-      }
-      if (selected !== next2) {
-        onSelectedChange?.(next2);
-        selected = next2;
-      }
-      return next2;
-    },
-    onOpenChange: ({ next: next2 }) => {
-      if (open !== next2) {
-        onOpenChange?.(next2);
-        open = next2;
-      }
-      return next2;
-    },
-    items,
-    typeahead
-  });
-  const idValues = derived([ids.menu, ids.trigger, ids.label], ([$menuId, $triggerId, $labelId]) => ({
-    menu: $menuId,
-    trigger: $triggerId,
-    label: $labelId
-  }));
-  $$unsubscribe_idValues = subscribe(idValues, (value) => $idValues = value);
-  if ($$props.required === void 0 && $$bindings.required && required !== void 0) $$bindings.required(required);
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.preventScroll === void 0 && $$bindings.preventScroll && preventScroll !== void 0) $$bindings.preventScroll(preventScroll);
-  if ($$props.loop === void 0 && $$bindings.loop && loop !== void 0) $$bindings.loop(loop);
-  if ($$props.closeOnEscape === void 0 && $$bindings.closeOnEscape && closeOnEscape !== void 0) $$bindings.closeOnEscape(closeOnEscape);
-  if ($$props.closeOnOutsideClick === void 0 && $$bindings.closeOnOutsideClick && closeOnOutsideClick !== void 0) $$bindings.closeOnOutsideClick(closeOnOutsideClick);
-  if ($$props.portal === void 0 && $$bindings.portal && portal !== void 0) $$bindings.portal(portal);
-  if ($$props.name === void 0 && $$bindings.name && name2 !== void 0) $$bindings.name(name2);
-  if ($$props.multiple === void 0 && $$bindings.multiple && multiple !== void 0) $$bindings.multiple(multiple);
-  if ($$props.selected === void 0 && $$bindings.selected && selected !== void 0) $$bindings.selected(selected);
-  if ($$props.onSelectedChange === void 0 && $$bindings.onSelectedChange && onSelectedChange !== void 0) $$bindings.onSelectedChange(onSelectedChange);
-  if ($$props.open === void 0 && $$bindings.open && open !== void 0) $$bindings.open(open);
-  if ($$props.onOpenChange === void 0 && $$bindings.onOpenChange && onOpenChange !== void 0) $$bindings.onOpenChange(onOpenChange);
-  if ($$props.items === void 0 && $$bindings.items && items !== void 0) $$bindings.items(items);
-  if ($$props.onOutsideClick === void 0 && $$bindings.onOutsideClick && onOutsideClick !== void 0) $$bindings.onOutsideClick(onOutsideClick);
-  if ($$props.typeahead === void 0 && $$bindings.typeahead && typeahead !== void 0) $$bindings.typeahead(typeahead);
-  open !== void 0 && localOpen.set(open);
-  selected !== void 0 && localSelected.set(Array.isArray(selected) ? [...selected] : selected);
-  {
-    updateOption("required", required);
-  }
-  {
-    updateOption("disabled", disabled);
-  }
-  {
-    updateOption("preventScroll", preventScroll);
-  }
-  {
-    updateOption("loop", loop);
-  }
-  {
-    updateOption("closeOnEscape", closeOnEscape);
-  }
-  {
-    updateOption("closeOnOutsideClick", closeOnOutsideClick);
-  }
-  {
-    updateOption("portal", portal);
-  }
-  {
-    updateOption("name", name2);
-  }
-  {
-    updateOption("multiple", multiple);
-  }
-  {
-    updateOption("onOutsideClick", onOutsideClick);
-  }
-  {
-    updateOption("typeahead", typeahead);
-  }
-  $$unsubscribe_idValues();
-  return `${slots.default ? slots.default({ ids: $idValues }) : ``}`;
-});
-const Select_content$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "transition",
-    "transitionConfig",
-    "inTransition",
-    "inTransitionConfig",
-    "outTransition",
-    "outTransitionConfig",
-    "asChild",
-    "id",
-    "side",
-    "align",
-    "sideOffset",
-    "alignOffset",
-    "collisionPadding",
-    "avoidCollisions",
-    "collisionBoundary",
-    "sameWidth",
-    "fitViewport",
-    "strategy",
-    "overlap",
-    "el"
-  ]);
-  let $open, $$unsubscribe_open;
-  let $menu, $$unsubscribe_menu;
-  let { transition = void 0 } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  let { inTransition = void 0 } = $$props;
-  let { inTransitionConfig = void 0 } = $$props;
-  let { outTransition = void 0 } = $$props;
-  let { outTransitionConfig = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { side = "bottom" } = $$props;
-  let { align = "center" } = $$props;
-  let { sideOffset = 0 } = $$props;
-  let { alignOffset = 0 } = $$props;
-  let { collisionPadding = 8 } = $$props;
-  let { avoidCollisions = true } = $$props;
-  let { collisionBoundary = void 0 } = $$props;
-  let { sameWidth = true } = $$props;
-  let { fitViewport = false } = $$props;
-  let { strategy = "absolute" } = $$props;
-  let { overlap = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { menu }, states: { open }, ids, getAttrs: getAttrs2 } = getCtx$2();
-  $$unsubscribe_menu = subscribe(menu, (value) => $menu = value);
-  $$unsubscribe_open = subscribe(open, (value) => $open = value);
-  createDispatcher();
-  const attrs = getAttrs2("content");
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
-  if ($$props.inTransitionConfig === void 0 && $$bindings.inTransitionConfig && inTransitionConfig !== void 0) $$bindings.inTransitionConfig(inTransitionConfig);
-  if ($$props.outTransition === void 0 && $$bindings.outTransition && outTransition !== void 0) $$bindings.outTransition(outTransition);
-  if ($$props.outTransitionConfig === void 0 && $$bindings.outTransitionConfig && outTransitionConfig !== void 0) $$bindings.outTransitionConfig(outTransitionConfig);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.side === void 0 && $$bindings.side && side !== void 0) $$bindings.side(side);
-  if ($$props.align === void 0 && $$bindings.align && align !== void 0) $$bindings.align(align);
-  if ($$props.sideOffset === void 0 && $$bindings.sideOffset && sideOffset !== void 0) $$bindings.sideOffset(sideOffset);
-  if ($$props.alignOffset === void 0 && $$bindings.alignOffset && alignOffset !== void 0) $$bindings.alignOffset(alignOffset);
-  if ($$props.collisionPadding === void 0 && $$bindings.collisionPadding && collisionPadding !== void 0) $$bindings.collisionPadding(collisionPadding);
-  if ($$props.avoidCollisions === void 0 && $$bindings.avoidCollisions && avoidCollisions !== void 0) $$bindings.avoidCollisions(avoidCollisions);
-  if ($$props.collisionBoundary === void 0 && $$bindings.collisionBoundary && collisionBoundary !== void 0) $$bindings.collisionBoundary(collisionBoundary);
-  if ($$props.sameWidth === void 0 && $$bindings.sameWidth && sameWidth !== void 0) $$bindings.sameWidth(sameWidth);
-  if ($$props.fitViewport === void 0 && $$bindings.fitViewport && fitViewport !== void 0) $$bindings.fitViewport(fitViewport);
-  if ($$props.strategy === void 0 && $$bindings.strategy && strategy !== void 0) $$bindings.strategy(strategy);
-  if ($$props.overlap === void 0 && $$bindings.overlap && overlap !== void 0) $$bindings.overlap(overlap);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.menu.set(id);
-    }
-  }
-  builder = $menu;
-  {
-    Object.assign(builder, attrs);
-  }
-  {
-    if ($open) {
-      updatePositioning({
-        side,
-        align,
-        sideOffset,
-        alignOffset,
-        collisionPadding,
-        avoidCollisions,
-        collisionBoundary,
-        sameWidth,
-        fitViewport,
-        strategy,
-        overlap
-      });
-    }
-  }
-  $$unsubscribe_open();
-  $$unsubscribe_menu();
-  return ` ${asChild && $open ? `${slots.default ? slots.default({ builder }) : ``}` : `${transition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && outTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${outTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${$open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : ``}`}`}`}`}`}`;
-});
-const Select_item$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let isSelected;
-  let $$restProps = compute_rest_props($$props, ["value", "disabled", "label", "asChild", "el"]);
-  let $isSelectedStore, $$unsubscribe_isSelectedStore;
-  let $item, $$unsubscribe_item;
-  let { value } = $$props;
-  let { disabled = void 0 } = $$props;
-  let { label = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { option: item }, helpers: { isSelected: isSelectedStore }, getAttrs: getAttrs2 } = setItemCtx(value);
-  $$unsubscribe_item = subscribe(item, (value2) => $item = value2);
-  $$unsubscribe_isSelectedStore = subscribe(isSelectedStore, (value2) => $isSelectedStore = value2);
-  createDispatcher();
-  const attrs = getAttrs2("item");
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.label === void 0 && $$bindings.label && label !== void 0) $$bindings.label(label);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $item({ value, disabled, label });
-  {
-    Object.assign(builder, attrs);
-  }
-  isSelected = $isSelectedStore(value);
-  $$unsubscribe_isSelectedStore();
-  $$unsubscribe_item();
-  return ` ${asChild ? `${slots.default ? slots.default({ builder, isSelected }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder, isSelected }) : ` ${escape(label || value)} `}</div>`}`;
-});
-const Select_item_indicator = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $isSelected, $$unsubscribe_isSelected;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { isSelected, value, getAttrs: getAttrs2 } = getItemIndicator();
-  $$unsubscribe_isSelected = subscribe(isSelected, (value2) => $isSelected = value2);
-  const attrs = getAttrs2("indicator");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  $$unsubscribe_isSelected();
-  return `${asChild ? `${slots.default ? slots.default({ attrs, isSelected: $isSelected(value) }) : ``}` : `<div${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${$isSelected(value) ? `${slots.default ? slots.default({ attrs, isSelected: $isSelected(value) }) : ``}` : ``}</div>`}`;
-});
-const Select_trigger$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "id", "el"]);
-  let $trigger, $$unsubscribe_trigger;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { trigger }, ids, getAttrs: getAttrs2 } = getCtx$2();
-  $$unsubscribe_trigger = subscribe(trigger, (value) => $trigger = value);
-  createDispatcher();
-  const attrs = getAttrs2("trigger");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.trigger.set(id);
-    }
-  }
-  builder = $trigger;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_trigger();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-const Select_value = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let label;
-  let $$restProps = compute_rest_props($$props, ["placeholder", "asChild", "el"]);
-  let $selectedLabel, $$unsubscribe_selectedLabel;
-  let { placeholder = "" } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { states: { selectedLabel }, getAttrs: getAttrs2 } = getCtx$2();
-  $$unsubscribe_selectedLabel = subscribe(selectedLabel, (value) => $selectedLabel = value);
-  const attrs = getAttrs2("value");
-  if ($$props.placeholder === void 0 && $$bindings.placeholder && placeholder !== void 0) $$bindings.placeholder(placeholder);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  label = $selectedLabel;
-  $$unsubscribe_selectedLabel();
-  return `${asChild ? `${slots.default ? slots.default({ label, attrs }) : ``}` : `<span${spread(
-    [
-      escape_object($$restProps),
-      escape_object(attrs),
-      {
-        "data-placeholder": escape_attribute_value(!label ? "" : void 0)
-      }
-    ],
-    {}
-  )}${add_attribute("this", el, 0)}>${escape(label || placeholder)}</span>`}`;
 });
 function getTabsData() {
   const NAME2 = "tabs";
@@ -7228,15 +4962,15 @@ function getTabsData() {
 }
 function setCtx(props) {
   const { NAME: NAME2, PARTS: PARTS2 } = getTabsData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const tabs = { ...createTabs(removeUndefined$1(props)), getAttrs: getAttrs2 };
+  const getAttrs = createBitAttrs$1(NAME2, PARTS2);
+  const tabs = { ...createTabs(removeUndefined(props)), getAttrs };
   setContext(NAME2, tabs);
   return {
     ...tabs,
     updateOption: getOptionUpdater(tabs.options)
   };
 }
-function getCtx$1() {
+function getCtx() {
   const { NAME: NAME2 } = getTabsData();
   return getContext(NAME2);
 }
@@ -7262,7 +4996,7 @@ const Tabs = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { onValueChange = void 0 } = $$props;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { root }, states: { value: localValue }, updateOption, getAttrs: getAttrs2 } = setCtx({
+  const { elements: { root }, states: { value: localValue }, updateOption, getAttrs } = setCtx({
     orientation,
     activateOnFocus,
     loop,
@@ -7278,7 +5012,7 @@ const Tabs = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   });
   $$unsubscribe_root = subscribe(root, (value2) => $root = value2);
   $$unsubscribe_localValue = subscribe(localValue, (value2) => $localValue = value2);
-  const attrs = getAttrs2("root");
+  const attrs = getAttrs("root");
   if ($$props.orientation === void 0 && $$bindings.orientation && orientation !== void 0) $$bindings.orientation(orientation);
   if ($$props.activateOnFocus === void 0 && $$bindings.activateOnFocus && activateOnFocus !== void 0) $$bindings.activateOnFocus(activateOnFocus);
   if ($$props.loop === void 0 && $$bindings.loop && loop !== void 0) $$bindings.loop(loop);
@@ -7315,9 +5049,9 @@ const Tabs_content$1 = create_ssr_component(($$result, $$props, $$bindings, slot
   let { value } = $$props;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { content }, getAttrs: getAttrs2 } = getCtx$1();
+  const { elements: { content }, getAttrs } = getCtx();
   $$unsubscribe_content = subscribe(content, (value2) => $content = value2);
-  const attrs = getAttrs2("content");
+  const attrs = getAttrs("content");
   if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
@@ -7334,9 +5068,9 @@ const Tabs_list$1 = create_ssr_component(($$result, $$props, $$bindings, slots) 
   let $list, $$unsubscribe_list;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { list }, getAttrs: getAttrs2 } = getCtx$1();
+  const { elements: { list }, getAttrs } = getCtx();
   $$unsubscribe_list = subscribe(list, (value) => $list = value);
-  const attrs = getAttrs2("list");
+  const attrs = getAttrs("list");
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
   if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
   builder = $list;
@@ -7354,10 +5088,10 @@ const Tabs_trigger$1 = create_ssr_component(($$result, $$props, $$bindings, slot
   let { disabled = void 0 } = $$props;
   let { asChild = false } = $$props;
   let { el = void 0 } = $$props;
-  const { elements: { trigger }, getAttrs: getAttrs2 } = getCtx$1();
+  const { elements: { trigger }, getAttrs } = getCtx();
   $$unsubscribe_trigger = subscribe(trigger, (value2) => $trigger = value2);
   createDispatcher();
-  const attrs = getAttrs2("trigger");
+  const attrs = getAttrs("trigger");
   if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
   if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
   if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
@@ -7436,87 +5170,6 @@ const Avatar_fallback = create_ssr_component(($$result, $$props, $$bindings, slo
       }
     }
   )}`;
-});
-const Recent_sales = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<div class="space-y-8"><div class="flex items-center">${validate_component(Avatar, "Avatar.Root").$$render($$result, { class: "h-9 w-9" }, {}, {
-    default: () => {
-      return `${validate_component(Avatar_image, "Avatar.Image").$$render($$result, { src: "/avatars/01.png", alt: "Avatar" }, {}, {})} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
-        default: () => {
-          return `OM`;
-        }
-      })}`;
-    }
-  })} <div class="ml-4 space-y-1" data-svelte-h="svelte-1hrya11"><p class="text-sm font-medium leading-none">Olivia Martin</p> <p class="text-muted-foreground text-sm">olivia.martin@email.com</p></div> <div class="ml-auto font-medium" data-svelte-h="svelte-aab06k">+$1,999.00</div></div> <div class="flex items-center">${validate_component(Avatar, "Avatar.Root").$$render(
-    $$result,
-    {
-      class: "flex h-9 w-9 items-center justify-center space-y-0 border"
-    },
-    {},
-    {
-      default: () => {
-        return `${validate_component(Avatar_image, "Avatar.Image").$$render($$result, { src: "/avatars/02.png", alt: "Avatar" }, {}, {})} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
-          default: () => {
-            return `JL`;
-          }
-        })}`;
-      }
-    }
-  )} <div class="ml-4 space-y-1" data-svelte-h="svelte-zz4wp1"><p class="text-sm font-medium leading-none">Jackson Lee</p> <p class="text-muted-foreground text-sm">jackson.lee@email.com</p></div> <div class="ml-auto font-medium" data-svelte-h="svelte-pgiqn0">+$39.00</div></div> <div class="flex items-center">${validate_component(Avatar, "Avatar.Root").$$render($$result, { class: "h-9 w-9" }, {}, {
-    default: () => {
-      return `${validate_component(Avatar_image, "Avatar.Image").$$render($$result, { src: "/avatars/03.png", alt: "Avatar" }, {}, {})} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
-        default: () => {
-          return `IN`;
-        }
-      })}`;
-    }
-  })} <div class="ml-4 space-y-1" data-svelte-h="svelte-125c551"><p class="text-sm font-medium leading-none">Isabella Nguyen</p> <p class="text-muted-foreground text-sm">isabella.nguyen@email.com</p></div> <div class="ml-auto font-medium" data-svelte-h="svelte-19su8uy">+$299.00</div></div> <div class="flex items-center">${validate_component(Avatar, "Avatar.Root").$$render($$result, { class: "h-9 w-9" }, {}, {
-    default: () => {
-      return `${validate_component(Avatar_image, "Avatar.Image").$$render($$result, { src: "/avatars/04.png", alt: "Avatar" }, {}, {})} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
-        default: () => {
-          return `WK`;
-        }
-      })}`;
-    }
-  })} <div class="ml-4 space-y-1" data-svelte-h="svelte-1qfl5gr"><p class="text-sm font-medium leading-none">William Kim</p> <p class="text-muted-foreground text-sm">will@email.com</p></div> <div class="ml-auto font-medium" data-svelte-h="svelte-1663106">+$99.00</div></div> <div class="flex items-center">${validate_component(Avatar, "Avatar.Root").$$render($$result, { class: "h-9 w-9" }, {}, {
-    default: () => {
-      return `${validate_component(Avatar_image, "Avatar.Image").$$render($$result, { src: "/avatars/05.png", alt: "Avatar" }, {}, {})} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
-        default: () => {
-          return `SD`;
-        }
-      })}`;
-    }
-  })} <div class="ml-4 space-y-1" data-svelte-h="svelte-4mtbd5"><p class="text-sm font-medium leading-none">Sofia Davis</p> <p class="text-muted-foreground text-sm">sofia.davis@email.com</p></div> <div class="ml-auto font-medium" data-svelte-h="svelte-pgiqn0">+$39.00</div></div></div>`;
-});
-const Input = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value", "readonly"]);
-  let { class: className = void 0 } = $$props;
-  let { value = void 0 } = $$props;
-  let { readonly: readonly2 = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.readonly === void 0 && $$bindings.readonly && readonly2 !== void 0) $$bindings.readonly(readonly2);
-  return `<input${spread(
-    [
-      {
-        class: escape_attribute_value(cn("border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className))
-      },
-      { readonly: readonly2 || null },
-      escape_object($$restProps)
-    ],
-    {}
-  )}${add_attribute("value", value, 0)}>`;
-});
-const Search$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<div>${validate_component(Input, "Input").$$render(
-    $$result,
-    {
-      type: "search",
-      placeholder: "Search...",
-      class: "h-9 md:w-[100px] lg:w-[300px]"
-    },
-    {},
-    {}
-  )}</div>`;
 });
 const Dropdown_menu_item = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["class", "inset"]);
@@ -7633,71 +5286,13 @@ const Chevron_right = create_ssr_component(($$result, $$props, $$bindings, slots
     }
   })}`;
 });
-const Check$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [["path", { "d": "M20 6 9 17l-5-5" }]];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "check" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Root$4 = Menu;
+const Root$2 = Menu;
 const Trigger$1 = Menu_trigger;
-const Group = Menu_group;
-const Button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "variant", "size", "builders"]);
-  let { class: className = void 0 } = $$props;
-  let { variant = "default" } = $$props;
-  let { size: size2 = "default" } = $$props;
-  let { builders = [] } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.variant === void 0 && $$bindings.variant && variant !== void 0) $$bindings.variant(variant);
-  if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
-  if ($$props.builders === void 0 && $$bindings.builders && builders !== void 0) $$bindings.builders(builders);
-  return `${validate_component(Button$1, "ButtonPrimitive.Root").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { builders },
-      {
-        class: cn(buttonVariants({ variant, size: size2, className }))
-      },
-      { type: "button" },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const buttonVariants = tv({
-  base: "ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-  variants: {
-    variant: {
-      default: "bg-primary text-primary-foreground hover:bg-primary/90",
-      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-      outline: "border-input bg-background hover:bg-accent hover:text-accent-foreground border",
-      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-      ghost: "hover:bg-accent hover:text-accent-foreground",
-      link: "text-primary underline-offset-4 hover:underline"
-    },
-    size: {
-      default: "h-10 px-4 py-2",
-      sm: "h-9 rounded-md px-3",
-      lg: "h-11 rounded-md px-8",
-      icon: "h-10 w-10"
-    }
-  },
-  defaultVariants: {
-    variant: "default",
-    size: "default"
-  }
-});
 const User_nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Root$4, "DropdownMenu.Root").$$render($$result, {}, {}, {
+  let $user, $$unsubscribe_user;
+  $$unsubscribe_user = subscribe(user, (value) => $user = value);
+  $$unsubscribe_user();
+  return `${validate_component(Root$2, "DropdownMenu.Root").$$render($$result, {}, {}, {
     default: () => {
       return `${validate_component(Trigger$1, "DropdownMenu.Trigger").$$render($$result, { asChild: true }, {}, {
         default: ({ builder }) => {
@@ -7713,9 +5308,9 @@ const User_nav = create_ssr_component(($$result, $$props, $$bindings, slots) => 
               default: () => {
                 return `${validate_component(Avatar, "Avatar.Root").$$render($$result, { class: "h-8 w-8" }, {}, {
                   default: () => {
-                    return `${validate_component(Avatar_image, "Avatar.Image").$$render($$result, { src: "/avatars/01.png", alt: "@shadcn" }, {}, {})} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
+                    return `${validate_component(Avatar_image, "Avatar.Image").$$render($$result, { src: "avatar.png", alt: "logout" }, {}, {})} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
                       default: () => {
-                        return `SC`;
+                        return `Logout`;
                       }
                     })}`;
                   }
@@ -7728,42 +5323,7 @@ const User_nav = create_ssr_component(($$result, $$props, $$bindings, slots) => 
         default: () => {
           return `${validate_component(Dropdown_menu_label, "DropdownMenu.Label").$$render($$result, { class: "font-normal" }, {}, {
             default: () => {
-              return `<div class="flex flex-col space-y-1" data-svelte-h="svelte-14qephl"><p class="text-sm font-medium leading-none">shadcn</p> <p class="text-muted-foreground text-xs leading-none">m@example.com</p></div>`;
-            }
-          })} ${validate_component(Dropdown_menu_separator, "DropdownMenu.Separator").$$render($$result, {}, {}, {})} ${validate_component(Group, "DropdownMenu.Group").$$render($$result, {}, {}, {
-            default: () => {
-              return `${validate_component(Dropdown_menu_item, "DropdownMenu.Item").$$render($$result, {}, {}, {
-                default: () => {
-                  return `Profile
-				${validate_component(Dropdown_menu_shortcut, "DropdownMenu.Shortcut").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `⇧⌘P`;
-                    }
-                  })}`;
-                }
-              })} ${validate_component(Dropdown_menu_item, "DropdownMenu.Item").$$render($$result, {}, {}, {
-                default: () => {
-                  return `Billing
-				${validate_component(Dropdown_menu_shortcut, "DropdownMenu.Shortcut").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `⌘B`;
-                    }
-                  })}`;
-                }
-              })} ${validate_component(Dropdown_menu_item, "DropdownMenu.Item").$$render($$result, {}, {}, {
-                default: () => {
-                  return `Settings
-				${validate_component(Dropdown_menu_shortcut, "DropdownMenu.Shortcut").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `⌘S`;
-                    }
-                  })}`;
-                }
-              })} ${validate_component(Dropdown_menu_item, "DropdownMenu.Item").$$render($$result, {}, {}, {
-                default: () => {
-                  return `New Team`;
-                }
-              })}`;
+              return `<div class="flex flex-col space-y-1"><p class="text-sm font-medium leading-none">${escape($user.displayName || "Usuario")}</p> <p class="text-muted-foreground text-xs leading-none">${escape($user.email)}</p></div>`;
             }
           })} ${validate_component(Dropdown_menu_separator, "DropdownMenu.Separator").$$render($$result, {}, {}, {})} ${validate_component(Dropdown_menu_item, "DropdownMenu.Item").$$render($$result, {}, {}, {
             default: () => {
@@ -7780,810 +5340,16 @@ const User_nav = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     }
   })}`;
 });
-const CaretSort = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["size", "role", "color", "ariaLabel", "withEvents"]);
-  const ctx = getContext("iconCtx") ?? {};
-  let { size: size2 = ctx.size || "24" } = $$props;
-  let { role = ctx.role || "img" } = $$props;
-  let { color = ctx.color || "currentColor" } = $$props;
-  let { ariaLabel = "caret sort," } = $$props;
-  let { withEvents = false } = $$props;
-  if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
-  if ($$props.role === void 0 && $$bindings.role && role !== void 0) $$bindings.role(role);
-  if ($$props.color === void 0 && $$bindings.color && color !== void 0) $$bindings.color(color);
-  if ($$props.ariaLabel === void 0 && $$bindings.ariaLabel && ariaLabel !== void 0) $$bindings.ariaLabel(ariaLabel);
-  if ($$props.withEvents === void 0 && $$bindings.withEvents && withEvents !== void 0) $$bindings.withEvents(withEvents);
-  return `${withEvents ? `<svg${spread(
-    [
-      { width: escape_attribute_value(size2) },
-      { height: escape_attribute_value(size2) },
-      escape_object($$restProps),
-      { role: escape_attribute_value(role) },
-      {
-        "aria-label": escape_attribute_value(ariaLabel)
-      },
-      { viewBox: "0 0 15 15" },
-      { fill: escape_attribute_value(color) },
-      { xmlns: "http://www.w3.org/2000/svg" }
-    ],
-    {}
-  )}><path fill-rule="evenodd" clip-rule="evenodd" d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z" fill="currentColor"></path></svg>` : `<svg${spread(
-    [
-      { width: escape_attribute_value(size2) },
-      { height: escape_attribute_value(size2) },
-      escape_object($$restProps),
-      { role: escape_attribute_value(role) },
-      {
-        "aria-label": escape_attribute_value(ariaLabel)
-      },
-      { viewBox: "0 0 15 15" },
-      { fill: escape_attribute_value(color) },
-      { xmlns: "http://www.w3.org/2000/svg" }
-    ],
-    {}
-  )}><path fill-rule="evenodd" clip-rule="evenodd" d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z" fill="currentColor"></path></svg>`} `;
-});
-const Check = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["size", "role", "color", "ariaLabel", "withEvents"]);
-  const ctx = getContext("iconCtx") ?? {};
-  let { size: size2 = ctx.size || "24" } = $$props;
-  let { role = ctx.role || "img" } = $$props;
-  let { color = ctx.color || "currentColor" } = $$props;
-  let { ariaLabel = "check," } = $$props;
-  let { withEvents = false } = $$props;
-  if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
-  if ($$props.role === void 0 && $$bindings.role && role !== void 0) $$bindings.role(role);
-  if ($$props.color === void 0 && $$bindings.color && color !== void 0) $$bindings.color(color);
-  if ($$props.ariaLabel === void 0 && $$bindings.ariaLabel && ariaLabel !== void 0) $$bindings.ariaLabel(ariaLabel);
-  if ($$props.withEvents === void 0 && $$bindings.withEvents && withEvents !== void 0) $$bindings.withEvents(withEvents);
-  return `${withEvents ? `<svg${spread(
-    [
-      { width: escape_attribute_value(size2) },
-      { height: escape_attribute_value(size2) },
-      escape_object($$restProps),
-      { role: escape_attribute_value(role) },
-      {
-        "aria-label": escape_attribute_value(ariaLabel)
-      },
-      { viewBox: "0 0 15 15" },
-      { fill: escape_attribute_value(color) },
-      { xmlns: "http://www.w3.org/2000/svg" }
-    ],
-    {}
-  )}><path fill-rule="evenodd" clip-rule="evenodd" d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z" fill="currentColor"></path></svg>` : `<svg${spread(
-    [
-      { width: escape_attribute_value(size2) },
-      { height: escape_attribute_value(size2) },
-      escape_object($$restProps),
-      { role: escape_attribute_value(role) },
-      {
-        "aria-label": escape_attribute_value(ariaLabel)
-      },
-      { viewBox: "0 0 15 15" },
-      { fill: escape_attribute_value(color) },
-      { xmlns: "http://www.w3.org/2000/svg" }
-    ],
-    {}
-  )}><path fill-rule="evenodd" clip-rule="evenodd" d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z" fill="currentColor"></path></svg>`} `;
-});
-const PlusCircled = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["size", "role", "color", "ariaLabel", "withEvents"]);
-  const ctx = getContext("iconCtx") ?? {};
-  let { size: size2 = ctx.size || "24" } = $$props;
-  let { role = ctx.role || "img" } = $$props;
-  let { color = ctx.color || "currentColor" } = $$props;
-  let { ariaLabel = "plus circled," } = $$props;
-  let { withEvents = false } = $$props;
-  if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
-  if ($$props.role === void 0 && $$bindings.role && role !== void 0) $$bindings.role(role);
-  if ($$props.color === void 0 && $$bindings.color && color !== void 0) $$bindings.color(color);
-  if ($$props.ariaLabel === void 0 && $$bindings.ariaLabel && ariaLabel !== void 0) $$bindings.ariaLabel(ariaLabel);
-  if ($$props.withEvents === void 0 && $$bindings.withEvents && withEvents !== void 0) $$bindings.withEvents(withEvents);
-  return `${withEvents ? `<svg${spread(
-    [
-      { width: escape_attribute_value(size2) },
-      { height: escape_attribute_value(size2) },
-      escape_object($$restProps),
-      { role: escape_attribute_value(role) },
-      {
-        "aria-label": escape_attribute_value(ariaLabel)
-      },
-      { viewBox: "0 0 15 15" },
-      { fill: escape_attribute_value(color) },
-      { xmlns: "http://www.w3.org/2000/svg" }
-    ],
-    {}
-  )}><path fill-rule="evenodd" clip-rule="evenodd" d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z" fill="currentColor"></path></svg>` : `<svg${spread(
-    [
-      { width: escape_attribute_value(size2) },
-      { height: escape_attribute_value(size2) },
-      escape_object($$restProps),
-      { role: escape_attribute_value(role) },
-      {
-        "aria-label": escape_attribute_value(ariaLabel)
-      },
-      { viewBox: "0 0 15 15" },
-      { fill: escape_attribute_value(color) },
-      { xmlns: "http://www.w3.org/2000/svg" }
-    ],
-    {}
-  )}><path fill-rule="evenodd" clip-rule="evenodd" d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z" fill="currentColor"></path></svg>`} `;
-});
-const SCORE_CONTINUE_MATCH = 1, SCORE_SPACE_WORD_JUMP = 0.9, SCORE_NON_SPACE_WORD_JUMP = 0.8, SCORE_CHARACTER_JUMP = 0.17, SCORE_TRANSPOSITION = 0.1, PENALTY_SKIPPED = 0.999, PENALTY_CASE_MISMATCH = 0.9999, PENALTY_NOT_COMPLETE = 0.99;
-const IS_GAP_REGEXP = /[\\/_+.#"@[({&]/, COUNT_GAPS_REGEXP = /[\\/_+.#"@[({&]/g, IS_SPACE_REGEXP = /[\s-]/, COUNT_SPACE_REGEXP = /[\s-]/g;
-function commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, stringIndex, abbreviationIndex, memoizedResults) {
-  if (abbreviationIndex === abbreviation.length) {
-    if (stringIndex === string.length) {
-      return SCORE_CONTINUE_MATCH;
-    }
-    return PENALTY_NOT_COMPLETE;
-  }
-  const memoizeKey = `${stringIndex},${abbreviationIndex}`;
-  if (memoizedResults[memoizeKey] !== void 0) {
-    return memoizedResults[memoizeKey];
-  }
-  const abbreviationChar = lowerAbbreviation.charAt(abbreviationIndex);
-  let index = lowerString.indexOf(abbreviationChar, stringIndex);
-  let highScore = 0;
-  let score, transposedScore, wordBreaks, spaceBreaks;
-  while (index >= 0) {
-    score = commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, index + 1, abbreviationIndex + 1, memoizedResults);
-    if (score > highScore) {
-      if (index === stringIndex) {
-        score *= SCORE_CONTINUE_MATCH;
-      } else if (IS_GAP_REGEXP.test(string.charAt(index - 1))) {
-        score *= SCORE_NON_SPACE_WORD_JUMP;
-        wordBreaks = string.slice(stringIndex, index - 1).match(COUNT_GAPS_REGEXP);
-        if (wordBreaks && stringIndex > 0) {
-          score *= Math.pow(PENALTY_SKIPPED, wordBreaks.length);
-        }
-      } else if (IS_SPACE_REGEXP.test(string.charAt(index - 1))) {
-        score *= SCORE_SPACE_WORD_JUMP;
-        spaceBreaks = string.slice(stringIndex, index - 1).match(COUNT_SPACE_REGEXP);
-        if (spaceBreaks && stringIndex > 0) {
-          score *= Math.pow(PENALTY_SKIPPED, spaceBreaks.length);
-        }
-      } else {
-        score *= SCORE_CHARACTER_JUMP;
-        if (stringIndex > 0) {
-          score *= Math.pow(PENALTY_SKIPPED, index - stringIndex);
-        }
-      }
-      if (string.charAt(index) !== abbreviation.charAt(abbreviationIndex)) {
-        score *= PENALTY_CASE_MISMATCH;
-      }
-    }
-    if (score < SCORE_TRANSPOSITION && lowerString.charAt(index - 1) === lowerAbbreviation.charAt(abbreviationIndex + 1) || lowerAbbreviation.charAt(abbreviationIndex + 1) === lowerAbbreviation.charAt(abbreviationIndex) && // allow duplicate letters. Ref #7428
-    lowerString.charAt(index - 1) !== lowerAbbreviation.charAt(abbreviationIndex)) {
-      transposedScore = commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, index + 1, abbreviationIndex + 2, memoizedResults);
-      if (transposedScore * SCORE_TRANSPOSITION > score) {
-        score = transposedScore * SCORE_TRANSPOSITION;
-      }
-    }
-    if (score > highScore) {
-      highScore = score;
-    }
-    index = lowerString.indexOf(abbreviationChar, index + 1);
-  }
-  memoizedResults[memoizeKey] = highScore;
-  return highScore;
-}
-function formatInput(string) {
-  return string.toLowerCase().replace(COUNT_SPACE_REGEXP, " ");
-}
-function commandScore(string, abbreviation) {
-  return commandScoreInner(string, abbreviation, formatInput(string), formatInput(abbreviation), 0, 0, {});
-}
-const isBrowser = typeof document !== "undefined";
-function isHTMLElement(element) {
-  return element instanceof HTMLElement;
-}
-function isHTMLInputElement(element) {
-  return element instanceof HTMLInputElement;
-}
-function isUndefined(value) {
-  return value === void 0;
-}
 function generateId() {
   return nanoid(10);
 }
-const kbd$1 = {
-  ARROW_DOWN: "ArrowDown",
-  ARROW_UP: "ArrowUp",
-  END: "End",
-  ENTER: "Enter",
-  HOME: "Home"
-};
-function omit(obj, ...keys) {
-  const result = {};
-  for (const key of Object.keys(obj)) {
-    if (!keys.includes(key)) {
-      result[key] = obj[key];
-    }
-  }
-  return result;
-}
-function removeUndefined(obj) {
-  const result = {};
-  for (const key in obj) {
-    const value = obj[key];
-    if (value !== void 0) {
-      result[key] = value;
-    }
-  }
-  return result;
-}
-function toWritableStores(properties) {
-  const result = {};
-  Object.keys(properties).forEach((key) => {
-    const propertyKey = key;
-    const value = properties[propertyKey];
-    result[propertyKey] = writable(value);
-  });
-  return result;
-}
-function styleToString$2(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0)
-      return str;
-    return str + `${key}:${style[key]};`;
-  }, "");
-}
-const srOnlyStyles = {
-  position: "absolute",
-  width: "1px",
-  height: "1px",
-  padding: "0",
-  margin: "-1px",
-  overflow: "hidden",
-  clip: "rect(0, 0, 0, 0)",
-  whiteSpace: "nowrap",
-  borderWidth: "0"
-};
-function addEventListener$1(target, event, handler, options) {
-  const events = Array.isArray(event) ? event : [event];
-  events.forEach((_event) => target.addEventListener(_event, handler, options));
-  return () => {
-    events.forEach((_event) => target.removeEventListener(_event, handler, options));
-  };
-}
-function executeCallbacks(...callbacks) {
-  return (...args) => {
-    for (const callback of callbacks) {
-      if (typeof callback === "function") {
-        callback(...args);
-      }
-    }
-  };
-}
-const NAME$m = "Command";
-const STATE_NAME = "CommandState";
-const GROUP_NAME = "CommandGroup";
-const LIST_SELECTOR = `[data-cmdk-list-sizer]`;
-const GROUP_SELECTOR = `[data-cmdk-group]`;
-const GROUP_ITEMS_SELECTOR = `[data-cmdk-group-items]`;
-const GROUP_HEADING_SELECTOR = `[data-cmdk-group-heading]`;
-const ITEM_SELECTOR = `[data-cmdk-item]`;
-const VALID_ITEM_SELECTOR = `${ITEM_SELECTOR}:not([aria-disabled="true"])`;
-const VALUE_ATTR = `data-value`;
-const defaultFilter = (value, search) => commandScore(value, search);
-function getCtx() {
-  return getContext(NAME$m);
-}
-function getState() {
-  return getContext(STATE_NAME);
-}
-function createGroup(alwaysRender) {
-  const id = generateId();
-  setContext(GROUP_NAME, {
-    id,
-    alwaysRender: isUndefined(alwaysRender) ? false : alwaysRender
-  });
-  return { id };
-}
-function getGroup() {
-  const context = getContext(GROUP_NAME);
-  if (!context)
-    return void 0;
-  return context;
-}
-function createState(initialValues) {
-  const defaultState = {
-    search: "",
-    value: "",
-    filtered: {
-      count: 0,
-      items: /* @__PURE__ */ new Map(),
-      groups: /* @__PURE__ */ new Set()
-    }
-  };
-  const state = writable(initialValues ? { ...defaultState, ...removeUndefined(initialValues) } : defaultState);
-  return state;
-}
-const defaults = {
-  label: "Command menu",
-  shouldFilter: true,
-  loop: false,
-  onValueChange: void 0,
-  value: void 0,
-  filter: defaultFilter,
+({
   ids: {
     root: generateId(),
     list: generateId(),
     label: generateId(),
     input: generateId()
   }
-};
-function createCommand(props) {
-  const ids = {
-    root: generateId(),
-    list: generateId(),
-    label: generateId(),
-    input: generateId(),
-    ...props.ids
-  };
-  const withDefaults = {
-    ...defaults,
-    ...removeUndefined(props)
-  };
-  const state = props.state ?? createState({
-    value: withDefaults.value
-  });
-  const allItems = writable(/* @__PURE__ */ new Set());
-  const allGroups = writable(/* @__PURE__ */ new Map());
-  const allIds = writable(/* @__PURE__ */ new Map());
-  const commandEl = writable(null);
-  const options = toWritableStores(omit(withDefaults, "value", "ids"));
-  const { shouldFilter, loop, filter, label } = options;
-  const context = {
-    value: (id, value) => {
-      if (value !== get_store_value(allIds).get(id)) {
-        allIds.update(($allIds) => {
-          $allIds.set(id, value);
-          return $allIds;
-        });
-        state.update(($state) => {
-          $state.filtered.items.set(id, score(value, $state.search));
-          const sortedState = sort($state, get_store_value(shouldFilter));
-          return sortedState;
-        });
-      }
-    },
-    // Track item lifecycle (add/remove)
-    item: (id, groupId) => {
-      allItems.update(($allItems) => $allItems.add(id));
-      if (groupId) {
-        allGroups.update(($allGroups) => {
-          if (!$allGroups.has(groupId)) {
-            $allGroups.set(groupId, /* @__PURE__ */ new Set([id]));
-          } else {
-            $allGroups.get(groupId)?.add(id);
-          }
-          return $allGroups;
-        });
-      }
-      state.update(($state) => {
-        const $shouldFilter = get_store_value(shouldFilter);
-        const filteredState = filterItems($state, $shouldFilter);
-        const sortedState = sort(filteredState, $shouldFilter);
-        if (!sortedState.value) {
-          const value = selectFirstItem();
-          sortedState.value = value ?? "";
-        }
-        return sortedState;
-      });
-      return () => {
-        allIds.update(($allIds) => {
-          $allIds.delete(id);
-          return $allIds;
-        });
-        allItems.update(($allItems) => {
-          $allItems.delete(id);
-          return $allItems;
-        });
-        state.update(($state) => {
-          $state.filtered.items.delete(id);
-          const selectedItem = getSelectedItem();
-          const filteredState = filterItems($state);
-          if (selectedItem?.getAttribute("id") === id) {
-            filteredState.value = selectFirstItem() ?? "";
-          }
-          return $state;
-        });
-      };
-    },
-    group: (id) => {
-      allGroups.update(($allGroups) => {
-        if (!$allGroups.has(id)) {
-          $allGroups.set(id, /* @__PURE__ */ new Set());
-        }
-        return $allGroups;
-      });
-      return () => {
-        allIds.update(($allIds) => {
-          $allIds.delete(id);
-          return $allIds;
-        });
-        allGroups.update(($allGroups) => {
-          $allGroups.delete(id);
-          return $allGroups;
-        });
-      };
-    },
-    filter: () => {
-      return get_store_value(shouldFilter);
-    },
-    label: get_store_value(label) || props["aria-label"] || "",
-    commandEl,
-    ids,
-    updateState
-  };
-  function updateState(key, value, preventScroll) {
-    const $shouldFilter = get_store_value(shouldFilter);
-    state.update((curr) => {
-      if (Object.is(curr[key], value))
-        return curr;
-      curr[key] = value;
-      if (key === "search") {
-        const filteredState = filterItems(curr, $shouldFilter);
-        curr = filteredState;
-        const sortedState = sort(curr, $shouldFilter);
-        curr = sortedState;
-        tick().then(() => state.update((curr2) => {
-          curr2.value = selectFirstItem() ?? "";
-          return curr2;
-        }));
-      } else if (key === "value") {
-        props.onValueChange?.(curr.value);
-        if (!preventScroll) {
-          tick().then(() => scrollSelectedIntoView());
-        }
-      }
-      return curr;
-    });
-  }
-  function filterItems(state2, shouldFilterVal) {
-    const $shouldFilter = shouldFilterVal ?? get_store_value(shouldFilter);
-    const $allItems = get_store_value(allItems);
-    const $allIds = get_store_value(allIds);
-    if (!state2.search || !$shouldFilter) {
-      state2.filtered.count = $allItems.size;
-      return state2;
-    }
-    state2.filtered.groups = /* @__PURE__ */ new Set();
-    let itemCount = 0;
-    for (const id of $allItems) {
-      const value = $allIds.get(id);
-      const rank = score(value, state2.search);
-      state2.filtered.items.set(id, rank);
-      if (rank > 0) {
-        itemCount++;
-      }
-    }
-    for (const [groupId, group] of get_store_value(allGroups)) {
-      for (const itemId of group) {
-        const rank = state2.filtered.items.get(itemId);
-        if (rank && rank > 0) {
-          state2.filtered.groups.add(groupId);
-        }
-      }
-    }
-    state2.filtered.count = itemCount;
-    return state2;
-  }
-  function sort(state2, shouldFilterVal) {
-    const $shouldFilter = shouldFilterVal ?? get_store_value(shouldFilter);
-    if (!state2.search || !$shouldFilter) {
-      return state2;
-    }
-    const scores = state2.filtered.items;
-    const groups = [];
-    const $allGroups = get_store_value(allGroups);
-    state2.filtered.groups.forEach((value) => {
-      const items = $allGroups.get(value);
-      if (!items)
-        return;
-      let max = 0;
-      items.forEach((item) => {
-        const score2 = scores.get(item);
-        if (isUndefined(score2))
-          return;
-        max = Math.max(score2, max);
-      });
-      groups.push([value, max]);
-    });
-    const rootEl = document.getElementById(ids.root);
-    if (!rootEl)
-      return state2;
-    const list = rootEl.querySelector(LIST_SELECTOR);
-    getValidItems(rootEl).sort((a, b) => {
-      const valueA = a.getAttribute(VALUE_ATTR) ?? "";
-      const valueB = b.getAttribute(VALUE_ATTR) ?? "";
-      return (scores.get(valueA) ?? 0) - (scores.get(valueB) ?? 0);
-    }).forEach((item) => {
-      const group = item.closest(GROUP_ITEMS_SELECTOR);
-      const closest = item.closest(`${GROUP_ITEMS_SELECTOR} > *`);
-      if (isHTMLElement(group)) {
-        if (item.parentElement === group) {
-          group.appendChild(item);
-        } else {
-          if (!isHTMLElement(closest))
-            return;
-          group.appendChild(closest);
-        }
-      } else {
-        if (!isHTMLElement(list))
-          return;
-        if (item.parentElement === list) {
-          list.appendChild(item);
-        } else {
-          if (!isHTMLElement(closest))
-            return;
-          list.appendChild(closest);
-        }
-      }
-    });
-    groups.sort((a, b) => b[1] - a[1]).forEach((group) => {
-      const el = rootEl.querySelector(`${GROUP_SELECTOR}[${VALUE_ATTR}="${group[0]}"]`);
-      if (!isHTMLElement(el))
-        return;
-      el.parentElement?.appendChild(el);
-    });
-    return state2;
-  }
-  function selectFirstItem() {
-    const item = getValidItems().find((item2) => !item2.ariaDisabled);
-    if (!item)
-      return;
-    const value = item.getAttribute(VALUE_ATTR);
-    if (!value)
-      return;
-    return value;
-  }
-  function score(value, search) {
-    const lowerCaseAndTrimmedValue = value?.toLowerCase().trim();
-    const filterFn = get_store_value(filter);
-    if (!filterFn) {
-      return lowerCaseAndTrimmedValue ? defaultFilter(lowerCaseAndTrimmedValue, search) : 0;
-    }
-    return lowerCaseAndTrimmedValue ? filterFn(lowerCaseAndTrimmedValue, search) : 0;
-  }
-  function scrollSelectedIntoView() {
-    const item = getSelectedItem();
-    if (!item) {
-      return;
-    }
-    if (item.parentElement?.firstChild === item) {
-      tick().then(() => item.closest(GROUP_SELECTOR)?.querySelector(GROUP_HEADING_SELECTOR)?.scrollIntoView({
-        block: "nearest"
-      }));
-    }
-    tick().then(() => item.scrollIntoView({ block: "nearest" }));
-  }
-  function getValidItems(rootElement) {
-    const rootEl = rootElement ?? document.getElementById(ids.root);
-    if (!rootEl)
-      return [];
-    return Array.from(rootEl.querySelectorAll(VALID_ITEM_SELECTOR)).filter((el) => isHTMLElement(el));
-  }
-  function getSelectedItem(rootElement) {
-    const rootEl = document.getElementById(ids.root);
-    if (!rootEl)
-      return;
-    const selectedEl = rootEl.querySelector(`${VALID_ITEM_SELECTOR}[aria-selected="true"]`);
-    if (!isHTMLElement(selectedEl))
-      return null;
-    return selectedEl;
-  }
-  function updateSelectedToIndex(index) {
-    const rootEl = document.getElementById(ids.root);
-    if (!rootEl)
-      return;
-    const items = getValidItems(rootEl);
-    const item = items[index];
-    if (!item)
-      return;
-  }
-  function updateSelectedByChange(change) {
-    const selected = getSelectedItem();
-    const items = getValidItems();
-    const index = items.findIndex((item) => item === selected);
-    let newSelected = items[index + change];
-    if (get_store_value(loop)) {
-      if (index + change < 0) {
-        newSelected = items[items.length - 1];
-      } else if (index + change === items.length) {
-        newSelected = items[0];
-      } else {
-        newSelected = items[index + change];
-      }
-    }
-    if (newSelected) {
-      updateState("value", newSelected.getAttribute(VALUE_ATTR) ?? "");
-    }
-  }
-  function updateSelectedToGroup(change) {
-    const selected = getSelectedItem();
-    let group = selected?.closest(GROUP_SELECTOR);
-    let item = void 0;
-    while (group && !item) {
-      group = change > 0 ? findNextSibling(group, GROUP_SELECTOR) : findPreviousSibling(group, GROUP_SELECTOR);
-      item = group?.querySelector(VALID_ITEM_SELECTOR);
-    }
-    if (item) {
-      updateState("value", item.getAttribute(VALUE_ATTR) ?? "");
-    } else {
-      updateSelectedByChange(change);
-    }
-  }
-  function last2() {
-    return updateSelectedToIndex(getValidItems().length - 1);
-  }
-  function next2(e) {
-    e.preventDefault();
-    if (e.metaKey) {
-      last2();
-    } else if (e.altKey) {
-      updateSelectedToGroup(1);
-    } else {
-      updateSelectedByChange(1);
-    }
-  }
-  function prev2(e) {
-    e.preventDefault();
-    if (e.metaKey) {
-      updateSelectedToIndex(0);
-    } else if (e.altKey) {
-      updateSelectedToGroup(-1);
-    } else {
-      updateSelectedByChange(-1);
-    }
-  }
-  function handleRootKeydown(e) {
-    switch (e.key) {
-      case kbd$1.ARROW_DOWN:
-        next2(e);
-        break;
-      case kbd$1.ARROW_UP:
-        prev2(e);
-        break;
-      case kbd$1.HOME:
-        e.preventDefault();
-        updateSelectedToIndex(0);
-        break;
-      case kbd$1.END:
-        e.preventDefault();
-        last2();
-        break;
-      case kbd$1.ENTER: {
-        e.preventDefault();
-        const item = getSelectedItem();
-        if (item) {
-          item.click();
-        }
-      }
-    }
-  }
-  setContext(NAME$m, context);
-  const stateStore = {
-    subscribe: state.subscribe,
-    update: state.update,
-    set: state.set,
-    updateState
-  };
-  setContext(STATE_NAME, stateStore);
-  return {
-    state: stateStore,
-    handleRootKeydown,
-    commandEl,
-    ids
-  };
-}
-function findNextSibling(el, selector2) {
-  let sibling = el.nextElementSibling;
-  while (sibling) {
-    if (sibling.matches(selector2))
-      return sibling;
-    sibling = sibling.nextElementSibling;
-  }
-}
-function findPreviousSibling(el, selector2) {
-  let sibling = el.previousElementSibling;
-  while (sibling) {
-    if (sibling.matches(selector2))
-      return sibling;
-    sibling = sibling.previousElementSibling;
-  }
-}
-const Command$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let slotProps;
-  let $$restProps = compute_rest_props($$props, [
-    "label",
-    "shouldFilter",
-    "filter",
-    "value",
-    "onValueChange",
-    "loop",
-    "onKeydown",
-    "state",
-    "ids",
-    "asChild"
-  ]);
-  let $stateStore, $$unsubscribe_stateStore;
-  let { label = void 0 } = $$props;
-  let { shouldFilter = true } = $$props;
-  let { filter = void 0 } = $$props;
-  let { value = void 0 } = $$props;
-  let { onValueChange = void 0 } = $$props;
-  let { loop = void 0 } = $$props;
-  let { onKeydown = void 0 } = $$props;
-  let { state = void 0 } = $$props;
-  let { ids = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  const { commandEl, handleRootKeydown, ids: commandIds, state: stateStore } = createCommand({
-    label,
-    shouldFilter,
-    filter,
-    value,
-    onValueChange: (next2) => {
-      if (next2 !== value) {
-        value = next2;
-        onValueChange?.(next2);
-      }
-    },
-    loop,
-    state,
-    ids
-  });
-  $$unsubscribe_stateStore = subscribe(stateStore, (value2) => $stateStore = value2);
-  function syncValueAndState(value2) {
-    if (value2 && value2 !== $stateStore.value) {
-      set_store_value(stateStore, $stateStore.value = value2, $stateStore);
-    }
-  }
-  function rootAction(node) {
-    commandEl.set(node);
-    const unsubEvents = executeCallbacks(addEventListener$1(node, "keydown", handleKeydown));
-    return { destroy: unsubEvents };
-  }
-  const rootAttrs = {
-    role: "application",
-    id: commandIds.root,
-    "data-cmdk-root": ""
-  };
-  const labelAttrs = {
-    "data-cmdk-label": "",
-    for: commandIds.input,
-    id: commandIds.label,
-    style: styleToString$2(srOnlyStyles)
-  };
-  function handleKeydown(e) {
-    onKeydown?.(e);
-    if (e.defaultPrevented) return;
-    handleRootKeydown(e);
-  }
-  const root = { action: rootAction, attrs: rootAttrs };
-  if ($$props.label === void 0 && $$bindings.label && label !== void 0) $$bindings.label(label);
-  if ($$props.shouldFilter === void 0 && $$bindings.shouldFilter && shouldFilter !== void 0) $$bindings.shouldFilter(shouldFilter);
-  if ($$props.filter === void 0 && $$bindings.filter && filter !== void 0) $$bindings.filter(filter);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.onValueChange === void 0 && $$bindings.onValueChange && onValueChange !== void 0) $$bindings.onValueChange(onValueChange);
-  if ($$props.loop === void 0 && $$bindings.loop && loop !== void 0) $$bindings.loop(loop);
-  if ($$props.onKeydown === void 0 && $$bindings.onKeydown && onKeydown !== void 0) $$bindings.onKeydown(onKeydown);
-  if ($$props.state === void 0 && $$bindings.state && state !== void 0) $$bindings.state(state);
-  if ($$props.ids === void 0 && $$bindings.ids && ids !== void 0) $$bindings.ids(ids);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  {
-    syncValueAndState(value);
-  }
-  slotProps = {
-    root,
-    label: { attrs: labelAttrs },
-    stateStore,
-    state: $stateStore
-  };
-  $$unsubscribe_stateStore();
-  return `${asChild ? `${slots.default ? slots.default({ ...slotProps }) : ``}` : `<div${spread([escape_object(rootAttrs), escape_object($$restProps)], {})}> <label${spread([escape_object(labelAttrs)], {})}>${escape(label ?? "")}</label> ${slots.default ? slots.default({ ...slotProps }) : ``}</div>`}`;
 });
 function styleToString$1(style) {
   return Object.keys(style).reduce((str, key) => {
@@ -8789,673 +5555,6 @@ createBitAttrs(NAME$1, PARTS$1);
 const NAME = "tooltip";
 const PARTS = ["arrow", "content", "trigger"];
 createBitAttrs(NAME, PARTS);
-const CommandEmpty = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  compute_rest_props($$props, ["asChild"]);
-  let $state, $$unsubscribe_state;
-  let { asChild = false } = $$props;
-  const state = getState();
-  $$unsubscribe_state = subscribe(state, (value) => $state = value);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  $state.filtered.count === 0;
-  $$unsubscribe_state();
-  return `${``}`;
-});
-const CommandGroup = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let containerAttrs;
-  let groupAttrs;
-  let container;
-  let group;
-  let $$restProps = compute_rest_props($$props, ["heading", "value", "alwaysRender", "asChild"]);
-  let $render, $$unsubscribe_render;
-  let { heading = void 0 } = $$props;
-  let { value = "" } = $$props;
-  let { alwaysRender = false } = $$props;
-  let { asChild = false } = $$props;
-  const { id } = createGroup(alwaysRender);
-  const context = getCtx();
-  const state = getState();
-  const headingId = generateId();
-  const render = derived(state, ($state) => {
-    if (alwaysRender) return true;
-    if (context.filter() === false) return true;
-    if (!$state.search) return true;
-    return $state.filtered.groups.has(id);
-  });
-  $$unsubscribe_render = subscribe(render, (value2) => $render = value2);
-  function containerAction(node) {
-    if (value) {
-      context.value(id, value);
-      node.setAttribute(VALUE_ATTR, value);
-      return;
-    }
-    if (heading) {
-      value = heading.trim().toLowerCase();
-    } else if (node.textContent) {
-      value = node.textContent.trim().toLowerCase();
-    }
-    context.value(id, value);
-    node.setAttribute(VALUE_ATTR, value);
-  }
-  const headingAttrs = {
-    "data-cmdk-group-heading": "",
-    "aria-hidden": true,
-    id: headingId
-  };
-  if ($$props.heading === void 0 && $$bindings.heading && heading !== void 0) $$bindings.heading(heading);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.alwaysRender === void 0 && $$bindings.alwaysRender && alwaysRender !== void 0) $$bindings.alwaysRender(alwaysRender);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  containerAttrs = {
-    "data-cmdk-group": "",
-    role: "presentation",
-    hidden: $render ? void 0 : true,
-    "data-value": value
-  };
-  groupAttrs = {
-    "data-cmdk-group-items": "",
-    role: "group",
-    "aria-labelledby": heading ? headingId : void 0
-  };
-  container = {
-    action: containerAction,
-    attrs: containerAttrs
-  };
-  group = { attrs: groupAttrs };
-  $$unsubscribe_render();
-  return `${asChild ? `${slots.default ? slots.default({
-    container,
-    group,
-    heading: { attrs: headingAttrs }
-  }) : ``}` : `<div${spread([escape_object(containerAttrs), escape_object($$restProps)], {})}>${heading ? `<div${spread([escape_object(headingAttrs)], {})}>${escape(heading)}</div>` : ``} <div${spread([escape_object(groupAttrs)], {})}>${slots.default ? slots.default({
-    container,
-    group,
-    heading: { attrs: headingAttrs }
-  }) : ``}</div></div>`}`;
-});
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-const CommandInput = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["autofocus", "value", "asChild", "el"]);
-  let $selectedItemId, $$unsubscribe_selectedItemId;
-  let $search, $$unsubscribe_search;
-  const { ids, commandEl } = getCtx();
-  const state = getState();
-  const search = derived(state, ($state) => $state.search);
-  $$unsubscribe_search = subscribe(search, (value2) => $search = value2);
-  const valueStore = derived(state, ($state) => $state.value);
-  let { autofocus = void 0 } = $$props;
-  let { value = $search } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const selectedItemId = derived([valueStore, commandEl], ([$value, $commandEl]) => {
-    if (!isBrowser) return void 0;
-    const item = $commandEl?.querySelector(`${ITEM_SELECTOR}[${VALUE_ATTR}="${$value}"]`);
-    return item?.getAttribute("id");
-  });
-  $$unsubscribe_selectedItemId = subscribe(selectedItemId, (value2) => $selectedItemId = value2);
-  function handleValueUpdate(v) {
-    state.updateState("search", v);
-  }
-  function action(node) {
-    if (autofocus) {
-      sleep(10).then(() => node.focus());
-    }
-    const unsubEvents = addEventListener$1(node, "change", (e) => {
-      if (!isHTMLInputElement(e.target)) return;
-      state.updateState("search", e.target.value);
-    });
-    return { destroy: unsubEvents };
-  }
-  let attrs;
-  if ($$props.autofocus === void 0 && $$bindings.autofocus && autofocus !== void 0) $$bindings.autofocus(autofocus);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    handleValueUpdate(value);
-  }
-  attrs = {
-    type: "text",
-    "data-cmdk-input": "",
-    autocomplete: "off",
-    autocorrect: "off",
-    spellcheck: false,
-    "aria-autocomplete": "list",
-    role: "combobox",
-    "aria-expanded": true,
-    "aria-controls": ids.list,
-    "aria-labelledby": ids.label,
-    "aria-activedescendant": $selectedItemId ?? void 0,
-    id: ids.input
-  };
-  $$unsubscribe_selectedItemId();
-  $$unsubscribe_search();
-  return `${asChild ? `${slots.default ? slots.default({ action, attrs }) : ``}` : `<input${spread([escape_object(attrs), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}${add_attribute("value", value, 0)}>`}`;
-});
-const CommandItem = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let attrs;
-  let $$restProps = compute_rest_props($$props, ["disabled", "value", "onSelect", "alwaysRender", "asChild", "id"]);
-  let $selected, $$unsubscribe_selected;
-  let $$unsubscribe_render;
-  let { disabled = false } = $$props;
-  let { value = "" } = $$props;
-  let { onSelect = void 0 } = $$props;
-  let { alwaysRender = false } = $$props;
-  let { asChild = false } = $$props;
-  let { id = generateId() } = $$props;
-  const groupContext = getGroup();
-  const context = getCtx();
-  const state = getState();
-  const trueAlwaysRender = alwaysRender ?? groupContext?.alwaysRender;
-  const render = derived(state, ($state) => {
-    if (trueAlwaysRender || context.filter() === false || !$state.search) return true;
-    const currentScore = $state.filtered.items.get(id);
-    if (isUndefined(currentScore)) return false;
-    return currentScore > 0;
-  });
-  $$unsubscribe_render = subscribe(render, (value2) => value2);
-  const selected = derived(state, ($state) => $state.value === value);
-  $$unsubscribe_selected = subscribe(selected, (value2) => $selected = value2);
-  function action(node) {
-    if (!value && node.textContent) {
-      value = node.textContent.trim().toLowerCase();
-    }
-    context.value(id, value);
-    node.setAttribute(VALUE_ATTR, value);
-    const unsubEvents = executeCallbacks(
-      addEventListener$1(node, "pointermove", () => {
-        if (disabled) return;
-        select();
-      }),
-      addEventListener$1(node, "click", () => {
-        if (disabled) return;
-        handleItemClick();
-      })
-    );
-    return {
-      destroy() {
-        unsubEvents();
-      }
-    };
-  }
-  function handleItemClick() {
-    select();
-    onSelect?.(value);
-  }
-  function select() {
-    state.updateState("value", value, true);
-  }
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.onSelect === void 0 && $$bindings.onSelect && onSelect !== void 0) $$bindings.onSelect(onSelect);
-  if ($$props.alwaysRender === void 0 && $$bindings.alwaysRender && alwaysRender !== void 0) $$bindings.alwaysRender(alwaysRender);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  attrs = {
-    "aria-disabled": disabled ? true : void 0,
-    "aria-selected": $selected ? true : void 0,
-    "data-disabled": disabled ? true : void 0,
-    "data-selected": $selected ? true : void 0,
-    "data-cmdk-item": "",
-    "data-value": value,
-    role: "option",
-    id
-  };
-  $$unsubscribe_selected();
-  $$unsubscribe_render();
-  return `${`${asChild ? `${slots.default ? slots.default({ action, attrs }) : ``}` : `<div${spread([escape_object(attrs), escape_object($$restProps)], {})}>${slots.default ? slots.default({ action, attrs }) : ``}</div>`}`}`;
-});
-const CommandList = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["el", "asChild"]);
-  let $$unsubscribe_state;
-  const { ids } = getCtx();
-  const state = getState();
-  $$unsubscribe_state = subscribe(state, (value) => value);
-  let { el = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  function sizerAction(node) {
-    let animationFrame;
-    const listEl = node.closest("[data-cmdk-list]");
-    if (!isHTMLElement(listEl)) {
-      return;
-    }
-    const observer = new ResizeObserver(() => {
-      animationFrame = requestAnimationFrame(() => {
-        const height = node.offsetHeight;
-        listEl.style.setProperty("--cmdk-list-height", height.toFixed(1) + "px");
-      });
-    });
-    observer.observe(node);
-    return {
-      destroy() {
-        cancelAnimationFrame(animationFrame);
-        observer.unobserve(node);
-      }
-    };
-  }
-  const listAttrs = {
-    "data-cmdk-list": "",
-    role: "listbox",
-    "aria-label": "Suggestions",
-    id: ids.list,
-    "aria-labelledby": ids.input
-  };
-  const sizerAttrs = { "data-cmdk-list-sizer": "" };
-  const list = { attrs: listAttrs };
-  const sizer = { attrs: sizerAttrs, action: sizerAction };
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  $$unsubscribe_state();
-  return `${asChild ? `${slots.default ? slots.default({ list, sizer }) : ``}` : `<div${spread([escape_object(listAttrs), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}><div${spread([escape_object(sizerAttrs)], {})}>${slots.default ? slots.default({}) : ``}</div></div>`}`;
-});
-const CommandSeparator = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["alwaysRender", "asChild"]);
-  let $render, $$unsubscribe_render;
-  let { alwaysRender = false } = $$props;
-  let { asChild = false } = $$props;
-  const state = getState();
-  const render = derived(state, ($state) => !$state.search);
-  $$unsubscribe_render = subscribe(render, (value) => $render = value);
-  const attrs = {
-    "data-cmdk-separator": "",
-    role: "separator"
-  };
-  if ($$props.alwaysRender === void 0 && $$bindings.alwaysRender && alwaysRender !== void 0) $$bindings.alwaysRender(alwaysRender);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  $$unsubscribe_render();
-  return `${$render || alwaysRender ? `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<div${spread([escape_object(attrs), escape_object($$restProps)], {})}></div>`}` : ``}`;
-});
-const Command = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["value", "class"]);
-  let { value = void 0 } = $$props;
-  let { class: className = void 0 } = $$props;
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
-  do {
-    $$settled = true;
-    $$result.head = previous_head;
-    $$rendered = `${validate_component(Command$1, "CommandPrimitive.Root").$$render(
-      $$result,
-      Object.assign(
-        {},
-        {
-          class: cn("bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md", className)
-        },
-        $$restProps,
-        { value }
-      ),
-      {
-        value: ($$value) => {
-          value = $$value;
-          $$settled = false;
-        }
-      },
-      {
-        default: () => {
-          return `${slots.default ? slots.default({}) : ``}`;
-        }
-      }
-    )}`;
-  } while (!$$settled);
-  return $$rendered;
-});
-const Dialog_title = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Dialog_title$1, "DialogPrimitive.Title").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("text-lg font-semibold leading-none tracking-tight", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Dialog_portal = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, []);
-  return `${validate_component(Dialog_portal$1, "DialogPrimitive.Portal").$$render($$result, Object.assign({}, $$restProps), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Dialog_footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Dialog_header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn("flex flex-col space-y-1.5 text-center sm:text-left", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
-  const o = +getComputedStyle(node).opacity;
-  return {
-    delay,
-    duration,
-    easing,
-    css: (t) => `opacity: ${t * o}`
-  };
-}
-function scale(node, { delay = 0, duration = 400, easing = cubicOut, start = 0, opacity = 0 } = {}) {
-  const style = getComputedStyle(node);
-  const target_opacity = +style.opacity;
-  const transform = style.transform === "none" ? "" : style.transform;
-  const sd = 1 - start;
-  const od = target_opacity * (1 - opacity);
-  return {
-    delay,
-    duration,
-    easing,
-    css: (_t, u) => `
-			transform: ${transform} scale(${1 - sd * u});
-			opacity: ${target_opacity - od * u}
-		`
-  };
-}
-const Dialog_overlay = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
-  let { class: className = void 0 } = $$props;
-  let { transition = fade } = $$props;
-  let { transitionConfig = { duration: 150 } } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  return `${validate_component(Dialog_overlay$1, "DialogPrimitive.Overlay").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { transition },
-      { transitionConfig },
-      {
-        class: cn("bg-background/80 fixed inset-0 z-50 backdrop-blur-sm", className)
-      },
-      $$restProps
-    ),
-    {},
-    {}
-  )}`;
-});
-const X = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [["path", { "d": "M18 6 6 18" }], ["path", { "d": "m6 6 12 12" }]];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "x" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Dialog_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
-  let { class: className = void 0 } = $$props;
-  let { transition = flyAndScale } = $$props;
-  let { transitionConfig = { duration: 200 } } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  return `${validate_component(Dialog_portal, "Dialog.Portal").$$render($$result, {}, {}, {
-    default: () => {
-      return `${validate_component(Dialog_overlay, "Dialog.Overlay").$$render($$result, {}, {}, {})} ${validate_component(Dialog_content$1, "DialogPrimitive.Content").$$render(
-        $$result,
-        Object.assign(
-          {},
-          { transition },
-          { transitionConfig },
-          {
-            class: cn("bg-background fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg sm:rounded-lg md:w-full", className)
-          },
-          $$restProps
-        ),
-        {},
-        {
-          default: () => {
-            return `${slots.default ? slots.default({}) : ``} ${validate_component(Dialog_close, "DialogPrimitive.Close").$$render(
-              $$result,
-              {
-                class: "ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none"
-              },
-              {},
-              {
-                default: () => {
-                  return `${validate_component(X, "X").$$render($$result, { class: "h-4 w-4" }, {}, {})} <span class="sr-only" data-svelte-h="svelte-1pewzs3">Close</span>`;
-                }
-              }
-            )}`;
-          }
-        }
-      )}`;
-    }
-  })}`;
-});
-const Dialog_description = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Dialog_description$1, "DialogPrimitive.Description").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("text-muted-foreground text-sm", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Root$3 = Dialog;
-const Command_empty = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(CommandEmpty, "CommandPrimitive.Empty").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("py-6 text-center text-sm", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Command_group = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(CommandGroup, "CommandPrimitive.Group").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("text-foreground [&_[data-cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[data-cmdk-group-heading]]:px-2 [&_[data-cmdk-group-heading]]:py-1.5 [&_[data-cmdk-group-heading]]:text-xs [&_[data-cmdk-group-heading]]:font-medium", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Command_item = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["asChild", "class"]);
-  let { asChild = false } = $$props;
-  let { class: className = void 0 } = $$props;
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(CommandItem, "CommandPrimitive.Item").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { asChild },
-      {
-        class: cn("aria-selected:bg-accent aria-selected:text-accent-foreground relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: ({ action, attrs }) => {
-        return `${slots.default ? slots.default({ action, attrs }) : ``}`;
-      }
-    }
-  )}`;
-});
-const Search = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [
-    ["circle", { "cx": "11", "cy": "11", "r": "8" }],
-    ["path", { "d": "m21 21-4.3-4.3" }]
-  ];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "search" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Command_input = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value"]);
-  let { class: className = void 0 } = $$props;
-  let { value = "" } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
-  do {
-    $$settled = true;
-    $$result.head = previous_head;
-    $$rendered = `<div class="flex items-center border-b px-2" data-cmdk-input-wrapper="">${validate_component(Search, "Search").$$render(
-      $$result,
-      {
-        class: "mr-2 h-4 w-4 shrink-0 opacity-50"
-      },
-      {},
-      {}
-    )} ${validate_component(CommandInput, "CommandPrimitive.Input").$$render(
-      $$result,
-      Object.assign(
-        {},
-        {
-          class: cn("placeholder:text-muted-foreground flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50", className)
-        },
-        $$restProps,
-        { value }
-      ),
-      {
-        value: ($$value) => {
-          value = $$value;
-          $$settled = false;
-        }
-      },
-      {}
-    )}</div>`;
-  } while (!$$settled);
-  return $$rendered;
-});
-const Command_list = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(CommandList, "CommandPrimitive.List").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("max-h-[300px] overflow-y-auto overflow-x-hidden", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Command_separator = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(CommandSeparator, "CommandPrimitive.Separator").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("bg-border -mx-1 h-px", className)
-      },
-      $$restProps
-    ),
-    {},
-    {}
-  )}`;
-});
-const Label = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Label$1, "LabelPrimitive.Root").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
 const Popover_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
   let { class: className = void 0 } = $$props;
@@ -9483,442 +5582,8 @@ const Popover_content = create_ssr_component(($$result, $$props, $$bindings, slo
     }
   )}`;
 });
-const Root$2 = Popover;
+const Root$1 = Popover;
 const Trigger = Popover_trigger;
-const Select_item = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value", "label", "disabled"]);
-  let { class: className = void 0 } = $$props;
-  let { value } = $$props;
-  let { label = void 0 } = $$props;
-  let { disabled = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.label === void 0 && $$bindings.label && label !== void 0) $$bindings.label(label);
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  return `${validate_component(Select_item$1, "SelectPrimitive.Item").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { value },
-      { disabled },
-      { label },
-      {
-        class: cn("data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `<span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">${validate_component(Select_item_indicator, "SelectPrimitive.ItemIndicator").$$render($$result, {}, {}, {
-          default: () => {
-            return `${validate_component(Check$1, "Check").$$render($$result, { class: "h-4 w-4" }, {}, {})}`;
-          }
-        })}</span> ${slots.default ? slots.default({}) : ` ${escape(label || value)} `}`;
-      }
-    }
-  )}`;
-});
-const Select_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, [
-    "sideOffset",
-    "inTransition",
-    "inTransitionConfig",
-    "outTransition",
-    "outTransitionConfig",
-    "class"
-  ]);
-  let { sideOffset = 4 } = $$props;
-  let { inTransition = flyAndScale } = $$props;
-  let { inTransitionConfig = void 0 } = $$props;
-  let { outTransition = scale } = $$props;
-  let { outTransitionConfig = { start: 0.95, opacity: 0, duration: 50 } } = $$props;
-  let { class: className = void 0 } = $$props;
-  if ($$props.sideOffset === void 0 && $$bindings.sideOffset && sideOffset !== void 0) $$bindings.sideOffset(sideOffset);
-  if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
-  if ($$props.inTransitionConfig === void 0 && $$bindings.inTransitionConfig && inTransitionConfig !== void 0) $$bindings.inTransitionConfig(inTransitionConfig);
-  if ($$props.outTransition === void 0 && $$bindings.outTransition && outTransition !== void 0) $$bindings.outTransition(outTransition);
-  if ($$props.outTransitionConfig === void 0 && $$bindings.outTransitionConfig && outTransitionConfig !== void 0) $$bindings.outTransitionConfig(outTransitionConfig);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Select_content$1, "SelectPrimitive.Content").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { inTransition },
-      { inTransitionConfig },
-      { outTransition },
-      { outTransitionConfig },
-      { sideOffset },
-      {
-        class: cn("bg-popover text-popover-foreground relative z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-md outline-none", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `<div class="w-full p-1">${slots.default ? slots.default({}) : ``}</div>`;
-      }
-    }
-  )}`;
-});
-const Chevron_down = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [["path", { "d": "m6 9 6 6 6-6" }]];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "chevron-down" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Select_trigger = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Select_trigger$1, "SelectPrimitive.Trigger").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("border-input bg-background ring-offset-background focus-visible:ring-ring aria-[invalid]:border-destructive data-[placeholder]:[&>span]:text-muted-foreground flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: ({ builder }) => {
-        return `${slots.default ? slots.default({ builder }) : ``} <div>${validate_component(Chevron_down, "ChevronDown").$$render($$result, { class: "h-4 w-4 opacity-50" }, {}, {})}</div>`;
-      }
-    }
-  )}`;
-});
-const Root$1 = Select;
-const Value = Select_value;
-const Team_switcher = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { class: className = void 0 } = $$props;
-  const groups = [
-    {
-      label: "Personal Account",
-      teams: [{ label: "Alicia Koch", value: "personal" }]
-    },
-    {
-      label: "Teams",
-      teams: [
-        { label: "Acme Inc.", value: "acme-inc" },
-        {
-          label: "Monsters Inc.",
-          value: "monsters"
-        }
-      ]
-    }
-  ];
-  let open = false;
-  let showTeamDialog = false;
-  let selectedTeam = groups[0].teams[0];
-  function closeAndRefocusTrigger(triggerId) {
-    open = false;
-    tick().then(() => document.getElementById(triggerId)?.focus());
-  }
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
-  do {
-    $$settled = true;
-    $$result.head = previous_head;
-    $$rendered = `${validate_component(Root$3, "Dialog.Root").$$render(
-      $$result,
-      { open: showTeamDialog },
-      {
-        open: ($$value) => {
-          showTeamDialog = $$value;
-          $$settled = false;
-        }
-      },
-      {
-        default: () => {
-          return `${validate_component(Root$2, "Popover.Root").$$render(
-            $$result,
-            { open },
-            {
-              open: ($$value) => {
-                open = $$value;
-                $$settled = false;
-              }
-            },
-            {
-              default: ({ ids }) => {
-                return `${validate_component(Trigger, "Popover.Trigger").$$render($$result, { asChild: true }, {}, {
-                  default: ({ builder }) => {
-                    return `${validate_component(Button, "Button").$$render(
-                      $$result,
-                      {
-                        builders: [builder],
-                        variant: "outline",
-                        role: "combobox",
-                        "aria-expanded": open,
-                        "aria-label": "Select a team",
-                        class: cn("w-[200px] justify-between", className)
-                      },
-                      {},
-                      {
-                        default: () => {
-                          return `${validate_component(Avatar, "Avatar.Root").$$render($$result, { class: "mr-2 h-5 w-5" }, {}, {
-                            default: () => {
-                              return `${validate_component(Avatar_image, "Avatar.Image").$$render(
-                                $$result,
-                                {
-                                  src: "https://avatar.vercel.sh/$" + selectedTeam.value + ".png",
-                                  alt: selectedTeam.label,
-                                  class: "grayscale"
-                                },
-                                {},
-                                {}
-                              )} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
-                                default: () => {
-                                  return `SC`;
-                                }
-                              })}`;
-                            }
-                          })} ${escape(selectedTeam.label)} ${validate_component(CaretSort, "CaretSort").$$render(
-                            $$result,
-                            {
-                              class: "ml-auto h-4 w-4 shrink-0 opacity-50"
-                            },
-                            {},
-                            {}
-                          )}`;
-                        }
-                      }
-                    )}`;
-                  }
-                })} ${validate_component(Popover_content, "Popover.Content").$$render($$result, { class: "w-[200px] p-0" }, {}, {
-                  default: () => {
-                    return `${validate_component(Command, "Command.Root").$$render($$result, {}, {}, {
-                      default: () => {
-                        return `${validate_component(Command_input, "Command.Input").$$render($$result, { placeholder: "Search team..." }, {}, {})} ${validate_component(Command_list, "Command.List").$$render($$result, {}, {}, {
-                          default: () => {
-                            return `${validate_component(Command_empty, "Command.Empty").$$render($$result, {}, {}, {
-                              default: () => {
-                                return `No team found.`;
-                              }
-                            })} ${each(groups, (group) => {
-                              return `${validate_component(Command_group, "Command.Group").$$render($$result, { heading: group.label }, {}, {
-                                default: () => {
-                                  return `${each(group.teams, (team) => {
-                                    return `${validate_component(Command_item, "Command.Item").$$render(
-                                      $$result,
-                                      {
-                                        onSelect: () => {
-                                          selectedTeam = team;
-                                          closeAndRefocusTrigger(ids.trigger);
-                                        },
-                                        value: team.label,
-                                        class: "text-sm"
-                                      },
-                                      {},
-                                      {
-                                        default: () => {
-                                          return `${validate_component(Avatar, "Avatar.Root").$$render($$result, { class: "mr-2 h-5 w-5" }, {}, {
-                                            default: () => {
-                                              return `${validate_component(Avatar_image, "Avatar.Image").$$render(
-                                                $$result,
-                                                {
-                                                  src: "https://avatar.vercel.sh/$" + team.value + ".png",
-                                                  alt: team.label,
-                                                  class: "grayscale"
-                                                },
-                                                {},
-                                                {}
-                                              )} ${validate_component(Avatar_fallback, "Avatar.Fallback").$$render($$result, {}, {}, {
-                                                default: () => {
-                                                  return `SC`;
-                                                }
-                                              })} `;
-                                            }
-                                          })} ${escape(team.label)} ${validate_component(Check, "Check").$$render(
-                                            $$result,
-                                            {
-                                              class: cn("ml-auto h-4 w-4", selectedTeam.value !== team.value && "text-transparent")
-                                            },
-                                            {},
-                                            {}
-                                          )} `;
-                                        }
-                                      }
-                                    )}`;
-                                  })} `;
-                                }
-                              })}`;
-                            })}`;
-                          }
-                        })} ${validate_component(Command_separator, "Command.Separator").$$render($$result, {}, {}, {})} ${validate_component(Command_list, "Command.List").$$render($$result, {}, {}, {
-                          default: () => {
-                            return `${validate_component(Command_group, "Command.Group").$$render($$result, {}, {}, {
-                              default: () => {
-                                return `${validate_component(Command_item, "Command.Item").$$render(
-                                  $$result,
-                                  {
-                                    onSelect: () => {
-                                      open = false;
-                                      showTeamDialog = true;
-                                    }
-                                  },
-                                  {},
-                                  {
-                                    default: () => {
-                                      return `${validate_component(PlusCircled, "PlusCircled").$$render($$result, { class: "mr-2 h-5 w-5" }, {}, {})}
-							Create Team`;
-                                    }
-                                  }
-                                )}`;
-                              }
-                            })}`;
-                          }
-                        })}`;
-                      }
-                    })}`;
-                  }
-                })}`;
-              }
-            }
-          )} ${validate_component(Dialog_content, "Dialog.Content").$$render($$result, {}, {}, {
-            default: () => {
-              return `${validate_component(Dialog_header, "Dialog.Header").$$render($$result, {}, {}, {
-                default: () => {
-                  return `${validate_component(Dialog_title, "Dialog.Title").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `Create team`;
-                    }
-                  })} ${validate_component(Dialog_description, "Dialog.Description").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `Add a new team to manage products and customers.`;
-                    }
-                  })}`;
-                }
-              })} <div><div class="space-y-4 py-2 pb-4"><div class="space-y-2">${validate_component(Label, "Label").$$render($$result, { for: "name" }, {}, {
-                default: () => {
-                  return `Team name`;
-                }
-              })} ${validate_component(Input, "Input").$$render($$result, { id: "name", placeholder: "Acme Inc." }, {}, {})}</div> <div class="space-y-2">${validate_component(Label, "Label").$$render($$result, { for: "plan" }, {}, {
-                default: () => {
-                  return `Subscription plan`;
-                }
-              })} ${validate_component(Root$1, "Select.Root").$$render($$result, {}, {}, {
-                default: () => {
-                  return `${validate_component(Select_trigger, "Select.Trigger").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `${validate_component(Value, "Select.Value").$$render($$result, { placeholder: "Select a plan" }, {}, {})}`;
-                    }
-                  })} ${validate_component(Select_content, "Select.Content").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `${validate_component(Select_item, "Select.Item").$$render($$result, { value: "free" }, {}, {
-                        default: () => {
-                          return `<span class="font-medium" data-svelte-h="svelte-1vlwzx0">Free </span>-<span class="text-muted-foreground" data-svelte-h="svelte-1mnfmxy">Trial for two weeks</span>`;
-                        }
-                      })} ${validate_component(Select_item, "Select.Item").$$render($$result, { value: "pro" }, {}, {
-                        default: () => {
-                          return `<span class="font-medium" data-svelte-h="svelte-2v6u9v">Pro</span> -
-								<span class="text-muted-foreground" data-svelte-h="svelte-xts7sg">$9/month per user</span>`;
-                        }
-                      })}`;
-                    }
-                  })}`;
-                }
-              })}</div></div></div> ${validate_component(Dialog_footer, "Dialog.Footer").$$render($$result, {}, {}, {
-                default: () => {
-                  return `${validate_component(Button, "Button").$$render($$result, { variant: "outline" }, {}, {
-                    default: () => {
-                      return `Cancel`;
-                    }
-                  })} ${validate_component(Button, "Button").$$render($$result, { type: "submit" }, {}, {
-                    default: () => {
-                      return `Continue`;
-                    }
-                  })}`;
-                }
-              })}`;
-            }
-          })}`;
-        }
-      }
-    )}`;
-  } while (!$$settled);
-  return $$rendered;
-});
-const Card = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn("bg-card text-card-foreground rounded-lg border shadow-sm", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Card_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn("p-6", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Card_description = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<p${spread(
-    [
-      {
-        class: escape_attribute_value(cn("text-muted-foreground text-sm", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</p>`;
-});
-const Card_header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn("flex flex-col space-y-1.5 p-6 pb-0", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Card_title = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "tag"]);
-  let { class: className = void 0 } = $$props;
-  let { tag = "h3" } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0) $$bindings.tag(tag);
-  return `${((tag$1) => {
-    return tag$1 ? `<${tag}${spread(
-      [
-        {
-          class: escape_attribute_value(cn("text-lg font-semibold leading-none tracking-tight", className))
-        },
-        escape_object($$restProps)
-      ],
-      {}
-    )}>${is_void(tag$1) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
-  })(tag)}`;
-});
 const Tabs_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["class", "value"]);
   let { class: className = void 0 } = $$props;
@@ -10356,7 +6021,7 @@ const Date_picker_with_range = create_ssr_component(($$result, $$props, $$bindin
   do {
     $$settled = true;
     $$result.head = previous_head;
-    $$rendered = `<div class="grid gap-2">${validate_component(Root$2, "Popover.Root").$$render($$result, { openFocus: true }, {}, {
+    $$rendered = `<div class="grid gap-2">${validate_component(Root$1, "Popover.Root").$$render($$result, { openFocus: true }, {}, {
       default: () => {
         return `${validate_component(Trigger, "Popover.Trigger").$$render($$result, { asChild: true }, {}, {
           default: ({ builder }) => {
@@ -10492,7 +6157,7 @@ const Sun = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   )}><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 0C7.77614 0 8 0.223858 8 0.5V2.5C8 2.77614 7.77614 3 7.5 3C7.22386 3 7 2.77614 7 2.5V0.5C7 0.223858 7.22386 0 7.5 0ZM2.1967 2.1967C2.39196 2.00144 2.70854 2.00144 2.90381 2.1967L4.31802 3.61091C4.51328 3.80617 4.51328 4.12276 4.31802 4.31802C4.12276 4.51328 3.80617 4.51328 3.61091 4.31802L2.1967 2.90381C2.00144 2.70854 2.00144 2.39196 2.1967 2.1967ZM0.5 7C0.223858 7 0 7.22386 0 7.5C0 7.77614 0.223858 8 0.5 8H2.5C2.77614 8 3 7.77614 3 7.5C3 7.22386 2.77614 7 2.5 7H0.5ZM2.1967 12.8033C2.00144 12.608 2.00144 12.2915 2.1967 12.0962L3.61091 10.682C3.80617 10.4867 4.12276 10.4867 4.31802 10.682C4.51328 10.8772 4.51328 11.1938 4.31802 11.3891L2.90381 12.8033C2.70854 12.9986 2.39196 12.9986 2.1967 12.8033ZM12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8H14.5C14.7761 8 15 7.77614 15 7.5C15 7.22386 14.7761 7 14.5 7H12.5ZM10.682 4.31802C10.4867 4.12276 10.4867 3.80617 10.682 3.61091L12.0962 2.1967C12.2915 2.00144 12.608 2.00144 12.8033 2.1967C12.9986 2.39196 12.9986 2.70854 12.8033 2.90381L11.3891 4.31802C11.1938 4.51328 10.8772 4.51328 10.682 4.31802ZM8 12.5C8 12.2239 7.77614 12 7.5 12C7.22386 12 7 12.2239 7 12.5V14.5C7 14.7761 7.22386 15 7.5 15C7.77614 15 8 14.7761 8 14.5V12.5ZM10.682 10.682C10.8772 10.4867 11.1938 10.4867 11.3891 10.682L12.8033 12.0962C12.9986 12.2915 12.9986 12.608 12.8033 12.8033C12.608 12.9986 12.2915 12.9986 12.0962 12.8033L10.682 11.3891C10.4867 11.1938 10.4867 10.8772 10.682 10.682ZM5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5ZM7.5 4.5C5.84315 4.5 4.5 5.84315 4.5 7.5C4.5 9.15685 5.84315 10.5 7.5 10.5C9.15685 10.5 10.5 9.15685 10.5 7.5C10.5 5.84315 9.15685 4.5 7.5 4.5Z" fill="currentColor"></path></svg>`} `;
 });
 const Mode_toggle = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Root$4, "DropdownMenu.Root").$$render($$result, {}, {}, {
+  return `${validate_component(Root$2, "DropdownMenu.Root").$$render($$result, {}, {}, {
     default: () => {
       return `${validate_component(Trigger$1, "DropdownMenu.Trigger").$$render($$result, { asChild: true }, {}, {
         default: ({ builder }) => {
@@ -10545,42 +6210,1144 @@ const Mode_toggle = create_ssr_component(($$result, $$props, $$bindings, slots) 
     }
   })}`;
 });
-const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let selectedProfile = "Programador Junior";
-  return `<div class="hidden flex-col md:flex bg-gray-100 dark:bg-gray-900"><div class="border-b bg-white dark:bg-gray-800 shadow-sm"><div class="flex h-16 items-center px-4">${validate_component(Team_switcher, "TeamSwitcher").$$render($$result, {}, {}, {})} ${validate_component(Main_nav, "DashboardMainNav").$$render($$result, { class: "mx-6" }, {}, {})} <div class="ml-auto flex items-center space-x-4">${validate_component(Search$1, "Search").$$render($$result, {}, {}, {})} ${validate_component(Mode_toggle, "ModeToggle").$$render($$result, {}, {}, {})} ${validate_component(User_nav, "UserNav").$$render($$result, {}, {}, {})}</div></div></div> <div class="flex-1 space-y-4 p-8 pt-6"><div class="flex items-center justify-between space-y-2"><h2 class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight" data-svelte-h="svelte-xek282">Dashboard</h2> <div class="flex items-center space-x-2">${validate_component(Date_picker_with_range, "DatePickerWithRange").$$render($$result, {}, {}, {})} ${validate_component(Button, "Button").$$render(
+const Card = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class"]);
+  let { class: className = void 0 } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  return `<div${spread(
+    [
+      {
+        class: escape_attribute_value(cn("bg-card text-card-foreground rounded-lg border shadow-sm", className))
+      },
+      escape_object($$restProps)
+    ],
+    {}
+  )}>${slots.default ? slots.default({}) : ``}</div>`;
+});
+const Card_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class"]);
+  let { class: className = void 0 } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  return `<div${spread(
+    [
+      {
+        class: escape_attribute_value(cn("p-6", className))
+      },
+      escape_object($$restProps)
+    ],
+    {}
+  )}>${slots.default ? slots.default({}) : ``}</div>`;
+});
+const Card_description = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class"]);
+  let { class: className = void 0 } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  return `<p${spread(
+    [
+      {
+        class: escape_attribute_value(cn("text-muted-foreground text-sm", className))
+      },
+      escape_object($$restProps)
+    ],
+    {}
+  )}>${slots.default ? slots.default({}) : ``}</p>`;
+});
+const Card_header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class"]);
+  let { class: className = void 0 } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  return `<div${spread(
+    [
+      {
+        class: escape_attribute_value(cn("flex flex-col space-y-1.5 p-6 pb-0", className))
+      },
+      escape_object($$restProps)
+    ],
+    {}
+  )}>${slots.default ? slots.default({}) : ``}</div>`;
+});
+const Card_title = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class", "tag"]);
+  let { class: className = void 0 } = $$props;
+  let { tag = "h3" } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0) $$bindings.tag(tag);
+  return `${((tag$1) => {
+    return tag$1 ? `<${tag}${spread(
+      [
+        {
+          class: escape_attribute_value(cn("text-lg font-semibold leading-none tracking-tight", className))
+        },
+        escape_object($$restProps)
+      ],
+      {}
+    )}>${is_void(tag$1) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
+  })(tag)}`;
+});
+const chartCommonOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: "top",
+      labels: {
+        usePointStyle: true,
+        padding: 20
+      }
+    },
+    tooltip: {
+      backgroundColor: "rgba(0, 0, 0, 0.8)",
+      titleFont: {
+        size: 14
+      },
+      bodyFont: {
+        size: 13
+      },
+      padding: 15,
+      cornerRadius: 5,
+      displayColors: true
+    }
+  }
+};
+const chartColors = {
+  income: {
+    border: "rgba(75, 192, 192, 1)",
+    background: "rgba(75, 192, 192, 0.2)"
+  },
+  expense: {
+    border: "rgba(255, 99, 132, 1)",
+    background: "rgba(255, 99, 132, 0.2)"
+  },
+  emitted: {
+    background: "rgba(54, 162, 235, 0.6)"
+  },
+  received: {
+    background: "rgba(75, 192, 192, 0.6)"
+  },
+  emitter: {
+    background: "rgba(255, 159, 64, 0.6)"
+  },
+  tax: {
+    base: "rgba(75, 192, 192, 0.6)",
+    iva: "rgba(255, 99, 132, 0.6)"
+  }
+};
+const Facturas = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let totalIncome = 0;
+  let totalExpenses = 0;
+  let netProfit = 0;
+  let incomeMap = {};
+  let expenseMap = {};
+  let dateRange = {};
+  let invoiceData = { months: [], income: [], expenses: [] };
+  let invoiceStats = { emitted: 0, received: 0, total: 0 };
+  let emitterDistribution = {};
+  let taxComparison = { base: [], iva: [] };
+  let emitterRevenue = {};
+  let receiverRevenue = {};
+  let invoiceChart = null;
+  let invoiceTypeChart = null;
+  let emitterChart = null;
+  let taxChart = null;
+  let companyRevenueChart = null;
+  let billingByCompanyChart = null;
+  function renderCharts() {
+    if (!invoiceData.months.length) return;
+    if (invoiceChart) invoiceChart.destroy();
+    if (invoiceData.months.length) {
+      invoiceChart = new Chart(
+        document.getElementById("invoiceChart"),
+        {
+          type: "line",
+          data: {
+            labels: invoiceData.months,
+            datasets: [
+              {
+                label: "Ingresos",
+                data: invoiceData.income,
+                borderColor: chartColors.income.border,
+                backgroundColor: chartColors.income.background,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointHoverRadius: 6
+              },
+              {
+                label: "Gastos",
+                data: invoiceData.expenses,
+                borderColor: chartColors.expense.border,
+                backgroundColor: chartColors.expense.background,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointHoverRadius: 6
+              }
+            ]
+          },
+          options: {
+            ...chartCommonOptions,
+            scales: {
+              x: { grid: { display: false } },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback(value) {
+                    return value + " €";
+                  }
+                }
+              }
+            },
+            interaction: { intersect: false, mode: "index" },
+            plugins: {
+              ...chartCommonOptions.plugins,
+              tooltip: {
+                ...chartCommonOptions.plugins.tooltip,
+                callbacks: {
+                  label(context) {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": ";
+                    }
+                    if (context.parsed.y !== null) {
+                      label += new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(context.parsed.y);
+                    }
+                    return label;
+                  }
+                }
+              }
+            }
+          }
+        }
+      );
+    }
+    if (invoiceTypeChart) invoiceTypeChart.destroy();
+    if (invoiceStats.total) {
+      invoiceTypeChart = new Chart(
+        document.getElementById("invoiceTypeChart"),
+        {
+          type: "doughnut",
+          data: {
+            labels: ["Emitidas", "Recibidas"],
+            datasets: [
+              {
+                data: [invoiceStats.emitted, invoiceStats.received],
+                backgroundColor: [chartColors.emitted.background, chartColors.received.background],
+                hoverOffset: 10,
+                borderWidth: 1,
+                borderColor: "#fff"
+              }
+            ]
+          },
+          options: {
+            ...chartCommonOptions,
+            cutout: "60%",
+            plugins: {
+              ...chartCommonOptions.plugins,
+              tooltip: {
+                ...chartCommonOptions.plugins.tooltip,
+                callbacks: {
+                  label(context) {
+                    const label = context.label || "";
+                    const value = context.raw;
+                    const percentage = Math.round(value / invoiceStats.total * 100);
+                    return `${label}: ${value} (${percentage}%)`;
+                  }
+                }
+              }
+            }
+          }
+        }
+      );
+    }
+    if (emitterChart) emitterChart.destroy();
+    const emitterKeys = Object.keys(emitterDistribution);
+    if (emitterKeys.length) {
+      const sortedEmitters = emitterKeys.sort((a, b) => emitterDistribution[b] - emitterDistribution[a]);
+      const topEmitters = sortedEmitters.slice(0, 5);
+      emitterChart = new Chart(
+        document.getElementById("emitterChart"),
+        {
+          type: "bar",
+          data: {
+            labels: topEmitters,
+            datasets: [
+              {
+                label: "Facturas",
+                data: topEmitters.map((emisor) => emitterDistribution[emisor]),
+                backgroundColor: chartColors.emitter.background,
+                borderRadius: 5
+              }
+            ]
+          },
+          options: {
+            ...chartCommonOptions,
+            indexAxis: "y",
+            scales: {
+              y: { grid: { display: false } },
+              x: {
+                beginAtZero: true,
+                ticks: { precision: 0 }
+              }
+            },
+            plugins: {
+              ...chartCommonOptions.plugins,
+              subtitle: {
+                display: true,
+                text: "Top 5 emisores",
+                font: { size: 14 },
+                padding: { bottom: 10 }
+              }
+            }
+          }
+        }
+      );
+    }
+    if (taxChart) taxChart.destroy();
+    if (taxComparison.base.length) {
+      taxChart = new Chart(
+        document.getElementById("taxChart"),
+        {
+          type: "bar",
+          data: {
+            labels: invoiceData.months,
+            datasets: [
+              {
+                label: "Base Imponible",
+                data: taxComparison.base,
+                backgroundColor: chartColors.tax.base,
+                borderRadius: 5
+              },
+              {
+                label: "IVA",
+                data: taxComparison.iva,
+                backgroundColor: chartColors.tax.iva,
+                borderRadius: 5
+              }
+            ]
+          },
+          options: {
+            ...chartCommonOptions,
+            scales: {
+              x: { grid: { display: false } },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback(value) {
+                    return value + " €";
+                  }
+                }
+              }
+            },
+            plugins: {
+              ...chartCommonOptions.plugins,
+              tooltip: {
+                ...chartCommonOptions.plugins.tooltip,
+                callbacks: {
+                  label(context) {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": ";
+                    }
+                    if (context.parsed.y !== null) {
+                      label += new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(context.parsed.y);
+                    }
+                    return label;
+                  }
+                }
+              }
+            }
+          }
+        }
+      );
+    }
+    if (companyRevenueChart) companyRevenueChart.destroy();
+    const emitterRevenueKeys = Object.keys(emitterRevenue);
+    if (emitterRevenueKeys.length) {
+      const sortedCompanies = emitterRevenueKeys.sort((a, b) => {
+        const totalA = (emitterRevenue[a] || 0) + (receiverRevenue[a] || 0);
+        const totalB = (emitterRevenue[b] || 0) + (receiverRevenue[b] || 0);
+        return totalB - totalA;
+      });
+      const topCompanies = sortedCompanies.slice(0, 5);
+      companyRevenueChart = new Chart(
+        document.getElementById("companyRevenueChart"),
+        {
+          type: "bar",
+          data: {
+            labels: topCompanies,
+            datasets: [
+              {
+                label: "Ingresos",
+                data: topCompanies.map((company) => emitterRevenue[company] || 0),
+                backgroundColor: chartColors.emitted.background,
+                borderRadius: {
+                  topLeft: 5,
+                  topRight: 5,
+                  bottomLeft: 0,
+                  bottomRight: 0
+                }
+              },
+              {
+                label: "Gastos",
+                data: topCompanies.map((company) => receiverRevenue[company] || 0),
+                backgroundColor: chartColors.received.background,
+                borderRadius: {
+                  topLeft: 5,
+                  topRight: 5,
+                  bottomLeft: 0,
+                  bottomRight: 0
+                }
+              }
+            ]
+          },
+          options: {
+            ...chartCommonOptions,
+            scales: {
+              x: { grid: { display: false } },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback(value) {
+                    return value + " €";
+                  }
+                }
+              }
+            },
+            plugins: {
+              ...chartCommonOptions.plugins,
+              subtitle: {
+                display: true,
+                text: "Top 5 empresas por facturación total",
+                font: { size: 14 },
+                padding: { bottom: 10 }
+              },
+              tooltip: {
+                ...chartCommonOptions.plugins.tooltip,
+                callbacks: {
+                  label(context) {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": ";
+                    }
+                    if (context.parsed.y !== null) {
+                      label += new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(context.parsed.y);
+                    }
+                    return label;
+                  }
+                }
+              }
+            }
+          }
+        }
+      );
+    }
+    if (billingByCompanyChart) billingByCompanyChart.destroy();
+    const companyKeys = [
+      .../* @__PURE__ */ new Set([...Object.keys(emitterRevenue), ...Object.keys(receiverRevenue)])
+    ];
+    if (companyKeys.length) {
+      const sortedCompanies = companyKeys.sort((a, b) => {
+        const totalA = (emitterRevenue[a] || 0) + (receiverRevenue[a] || 0);
+        const totalB = (emitterRevenue[b] || 0) + (receiverRevenue[b] || 0);
+        return totalB - totalA;
+      });
+      const topCompanies = sortedCompanies.slice(0, 7);
+      billingByCompanyChart = new Chart(
+        document.getElementById("billingByCompanyChart"),
+        {
+          type: "bar",
+          data: {
+            labels: topCompanies,
+            datasets: [
+              {
+                label: "Emitidas",
+                data: topCompanies.map((company) => emitterRevenue[company] || 0),
+                backgroundColor: chartColors.emitted.background,
+                borderRadius: {
+                  topLeft: 5,
+                  topRight: 0,
+                  bottomLeft: 5,
+                  bottomRight: 0
+                }
+              },
+              {
+                label: "Recibidas",
+                data: topCompanies.map((company) => receiverRevenue[company] || 0),
+                backgroundColor: chartColors.received.background,
+                borderRadius: {
+                  topLeft: 0,
+                  topRight: 5,
+                  bottomLeft: 0,
+                  bottomRight: 5
+                }
+              }
+            ]
+          },
+          options: {
+            ...chartCommonOptions,
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: {
+                stacked: true,
+                beginAtZero: true,
+                ticks: {
+                  callback(value) {
+                    return value + " €";
+                  }
+                }
+              }
+            },
+            plugins: {
+              ...chartCommonOptions.plugins,
+              subtitle: {
+                display: true,
+                text: "Top 7 empresas",
+                font: { size: 14 },
+                padding: { bottom: 10 }
+              },
+              tooltip: {
+                ...chartCommonOptions.plugins.tooltip,
+                callbacks: {
+                  label(context) {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": ";
+                    }
+                    if (context.parsed.y !== null) {
+                      label += new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(context.parsed.y);
+                    }
+                    return label;
+                  }
+                }
+              }
+            }
+          }
+        }
+      );
+    }
+  }
+  async function loadInvoiceData() {
+    try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        console.error("Usuario no autenticado");
+        await goto("/login");
+        return;
+      }
+      const userId = currentUser.uid;
+      const facturasRef = collection(db, "usuarios", userId, "facturas");
+      const facturasQuery = query(facturasRef, orderBy("fechaEmision", "asc"));
+      const facturasSnapshot = await getDocs(facturasQuery);
+      if (facturasSnapshot.empty) {
+        console.log("No hay facturas disponibles");
+        return;
+      }
+      let monthsMap = /* @__PURE__ */ new Map();
+      incomeMap = {};
+      expenseMap = {};
+      let emitterCount = {};
+      let emittedCount = 0;
+      let receivedCount = 0;
+      let taxBase = [];
+      let taxIVA = [];
+      emitterRevenue = {};
+      receiverRevenue = {};
+      totalIncome = 0;
+      totalExpenses = 0;
+      facturasSnapshot.forEach((facturaDoc) => {
+        const data = facturaDoc.data();
+        if (!data.fechaEmision || !data.total) return;
+        const dateParts = data.fechaEmision.split("-");
+        let dateString;
+        if (dateParts[0].length === 4) {
+          dateString = data.fechaEmision;
+        } else {
+          dateString = dateParts.reverse().join("-");
+        }
+        const date = new Date(dateString);
+        if (dateRange.from && date < dateRange.from) return;
+        if (dateRange.to && date > dateRange.to) return;
+        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+        const month = date.toLocaleString("es-ES", { month: "long", year: "numeric" });
+        monthsMap.set(monthKey, month);
+        if (data.tipoFactura?.toLowerCase() === "emitida") {
+          if (data.emisor) {
+            emitterRevenue[data.emisor] = (emitterRevenue[data.emisor] || 0) + data.total;
+          }
+          emittedCount++;
+          incomeMap[monthKey] = (incomeMap[monthKey] || 0) + data.total;
+          totalIncome += data.total;
+        } else if (data.tipoFactura?.toLowerCase() === "recibida") {
+          if (data.receptor) {
+            receiverRevenue[data.receptor] = (receiverRevenue[data.receptor] || 0) + data.total;
+          }
+          receivedCount++;
+          expenseMap[monthKey] = (expenseMap[monthKey] || 0) + data.total;
+          totalExpenses += data.total;
+        }
+        if (data.emisor) {
+          emitterCount[data.emisor] = (emitterCount[data.emisor] || 0) + 1;
+        }
+        taxBase.push(data.baseImponible || 0);
+        taxIVA.push(data.iva || 0);
+      });
+      netProfit = totalIncome - totalExpenses;
+      const sortedMonthKeys = Array.from(monthsMap.keys()).sort();
+      const sortedMonths = sortedMonthKeys.map((key) => monthsMap.get(key));
+      invoiceData = {
+        months: sortedMonths,
+        income: sortedMonthKeys.map((key) => incomeMap[key] || 0),
+        expenses: sortedMonthKeys.map((key) => expenseMap[key] || 0)
+      };
+      invoiceStats = {
+        emitted: emittedCount,
+        received: receivedCount,
+        total: emittedCount + receivedCount
+      };
+      emitterDistribution = emitterCount;
+      taxComparison = { base: taxBase, iva: taxIVA };
+      renderCharts();
+    } catch (error) {
+      console.error("Error al obtener datos de Firestore:", error);
+    }
+  }
+  if ($$props.loadInvoiceData === void 0 && $$bindings.loadInvoiceData && loadInvoiceData !== void 0) $$bindings.loadInvoiceData(loadInvoiceData);
+  return ` ${totalIncome > 0 || totalExpenses > 0 ? `<div class="grid gap-4 md:grid-cols-3">${validate_component(Card, "Card.Root").$$render(
     $$result,
     {
-      size: "sm",
-      class: "bg-indigo-500 text-white hover:bg-indigo-600"
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
     },
     {},
     {
       default: () => {
-        return `${validate_component(Download, "Download").$$render($$result, { class: "mr-2 h-4 w-4" }, {}, {})}
-                    Download`;
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, { class: "pb-2" }, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-sm font-medium text-gray-500 dark:text-gray-400"
+              },
+              {},
+              {
+                default: () => {
+                  return `Ingresos Totales`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div class="text-2xl font-bold text-green-600 dark:text-green-400">${escape(new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(totalIncome))}</div> <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Total de facturas emitidas: ${escape(invoiceStats.emitted)}</p>`;
+          }
+        })}`;
       }
     }
-  )}</div></div> ${validate_component(Root, "Tabs.Root").$$render($$result, { value: "itinerarios", class: "space-y-4" }, {}, {
+  )} ${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, { class: "pb-2" }, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-sm font-medium text-gray-500 dark:text-gray-400"
+              },
+              {},
+              {
+                default: () => {
+                  return `Gastos Totales`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div class="text-2xl font-bold text-red-600 dark:text-red-400">${escape(new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(totalExpenses))}</div> <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Total de facturas recibidas: ${escape(invoiceStats.received)}</p>`;
+          }
+        })}`;
+      }
+    }
+  )} ${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, { class: "pb-2" }, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-sm font-medium text-gray-500 dark:text-gray-400"
+              },
+              {},
+              {
+                default: () => {
+                  return `Beneficio Neto`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div class="${"text-2xl font-bold " + escape(
+              netProfit >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400",
+              true
+            )}">${escape(new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(netProfit))}</div> <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Total facturas: ${escape(invoiceStats.total)}</p>`;
+          }
+        })}`;
+      }
+    }
+  )}</div>` : `<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center" data-svelte-h="svelte-1x7ekru"><p class="text-gray-600 dark:text-gray-300">No hay datos de facturación disponibles para el período seleccionado.</p></div>`} <div class="grid gap-4 md:grid-cols-2">${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, {}, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-gray-800 dark:text-white flex items-center"
+              },
+              {},
+              {
+                default: () => {
+                  return `<span data-svelte-h="svelte-9wminm">Evolución de Facturación</span>`;
+                }
+              }
+            )} ${validate_component(Card_description, "Card.Description").$$render(
+              $$result,
+              {
+                class: "text-gray-500 dark:text-gray-400"
+              },
+              {},
+              {
+                default: () => {
+                  return `Ingresos vs gastos a lo largo del tiempo`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div class="h-80" aria-label="Gráfica de evolución de facturación" data-svelte-h="svelte-xqwxnq"><canvas id="invoiceChart"></canvas></div>`;
+          }
+        })}`;
+      }
+    }
+  )} <div class="grid gap-4"><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render(
+          $$result,
+          {
+            class: "flex flex-row items-center justify-between pb-2"
+          },
+          {},
+          {
+            default: () => {
+              return `${validate_component(Card_title, "Card.Title").$$render(
+                $$result,
+                {
+                  class: "text-sm font-medium text-gray-800 dark:text-gray-200"
+                },
+                {},
+                {
+                  default: () => {
+                    return `Facturas Emitidas vs Recibidas`;
+                  }
+                }
+              )}`;
+            }
+          }
+        )} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div aria-label="Gráfica de facturas emitidas vs recibidas" data-svelte-h="svelte-p8733i"><canvas id="invoiceTypeChart"></canvas></div>`;
+          }
+        })}`;
+      }
+    }
+  )} ${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render(
+          $$result,
+          {
+            class: "flex flex-row items-center justify-between pb-2"
+          },
+          {},
+          {
+            default: () => {
+              return `${validate_component(Card_title, "Card.Title").$$render(
+                $$result,
+                {
+                  class: "text-sm font-medium text-gray-800 dark:text-gray-200"
+                },
+                {},
+                {
+                  default: () => {
+                    return `Distribución por Emisor`;
+                  }
+                }
+              )}`;
+            }
+          }
+        )} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div aria-label="Gráfica de distribución por emisor" data-svelte-h="svelte-o7l7vk"><canvas id="emitterChart"></canvas></div>`;
+          }
+        })}`;
+      }
+    }
+  )}</div> ${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render(
+          $$result,
+          {
+            class: "flex flex-row items-center justify-between"
+          },
+          {},
+          {
+            default: () => {
+              return `${validate_component(Card_title, "Card.Title").$$render(
+                $$result,
+                {
+                  class: "text-sm font-medium text-gray-800 dark:text-gray-200"
+                },
+                {},
+                {
+                  default: () => {
+                    return `Facturación por Empresa/Receptor`;
+                  }
+                }
+              )}`;
+            }
+          }
+        )} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div aria-label="Gráfica de facturación por empresa" data-svelte-h="svelte-18g8nu9"><canvas id="companyRevenueChart"></canvas></div>`;
+          }
+        })}`;
+      }
+    }
+  )}</div></div> <div class="grid gap-4 md:grid-cols-2">${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render(
+          $$result,
+          {
+            class: "flex flex-row items-center justify-between"
+          },
+          {},
+          {
+            default: () => {
+              return `${validate_component(Card_title, "Card.Title").$$render(
+                $$result,
+                {
+                  class: "text-sm font-medium text-gray-800 dark:text-gray-200"
+                },
+                {},
+                {
+                  default: () => {
+                    return `Comparación Base Imponible vs IVA`;
+                  }
+                }
+              )}`;
+            }
+          }
+        )} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div aria-label="Gráfica de comparación base imponible vs IVA" data-svelte-h="svelte-tb77aj"><canvas id="taxChart"></canvas></div>`;
+          }
+        })}`;
+      }
+    }
+  )} ${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, {}, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-gray-800 dark:text-gray-200"
+              },
+              {},
+              {
+                default: () => {
+                  return `Facturación por Empresa (Emitida vs Recibida)`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div aria-label="Gráfica de facturación por empresa (emitida vs recibida)" data-svelte-h="svelte-say6z7"><canvas id="billingByCompanyChart"></canvas></div>`;
+          }
+        })}`;
+      }
+    }
+  )}</div>`;
+});
+const Itinerarios = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let selectedProfile = "Programador Junior";
+  let profileData = {
+    "Programador Junior": {
+      skills: {
+        "HTML/CSS": 60,
+        JavaScript: 80,
+        React: 60,
+        "Vue.js": 60
+      },
+      objectives: [
+        "Completar curso de JavaScript avanzado",
+        "Crear proyectos usando React y Vue.js",
+        "Aprender conceptos de Git y control de versiones"
+      ]
+    },
+    "Full-Stack Developer": {
+      skills: {
+        React: 100,
+        "Node.js": 100,
+        MongoDB: 60,
+        "Express.js": 60,
+        PostgreSQL: 60,
+        GraphQL: 40
+      },
+      objectives: [
+        "Desarrollar una aplicación con GraphQL y React",
+        "Aprender Docker y Kubernetes",
+        "Implementar SSR con Next.js y una API en Express"
+      ]
+    },
+    "Data Scientist": {
+      skills: {
+        Python: 80,
+        "Machine Learning": 60,
+        Pandas: 60,
+        TensorFlow: 60,
+        AWS: 40
+      },
+      objectives: [
+        "Completar un proyecto de análisis predictivo",
+        "Implementar un modelo de deep learning en TensorFlow",
+        "Crear dashboard interactivo con Plotly/Dash"
+      ]
+    }
+  };
+  let profileColors = {
+    "Programador Junior": "#4F46E5",
+    "Full-Stack Developer": "#7C3AED",
+    "Data Scientist": "#2563EB"
+  };
+  return `<div class="p-6 max-w-7xl mx-auto bg-gray-50 dark:bg-gray-900 rounded-lg"><h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white" data-svelte-h="svelte-1csr94b">Dashboard de Desarrollo Profesional</h1> <div class="grid gap-6 md:grid-cols-4">${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-all duration-300 rounded-xl border border-gray-100 dark:border-gray-700"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, { class: "pb-2" }, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-lg font-semibold text-gray-800 dark:text-gray-200"
+              },
+              {},
+              {
+                default: () => {
+                  return `Perfil Profesional`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div class="relative"><select class="w-full p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none cursor-pointer">${each(Object.keys(profileData), (profile) => {
+              return `<option${add_attribute("value", profile, 0)}>${escape(profile)}</option>`;
+            })}</select> <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none" data-svelte-h="svelte-1fmvio4"><svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div></div>`;
+          }
+        })}`;
+      }
+    }
+  )} ${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "md:col-span-3 shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-all duration-300 rounded-xl border border-gray-100 dark:border-gray-700"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, { class: "pb-2" }, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-lg font-semibold text-gray-800 dark:text-gray-200"
+              },
+              {},
+              {
+                default: () => {
+                  return `Progreso hacia ${escape(selectedProfile)}`;
+                }
+              }
+            )} ${validate_component(Card_description, "Card.Description").$$render(
+              $$result,
+              {
+                class: "text-gray-500 dark:text-gray-400"
+              },
+              {},
+              {
+                default: () => {
+                  return `Visualización de tus habilidades actuales`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div class="h-64 w-full" data-svelte-h="svelte-y3fgi4"><canvas id="progressChart"></canvas></div>`;
+          }
+        })}`;
+      }
+    }
+  )}</div> <div class="grid gap-6 md:grid-cols-2 mt-6">${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-all duration-300 rounded-xl border border-gray-100 dark:border-gray-700"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, { class: "pb-2" }, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-lg font-semibold text-gray-800 dark:text-gray-200"
+              },
+              {},
+              {
+                default: () => {
+                  return `Habilidades Adquiridas`;
+                }
+              }
+            )} ${validate_component(Card_description, "Card.Description").$$render(
+              $$result,
+              {
+                class: "text-gray-500 dark:text-gray-400"
+              },
+              {},
+              {
+                default: () => {
+                  return `Nivel de dominio actual`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<div class="space-y-4">${each(Object.entries(profileData[selectedProfile]?.skills || {}), ([skill, value]) => {
+              return `<div><div class="flex justify-between mb-1"><span class="text-sm font-medium text-gray-700 dark:text-gray-300">${escape(skill)}</span> <span class="text-sm font-medium text-gray-700 dark:text-gray-300">${escape(value)}%</span></div> <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700"><div class="h-2.5 rounded-full"${add_attribute("style", `width: ${value}%; background-color: ${profileColors[selectedProfile]}`, 0)}></div></div> </div>`;
+            })}</div>`;
+          }
+        })}`;
+      }
+    }
+  )} ${validate_component(Card, "Card.Root").$$render(
+    $$result,
+    {
+      class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-all duration-300 rounded-xl border border-gray-100 dark:border-gray-700"
+    },
+    {},
+    {
+      default: () => {
+        return `${validate_component(Card_header, "Card.Header").$$render($$result, { class: "pb-2" }, {}, {
+          default: () => {
+            return `${validate_component(Card_title, "Card.Title").$$render(
+              $$result,
+              {
+                class: "text-lg font-semibold text-gray-800 dark:text-gray-200"
+              },
+              {},
+              {
+                default: () => {
+                  return `Próximos objetivos`;
+                }
+              }
+            )} ${validate_component(Card_description, "Card.Description").$$render(
+              $$result,
+              {
+                class: "text-gray-500 dark:text-gray-400"
+              },
+              {},
+              {
+                default: () => {
+                  return `Metas para alcanzar el siguiente nivel`;
+                }
+              }
+            )}`;
+          }
+        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
+          default: () => {
+            return `<ul class="space-y-3">${each(profileData[selectedProfile]?.objectives || [], (objective, i) => {
+              return `<li class="flex items-start"><div class="flex-shrink-0 h-5 w-5 rounded-full mr-2"${add_attribute("style", `background-color: ${profileColors[selectedProfile]}`, 0)}><span class="flex h-full w-full items-center justify-center text-xs text-white font-bold">${escape(i + 1)}</span></div> <span class="text-gray-600 dark:text-gray-300">${escape(objective)}</span> </li>`;
+            })}</ul>`;
+          }
+        })}`;
+      }
+    }
+  )}</div></div>`;
+});
+const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `${validate_component(Root, "Tabs.Root").$$render($$result, { value: "facturas", class: "space-y-4" }, {}, {
     default: () => {
-      return `${validate_component(Tabs_list, "Tabs.List").$$render($$result, { class: "flex space-x-4 border-b" }, {}, {
+      return `<header class="border-b bg-white dark:bg-gray-800 shadow-sm"><div class="flex h-16 items-center px-4"><nav class="flex items-center space-x-4 lg:space-x-6 mx-6"><img src="logo.jpeg" alt="Company Logo" class="h-12 w-12"> ${validate_component(Tabs_list, "Tabs.List").$$render($$result, { class: "flex space-x-4 border-b" }, {}, {
         default: () => {
           return `${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
             $$result,
             {
-              value: "itinerarios",
-              class: "text-gray-600 hover:text-indigo-600"
-            },
-            {},
-            {
-              default: () => {
-                return `Itinerarios`;
-              }
-            }
-          )} ${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
-            $$result,
-            {
               value: "facturas",
-              class: "text-gray-600 hover:text-indigo-600"
+              class: "text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 dark:data-[state=active]:border-indigo-400 dark:data-[state=active]:text-indigo-400 transition-colors"
             },
             {},
             {
@@ -10591,313 +7358,42 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           )} ${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
             $$result,
             {
-              value: "overview",
-              class: "text-gray-600 hover:text-indigo-600"
+              value: "itinerarios",
+              class: "text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 dark:data-[state=active]:border-indigo-400 dark:data-[state=active]:text-indigo-400 transition-colors"
             },
             {},
             {
               default: () => {
-                return `Overview`;
-              }
-            }
-          )} ${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
-            $$result,
-            {
-              value: "analytics",
-              disabled: true,
-              class: "text-gray-400"
-            },
-            {},
-            {
-              default: () => {
-                return `Analytics`;
-              }
-            }
-          )} ${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
-            $$result,
-            {
-              value: "reports",
-              disabled: true,
-              class: "text-gray-400"
-            },
-            {},
-            {
-              default: () => {
-                return `Reports`;
-              }
-            }
-          )} ${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
-            $$result,
-            {
-              value: "notifications",
-              disabled: true,
-              class: "text-gray-400"
-            },
-            {},
-            {
-              default: () => {
-                return `Notifications`;
+                return `Itinerarios`;
               }
             }
           )}`;
         }
+      })}</nav> <div class="ml-auto flex items-center space-x-4"><div class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">${validate_component(Date_picker_with_range, "DatePickerWithRange").$$render($$result, {}, {}, {})} ${validate_component(Button, "Button").$$render(
+        $$result,
+        {
+          size: "sm",
+          class: "bg-indigo-500 text-white hover:bg-indigo-600",
+          "aria-label": "Descargar Informes"
+        },
+        {},
+        {
+          default: () => {
+            return `${validate_component(Download, "Download").$$render($$result, { class: "mr-2 h-4 w-4" }, {}, {})}
+						Descargar Informes`;
+          }
+        }
+      )}</div> ${validate_component(Mode_toggle, "ModeToggle").$$render($$result, {}, {}, {})} ${validate_component(User_nav, "UserNav").$$render($$result, {}, {}, {})}</div></div></header> <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 flex-1 space-y-4 p-4"> ${validate_component(Tabs_content, "Tabs.Content").$$render($$result, { value: "facturas", class: "space-y-4" }, {}, {
+        default: () => {
+          return `${validate_component(Facturas, "Facturas").$$render($$result, {}, {}, {})}`;
+        }
       })}  ${validate_component(Tabs_content, "Tabs.Content").$$render($$result, { value: "itinerarios", class: "space-y-4" }, {}, {
         default: () => {
-          return `<div class="flex space-x-4"><select class="p-2 border rounded"><option value="Programador Junior" data-svelte-h="svelte-1203gnl">Programador Junior</option><option value="Full-Stack Developer" data-svelte-h="svelte-hy0u9a">Full-Stack Developer</option><option value="Data Scientist" data-svelte-h="svelte-wcevzy">Data Scientist</option></select></div> ${validate_component(Card, "Card.Root").$$render($$result, { class: "p-4 bg-white shadow-lg" }, {}, {
-            default: () => {
-              return `${validate_component(Card_header, "Card.Header").$$render($$result, {}, {}, {
-                default: () => {
-                  return `${validate_component(Card_title, "Card.Title").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `Progreso hacia ${escape(selectedProfile)}`;
-                    }
-                  })}`;
-                }
-              })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-                default: () => {
-                  return `<canvas id="progressChart"></canvas>`;
-                }
-              })}`;
-            }
-          })}`;
+          return `${validate_component(Itinerarios, "Itinerarios").$$render($$result, {}, {}, {})}`;
         }
-      })}  ${validate_component(Tabs_content, "Tabs.Content").$$render($$result, { value: "facturas", class: "space-y-4" }, {}, {
-        default: () => {
-          return `<div class="flex items-center space-x-2">${validate_component(Date_picker_with_range, "DatePickerWithRange").$$render($$result, {}, {}, {})} ${validate_component(Button, "Button").$$render(
-            $$result,
-            {
-              size: "sm",
-              class: "bg-indigo-500 text-white"
-            },
-            {},
-            {
-              default: () => {
-                return `Filtrar`;
-              }
-            }
-          )}</div> ${validate_component(Card, "Card.Root").$$render($$result, { class: "p-4 bg-white shadow-lg" }, {}, {
-            default: () => {
-              return `${validate_component(Card_header, "Card.Header").$$render($$result, {}, {}, {
-                default: () => {
-                  return `${validate_component(Card_title, "Card.Title").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `Resumen de Facturación`;
-                    }
-                  })}`;
-                }
-              })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-                default: () => {
-                  return `<canvas id="invoiceChart"></canvas>`;
-                }
-              })}`;
-            }
-          })}`;
-        }
-      })}  ${validate_component(Tabs_content, "Tabs.Content").$$render($$result, { value: "overview", class: "space-y-4" }, {}, {
-        default: () => {
-          return `<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">${validate_component(Card, "Card.Root").$$render(
-            $$result,
-            {
-              class: "shadow-lg bg-white hover:shadow-xl transition-shadow"
-            },
-            {},
-            {
-              default: () => {
-                return `${validate_component(Card_header, "Card.Header").$$render(
-                  $$result,
-                  {
-                    class: "flex flex-row items-center justify-between pb-2"
-                  },
-                  {},
-                  {
-                    default: () => {
-                      return `${validate_component(Card_title, "Card.Title").$$render(
-                        $$result,
-                        {
-                          class: "text-sm font-medium text-gray-800"
-                        },
-                        {},
-                        {
-                          default: () => {
-                            return `Total Revenue`;
-                          }
-                        }
-                      )} ${validate_component(Dollar_sign, "DollarSign").$$render($$result, { class: "text-gray-600 h-4 w-4" }, {}, {})}`;
-                    }
-                  }
-                )} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `<div class="text-2xl font-bold text-indigo-500" data-svelte-h="svelte-mk9p20">$45,231.89</div> <p class="text-gray-500 text-xs" data-svelte-h="svelte-1yrrkwo">+20.1% from last month</p>`;
-                  }
-                })}`;
-              }
-            }
-          )} ${validate_component(Card, "Card.Root").$$render(
-            $$result,
-            {
-              class: "shadow-lg bg-white hover:shadow-xl transition-shadow"
-            },
-            {},
-            {
-              default: () => {
-                return `${validate_component(Card_header, "Card.Header").$$render(
-                  $$result,
-                  {
-                    class: "flex flex-row items-center justify-between pb-2"
-                  },
-                  {},
-                  {
-                    default: () => {
-                      return `${validate_component(Card_title, "Card.Title").$$render(
-                        $$result,
-                        {
-                          class: "text-sm font-medium text-gray-800"
-                        },
-                        {},
-                        {
-                          default: () => {
-                            return `Subscriptions`;
-                          }
-                        }
-                      )} ${validate_component(Users, "Users").$$render($$result, { class: "text-gray-600 h-4 w-4" }, {}, {})}`;
-                    }
-                  }
-                )} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `<div class="text-2xl font-bold text-green-500" data-svelte-h="svelte-894ft6">+2350</div> <p class="text-gray-500 text-xs" data-svelte-h="svelte-1hyt9ob">+180.1% from last month</p>`;
-                  }
-                })}`;
-              }
-            }
-          )} ${validate_component(Card, "Card.Root").$$render(
-            $$result,
-            {
-              class: "shadow-lg bg-white hover:shadow-xl transition-shadow"
-            },
-            {},
-            {
-              default: () => {
-                return `${validate_component(Card_header, "Card.Header").$$render(
-                  $$result,
-                  {
-                    class: "flex flex-row items-center justify-between pb-2"
-                  },
-                  {},
-                  {
-                    default: () => {
-                      return `${validate_component(Card_title, "Card.Title").$$render(
-                        $$result,
-                        {
-                          class: "text-sm font-medium text-gray-800"
-                        },
-                        {},
-                        {
-                          default: () => {
-                            return `Sales`;
-                          }
-                        }
-                      )} ${validate_component(Credit_card, "CreditCard").$$render($$result, { class: "text-gray-600 h-4 w-4" }, {}, {})}`;
-                    }
-                  }
-                )} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `<div class="text-2xl font-bold text-blue-500" data-svelte-h="svelte-1tt8ea3">+12,234</div> <p class="text-gray-500 text-xs" data-svelte-h="svelte-1mlxmdt">+19% from last month</p>`;
-                  }
-                })}`;
-              }
-            }
-          )} ${validate_component(Card, "Card.Root").$$render(
-            $$result,
-            {
-              class: "shadow-lg bg-white hover:shadow-xl transition-shadow"
-            },
-            {},
-            {
-              default: () => {
-                return `${validate_component(Card_header, "Card.Header").$$render(
-                  $$result,
-                  {
-                    class: "flex flex-row items-center justify-between pb-2"
-                  },
-                  {},
-                  {
-                    default: () => {
-                      return `${validate_component(Card_title, "Card.Title").$$render(
-                        $$result,
-                        {
-                          class: "text-sm font-medium text-gray-800"
-                        },
-                        {},
-                        {
-                          default: () => {
-                            return `Active Now`;
-                          }
-                        }
-                      )} ${validate_component(Activity, "Activity").$$render($$result, { class: "text-gray-600 h-4 w-4" }, {}, {})}`;
-                    }
-                  }
-                )} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `<div class="text-2xl font-bold text-yellow-500" data-svelte-h="svelte-zxxjvm">+573</div> <p class="text-gray-500 text-xs" data-svelte-h="svelte-9r7ou3">+201 since last hour</p>`;
-                  }
-                })}`;
-              }
-            }
-          )}</div> <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7">${validate_component(Card, "Card.Root").$$render(
-            $$result,
-            {
-              class: "col-span-4 shadow-lg bg-white hover:shadow-xl transition-shadow"
-            },
-            {},
-            {
-              default: () => {
-                return `${validate_component(Card_header, "Card.Header").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `${validate_component(Card_title, "Card.Title").$$render($$result, { class: "text-gray-800" }, {}, {
-                      default: () => {
-                        return `Overview`;
-                      }
-                    })}`;
-                  }
-                })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `${validate_component(Barchart, "Barchart").$$render($$result, {}, {}, {})} ${validate_component(Linechart, "Linechart").$$render($$result, {}, {}, {})}`;
-                  }
-                })}`;
-              }
-            }
-          )} ${validate_component(Card, "Card.Root").$$render(
-            $$result,
-            {
-              class: "col-span-3 shadow-lg bg-white hover:shadow-xl transition-shadow"
-            },
-            {},
-            {
-              default: () => {
-                return `${validate_component(Card_header, "Card.Header").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `${validate_component(Card_title, "Card.Title").$$render($$result, { class: "text-gray-800" }, {}, {
-                      default: () => {
-                        return `Recent Sales`;
-                      }
-                    })} ${validate_component(Card_description, "Card.Description").$$render($$result, { class: "text-sm text-gray-600" }, {}, {
-                      default: () => {
-                        return `You made 265 sales this month.`;
-                      }
-                    })}`;
-                  }
-                })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `${validate_component(Recent_sales, "RecentSales").$$render($$result, {}, {}, {})} ${validate_component(Piechart, "Piechart").$$render($$result, {}, {}, {})}`;
-                  }
-                })}`;
-              }
-            }
-          )}</div>`;
-        }
-      })}`;
+      })}</div>`;
     }
-  })}</div></div>`;
+  })}`;
 });
 export {
   Page as default

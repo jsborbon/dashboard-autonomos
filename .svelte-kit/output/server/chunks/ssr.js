@@ -1,6 +1,5 @@
 function noop() {
 }
-const identity = (x) => x;
 function run(fn) {
   return fn();
 }
@@ -36,10 +35,6 @@ function compute_rest_props(props, keys) {
   keys = new Set(keys);
   for (const k in props) if (!keys.has(k) && k[0] !== "$") rest[k] = props[k];
   return rest;
-}
-function set_store_value(store, ret, value) {
-  store.set(value);
-  return ret;
 }
 function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
   return new CustomEvent(type, { detail, bubbles, cancelable });
@@ -289,8 +284,6 @@ export {
   run_all as t,
   createEventDispatcher as u,
   validate_component as v,
-  set_store_value as w,
-  identity as x,
-  safe_not_equal as y,
-  is_function as z
+  safe_not_equal as w,
+  is_function as x
 };
