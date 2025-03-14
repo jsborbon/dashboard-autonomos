@@ -32,6 +32,9 @@ declare module '$env/static/private' {
 	export const VITE_FIREBASE_STORAGE_BUCKET: string;
 	export const VITE_FIREBASE_MESSAGING_SENDER_ID: string;
 	export const VITE_FIREBASE_APP_ID: string;
+	export const FIREBASE_PROJECT_ID: string;
+	export const FIREBASE_CLIENT_EMAIL: string;
+	export const FIREBASE_PRIVATE_KEY: string;
 	export const NVM_INC: string;
 	export const TERM_PROGRAM: string;
 	export const NODE: string;
@@ -44,11 +47,9 @@ declare module '$env/static/private' {
 	export const npm_config_global_prefix: string;
 	export const TERM_PROGRAM_VERSION: string;
 	export const ZDOTDIR: string;
-	export const CURSOR_TRACE_ID: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const MallocNanoZone: string;
 	export const COLOR: string;
-	export const TERM_SESSION_ID: string;
 	export const npm_config_noproxy: string;
 	export const npm_config_local_prefix: string;
 	export const PNPM_HOME: string;
@@ -92,8 +93,8 @@ declare module '$env/static/private' {
 	export const npm_config_user_agent: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const GIT_ASKPASS: string;
-	export const HOMEBREW_CELLAR: string;
 	export const INFOPATH: string;
+	export const HOMEBREW_CELLAR: string;
 	export const npm_node_execpath: string;
 	export const npm_config_prefix: string;
 	export const COLORTERM: string;
@@ -135,6 +136,9 @@ declare module '$env/dynamic/private' {
 		VITE_FIREBASE_STORAGE_BUCKET: string;
 		VITE_FIREBASE_MESSAGING_SENDER_ID: string;
 		VITE_FIREBASE_APP_ID: string;
+		FIREBASE_PROJECT_ID: string;
+		FIREBASE_CLIENT_EMAIL: string;
+		FIREBASE_PRIVATE_KEY: string;
 		NVM_INC: string;
 		TERM_PROGRAM: string;
 		NODE: string;
@@ -147,11 +151,9 @@ declare module '$env/dynamic/private' {
 		npm_config_global_prefix: string;
 		TERM_PROGRAM_VERSION: string;
 		ZDOTDIR: string;
-		CURSOR_TRACE_ID: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		MallocNanoZone: string;
 		COLOR: string;
-		TERM_SESSION_ID: string;
 		npm_config_noproxy: string;
 		npm_config_local_prefix: string;
 		PNPM_HOME: string;
@@ -195,8 +197,8 @@ declare module '$env/dynamic/private' {
 		npm_config_user_agent: string;
 		VSCODE_GIT_ASKPASS_NODE: string;
 		GIT_ASKPASS: string;
-		HOMEBREW_CELLAR: string;
 		INFOPATH: string;
+		HOMEBREW_CELLAR: string;
 		npm_node_execpath: string;
 		npm_config_prefix: string;
 		COLORTERM: string;
