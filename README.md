@@ -9,10 +9,10 @@ La aplicación está construida con tecnologías web modernas (por ejemplo, Svel
 
 ## 🚀 Características principales
 
-- Panel de visualización de métricas clave (ingresos, gastos, beneficios, etc.).  
-- Diseño responsivo adaptado a móviles y escritorio.  
-- Organización modular del código para facilitar su mantenimiento y ampliación.  
-- Configuración automatizada con Vite, ESLint, Prettier y demás buenas prácticas.  
+- Panel de visualización de métricas clave (ingresos, gastos, beneficios, etc.).
+- Diseño responsivo adaptado a móviles y escritorio.
+- Organización modular del código para facilitar su mantenimiento y ampliación.
+- Configuración automatizada con Vite, ESLint, Prettier y demás buenas prácticas.
 - Listo para desplegar en entornos de hosting estático o servidores modernos.
 
 ## 🛠️ Tecnologías
