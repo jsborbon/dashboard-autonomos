@@ -1,16 +1,19 @@
-import { q as set_current_component, r as current_component, t as run_all, c as create_ssr_component, i as compute_rest_props, j as spread, e as each, l as escape_object, k as escape_attribute_value, v as validate_component, g as get_store_value, s as setContext, p as getContext, a as add_attribute, b as subscribe, n as noop$1, f as escape } from "../../chunks/ssr.js";
-import { i as is_void, w as withGet, n as noop, a as isBrowser, b as isHTMLElement, c as isFunction, o as omit, e as effect, m as makeElement, s as styleToString$2, d as isElement, u as useEscapeKeydown, f as executeCallbacks, g as addEventListener$1, h as addMeltEventListener, F as FIRST_LAST_KEYS, k as kbd$1, p as portalAttr, j as createElHelpers, S as SELECTION_KEYS, l as isElementDisabled, q as safeOnMount, r as disabledAttr, t as getDirectionalKeys, v as createBitAttrs$1, x as createDispatcher, y as disabledAttrs, z as cn, A as flyAndScale, B as user, C as Button, D as buttonVariants, E as auth, G as db } from "../../chunks/store.js";
+import { q as set_current_component, r as current_component, t as run_all, c as create_ssr_component, i as compute_rest_props, j as spread, e as each, l as escape_object, k as escape_attribute_value, g as get_store_value, s as setContext, p as getContext, a as add_attribute, b as subscribe, n as noop$1, f as escape, v as validate_component, u as createEventDispatcher } from "../../chunks/ssr.js";
 import "dequal";
-import "clsx";
-import { d as derived, w as writable, a as readonly, r as readable } from "../../chunks/index.js";
+import { i as is_void, w as withGet, n as noop, a as isBrowser, b as isHTMLElement, c as isFunction, o as omit, e as effect, m as makeElement, s as styleToString, d as isElement, u as useEscapeKeydown, f as executeCallbacks, g as addEventListener, h as addMeltEventListener, F as FIRST_LAST_KEYS, k as kbd, p as portalAttr, j as createElHelpers, S as SELECTION_KEYS, l as isElementDisabled, q as safeOnMount, r as disabledAttr, t as getDirectionalKeys, v as createBitAttrs, x as createDispatcher, y as disabledAttrs, z as cn, A as flyAndScale, B as user, C as Button, D as buttonVariants, E as auth, G as db } from "../../chunks/store.js";
+import { d as derived, w as writable, a as readonly } from "../../chunks/index.js";
 import { nanoid } from "nanoid/non-secure";
 import { flip, offset, shift, arrow, size, autoUpdate, computePosition } from "@floating-ui/dom";
 import { createFocusTrap as createFocusTrap$1 } from "focus-trap";
+import "clsx";
 import { getLocalTimeZone, CalendarDateTime, CalendarDate, ZonedDateTime, parseZonedDateTime, parseDateTime, parseDate, toCalendar, getDayOfWeek, DateFormatter, startOfMonth, endOfMonth, isSameMonth, isSameDay, isToday } from "@internationalized/date";
 import "../../chunks/stores.js";
 import Chart from "chart.js/auto";
 import { g as goto } from "../../chunks/client.js";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import "jspdf";
+import "papaparse";
+import pkg from "file-saver";
 const dirty_components = [];
 const binding_callbacks = [];
 let render_callbacks = [];
@@ -135,31 +138,6 @@ const Icon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     })(tag)}`;
   })}${slots.default ? slots.default({}) : ``}</svg>`;
 });
-const Download = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [
-    [
-      "path",
-      {
-        "d": "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-      }
-    ],
-    ["polyline", { "points": "7 10 12 15 17 10" }],
-    [
-      "line",
-      {
-        "x1": "12",
-        "x2": "12",
-        "y1": "15",
-        "y2": "3"
-      }
-    ]
-  ];
-  return `${validate_component(Icon, "Icon").$$render($$result, Object.assign({}, { name: "download" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
 function next(array, index, loop = true) {
   if (index === array.length - 1) {
     return loop ? array[0] : array[index];
@@ -224,12 +202,12 @@ const overridable = (_store, onChange) => {
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-function generateId$2() {
+function generateId$1() {
   return nanoid(10);
 }
 function generateIds(args) {
   return args.reduce((acc, curr) => {
-    acc[curr] = generateId$2();
+    acc[curr] = generateId$1();
     return acc;
   }, {});
 }
@@ -483,7 +461,7 @@ const createAvatar = (props) => {
   const image = makeElement("avatar-image", {
     stores: [src, loadingStatus],
     returned: ([$src, $loadingStatus]) => {
-      const imageStyles = styleToString$2({
+      const imageStyles = styleToString({
         display: $loadingStatus === "loaded" ? "block" : "none"
       });
       return {
@@ -496,7 +474,7 @@ const createAvatar = (props) => {
     stores: [loadingStatus],
     returned: ([$loadingStatus]) => {
       return {
-        style: $loadingStatus === "loaded" ? styleToString$2({
+        style: $loadingStatus === "loaded" ? styleToString({
           display: "none"
         }) : void 0,
         hidden: $loadingStatus === "loaded" ? true : void 0
@@ -875,7 +853,7 @@ const useInteractOutside = (node, config) => {
           resetPointerState();
         };
         if (e.pointerType === "touch") {
-          unsubClick = addEventListener$1(documentObj, "click", handler, {
+          unsubClick = addEventListener(documentObj, "click", handler, {
             capture: true,
             once: true
           });
@@ -883,7 +861,7 @@ const useInteractOutside = (node, config) => {
         }
         handler(e);
       };
-      unsub = executeCallbacks(addEventListener$1(documentObj, "pointerdown", onPointerDown, true), addEventListener$1(documentObj, "pointerup", onPointerUp, true));
+      unsub = executeCallbacks(addEventListener(documentObj, "pointerdown", onPointerDown, true), addEventListener(documentObj, "pointerup", onPointerUp, true));
     } else {
       const onMouseUp = (e) => {
         if (ignoreEmulatedMouseEvents) {
@@ -900,7 +878,7 @@ const useInteractOutside = (node, config) => {
         }
         resetPointerState();
       };
-      unsub = executeCallbacks(addEventListener$1(documentObj, "mousedown", onPointerDown, true), addEventListener$1(documentObj, "mouseup", onMouseUp, true), addEventListener$1(documentObj, "touchstart", onPointerDown, true), addEventListener$1(documentObj, "touchend", onTouchEnd, true));
+      unsub = executeCallbacks(addEventListener(documentObj, "mousedown", onPointerDown, true), addEventListener(documentObj, "mouseup", onMouseUp, true), addEventListener(documentObj, "touchstart", onPointerDown, true), addEventListener(documentObj, "touchend", onTouchEnd, true));
     }
   }
   function shouldTriggerInteractOutside(e) {
@@ -941,10 +919,10 @@ function getOwnerDocument(el) {
   return el?.ownerDocument ?? document;
 }
 const SUB_OPEN_KEYS = {
-  ltr: [...SELECTION_KEYS, kbd$1.ARROW_RIGHT]
+  ltr: [...SELECTION_KEYS, kbd.ARROW_RIGHT]
 };
 const SUB_CLOSE_KEYS = {
-  ltr: [kbd$1.ARROW_LEFT]
+  ltr: [kbd.ARROW_LEFT]
 };
 const menuIdParts = ["menu", "trigger"];
 const defaults$5 = {
@@ -994,7 +972,7 @@ function createMenuBuilder(opts) {
       return {
         role: "menu",
         hidden: $isVisible ? void 0 : true,
-        style: styleToString$2({
+        style: styleToString({
           display: $isVisible ? void 0 : "none"
         }),
         id: $rootMenuId,
@@ -1052,7 +1030,7 @@ function createMenuBuilder(opts) {
         if (FIRST_LAST_KEYS.includes(e.key)) {
           handleMenuNavigation(e, loop.get() ?? false);
         }
-        if (e.key === kbd$1.TAB) {
+        if (e.key === kbd.TAB) {
           e.preventDefault();
           rootOpen.set(false);
           handleTabNavigation(e, nextFocusable, prevFocusable);
@@ -1103,7 +1081,7 @@ function createMenuBuilder(opts) {
         const triggerEl = e.currentTarget;
         if (!isHTMLElement(triggerEl))
           return;
-        if (!(SELECTION_KEYS.includes(e.key) || e.key === kbd$1.ARROW_DOWN))
+        if (!(SELECTION_KEYS.includes(e.key) || e.key === kbd.ARROW_DOWN))
           return;
         e.preventDefault();
         handleOpen(triggerEl);
@@ -1127,7 +1105,7 @@ function createMenuBuilder(opts) {
     stores: arrowSize,
     returned: ($arrowSize) => ({
       "data-arrow": true,
-      style: styleToString$2({
+      style: styleToString({
         position: "absolute",
         width: `var(--arrow-size, ${$arrowSize}px)`,
         height: `var(--arrow-size, ${$arrowSize}px)`
@@ -1140,7 +1118,7 @@ function createMenuBuilder(opts) {
       return {
         hidden: $isVisible ? void 0 : true,
         tabindex: -1,
-        style: styleToString$2({
+        style: styleToString({
           display: $isVisible ? void 0 : "none"
         }),
         "aria-hidden": "true",
@@ -1484,7 +1462,7 @@ function createMenuBuilder(opts) {
         return {
           role: "menu",
           hidden: $subIsVisible ? void 0 : true,
-          style: styleToString$2({
+          style: styleToString({
             display: $subIsVisible ? void 0 : "none"
           }),
           id: $subMenuId,
@@ -1522,7 +1500,7 @@ function createMenuBuilder(opts) {
           });
         });
         const unsubEvents = executeCallbacks(addMeltEventListener(node, "keydown", (e) => {
-          if (e.key === kbd$1.ESCAPE) {
+          if (e.key === kbd.ESCAPE) {
             return;
           }
           const target = e.target;
@@ -1551,7 +1529,7 @@ function createMenuBuilder(opts) {
             });
             return;
           }
-          if (e.key === kbd$1.TAB) {
+          if (e.key === kbd.TAB) {
             e.preventDefault();
             rootOpen.set(false);
             handleTabNavigation(e, nextFocusable, prevFocusable);
@@ -1641,7 +1619,7 @@ function createMenuBuilder(opts) {
           if (!isHTMLElement(triggerEl) || isElementDisabled(triggerEl))
             return;
           const isTypingAhead = $typed.length > 0;
-          if (isTypingAhead && e.key === kbd$1.SPACE)
+          if (isTypingAhead && e.key === kbd.SPACE)
             return;
           if (SUB_OPEN_KEYS["ltr"].includes(e.key)) {
             if (!subOpen.get()) {
@@ -1744,7 +1722,7 @@ function createMenuBuilder(opts) {
       stores: arrowSize2,
       returned: ($arrowSize) => ({
         "data-arrow": true,
-        style: styleToString$2({
+        style: styleToString({
           position: "absolute",
           width: `var(--arrow-size, ${$arrowSize}px)`,
           height: `var(--arrow-size, ${$arrowSize}px)`
@@ -1816,16 +1794,16 @@ function createMenuBuilder(opts) {
     const handlePointer = () => isUsingKeyboard.set(false);
     const handleKeyDown = () => {
       isUsingKeyboard.set(true);
-      unsubs.push(executeCallbacks(addEventListener$1(document, "pointerdown", handlePointer, { capture: true, once: true }), addEventListener$1(document, "pointermove", handlePointer, { capture: true, once: true })));
+      unsubs.push(executeCallbacks(addEventListener(document, "pointerdown", handlePointer, { capture: true, once: true }), addEventListener(document, "pointermove", handlePointer, { capture: true, once: true })));
     };
     const keydownListener = (e) => {
-      if (e.key === kbd$1.ESCAPE && closeOnEscape.get()) {
+      if (e.key === kbd.ESCAPE && closeOnEscape.get()) {
         rootOpen.set(false);
         return;
       }
     };
-    unsubs.push(addEventListener$1(document, "keydown", handleKeyDown, { capture: true }));
-    unsubs.push(addEventListener$1(document, "keydown", keydownListener));
+    unsubs.push(addEventListener(document, "keydown", handleKeyDown, { capture: true }));
+    unsubs.push(addEventListener(document, "keydown", keydownListener));
     return () => {
       unsubs.forEach((unsub) => unsub());
     };
@@ -1878,12 +1856,12 @@ function createMenuBuilder(opts) {
     const handlePointer = () => isUsingKeyboard.set(false);
     const handleKeyDown = (e) => {
       isUsingKeyboard.set(true);
-      if (e.key === kbd$1.ESCAPE && $rootOpen && closeOnEscape.get()) {
+      if (e.key === kbd.ESCAPE && $rootOpen && closeOnEscape.get()) {
         rootOpen.set(false);
         return;
       }
     };
-    return executeCallbacks(addEventListener$1(document, "pointerdown", handlePointer, { capture: true, once: true }), addEventListener$1(document, "pointermove", handlePointer, { capture: true, once: true }), addEventListener$1(document, "keydown", handleKeyDown, { capture: true }));
+    return executeCallbacks(addEventListener(document, "pointerdown", handlePointer, { capture: true, once: true }), addEventListener(document, "pointermove", handlePointer, { capture: true, once: true }), addEventListener(document, "keydown", handleKeyDown, { capture: true }));
   });
   function handleOpen(triggerEl) {
     rootOpen.update((prev2) => {
@@ -1973,7 +1951,7 @@ function createMenuBuilder(opts) {
   function onItemKeyDown(e) {
     const $typed = typed.get();
     const isTypingAhead = $typed.length > 0;
-    if (isTypingAhead && e.key === kbd$1.SPACE) {
+    if (isTypingAhead && e.key === kbd.SPACE) {
       e.preventDefault();
       return;
     }
@@ -2090,24 +2068,24 @@ function handleMenuNavigation(e, loop) {
   const currentIndex = candidateNodes.indexOf(currentFocusedItem);
   let nextIndex;
   switch (e.key) {
-    case kbd$1.ARROW_DOWN:
+    case kbd.ARROW_DOWN:
       if (loop) {
         nextIndex = currentIndex < candidateNodes.length - 1 ? currentIndex + 1 : 0;
       } else {
         nextIndex = currentIndex < candidateNodes.length - 1 ? currentIndex + 1 : currentIndex;
       }
       break;
-    case kbd$1.ARROW_UP:
+    case kbd.ARROW_UP:
       if (loop) {
         nextIndex = currentIndex > 0 ? currentIndex - 1 : candidateNodes.length - 1;
       } else {
         nextIndex = currentIndex < 0 ? candidateNodes.length - 1 : currentIndex > 0 ? currentIndex - 1 : 0;
       }
       break;
-    case kbd$1.HOME:
+    case kbd.HOME:
       nextIndex = 0;
       break;
-    case kbd$1.END:
+    case kbd.END:
       nextIndex = candidateNodes.length - 1;
       break;
     default:
@@ -2411,7 +2389,7 @@ function initAnnouncer() {
   let el = document.querySelector("[data-melt-announcer]");
   if (!isHTMLElement(el)) {
     const div = document.createElement("div");
-    div.style.cssText = styleToString$2({
+    div.style.cssText = styleToString({
       border: "0px",
       clip: "rect(0px, 0px, 0px, 0px)",
       "clip-path": "inset(50%)",
@@ -2646,7 +2624,7 @@ function createPopover(args) {
       return {
         hidden: $isVisible && isBrowser ? void 0 : true,
         tabindex: -1,
-        style: styleToString$2({
+        style: styleToString({
           display: $isVisible ? void 0 : "none"
         }),
         id: $contentId,
@@ -2741,7 +2719,7 @@ function createPopover(args) {
       const unsub = executeCallbacks(addMeltEventListener(node, "click", () => {
         toggleOpen(node);
       }), addMeltEventListener(node, "keydown", (e) => {
-        if (e.key !== kbd$1.ENTER && e.key !== kbd$1.SPACE)
+        if (e.key !== kbd.ENTER && e.key !== kbd.SPACE)
           return;
         e.preventDefault();
         toggleOpen(node);
@@ -2757,7 +2735,7 @@ function createPopover(args) {
       return {
         hidden: $isVisible ? void 0 : true,
         tabindex: -1,
-        style: styleToString$2({
+        style: styleToString({
           display: $isVisible ? void 0 : "none"
         }),
         "aria-hidden": "true",
@@ -2800,7 +2778,7 @@ function createPopover(args) {
     stores: arrowSize,
     returned: ($arrowSize) => ({
       "data-arrow": true,
-      style: styleToString$2({
+      style: styleToString({
         position: "absolute",
         width: `var(--arrow-size, ${$arrowSize}px)`,
         height: `var(--arrow-size, ${$arrowSize}px)`
@@ -2819,7 +2797,7 @@ function createPopover(args) {
       }), addMeltEventListener(node, "keydown", (e) => {
         if (e.defaultPrevented)
           return;
-        if (e.key !== kbd$1.ENTER && e.key !== kbd$1.SPACE)
+        if (e.key !== kbd.ENTER && e.key !== kbd.SPACE)
           return;
         e.preventDefault();
         toggleOpen();
@@ -3301,7 +3279,7 @@ function createRangeCalendar(props) {
     if (!isBrowser)
       return;
     const div = document.createElement("div");
-    div.style.cssText = styleToString$2({
+    div.style.cssText = styleToString({
       border: "0px",
       clip: "rect(0px, 0px, 0px, 0px)",
       "clip-path": "inset(50%)",
@@ -3365,7 +3343,7 @@ function createRangeCalendar(props) {
   function prevYear() {
     placeholder.subtract({ years: 1 });
   }
-  const ARROW_KEYS = [kbd$1.ARROW_DOWN, kbd$1.ARROW_UP, kbd$1.ARROW_LEFT, kbd$1.ARROW_RIGHT];
+  const ARROW_KEYS = [kbd.ARROW_DOWN, kbd.ARROW_UP, kbd.ARROW_LEFT, kbd.ARROW_RIGHT];
   function setYear(year) {
     placeholder.setDate({ year });
   }
@@ -3424,7 +3402,7 @@ function createRangeCalendar(props) {
       });
     }
   }
-  const SELECT_KEYS = [kbd$1.ENTER, kbd$1.SPACE];
+  const SELECT_KEYS = [kbd.ENTER, kbd.SPACE];
   function handleCalendarKeydown(e) {
     const currentCell = e.target;
     if (!isCalendarCell(currentCell))
@@ -3432,19 +3410,19 @@ function createRangeCalendar(props) {
     if (!ARROW_KEYS.includes(e.key) && !SELECT_KEYS.includes(e.key))
       return;
     e.preventDefault();
-    if (e.key === kbd$1.ARROW_DOWN) {
+    if (e.key === kbd.ARROW_DOWN) {
       shiftFocus(currentCell, 7);
     }
-    if (e.key === kbd$1.ARROW_UP) {
+    if (e.key === kbd.ARROW_UP) {
       shiftFocus(currentCell, -7);
     }
-    if (e.key === kbd$1.ARROW_LEFT) {
+    if (e.key === kbd.ARROW_LEFT) {
       shiftFocus(currentCell, -1);
     }
-    if (e.key === kbd$1.ARROW_RIGHT) {
+    if (e.key === kbd.ARROW_RIGHT) {
       shiftFocus(currentCell, 1);
     }
-    if (e.key === kbd$1.SPACE || e.key === kbd$1.ENTER) {
+    if (e.key === kbd.SPACE || e.key === kbd.ENTER) {
       const cellValue = currentCell.getAttribute("data-value");
       if (!cellValue)
         return;
@@ -3722,14 +3700,14 @@ function createTabs(props) {
           e.preventDefault();
           const prevEl = prev(enabledTriggers, triggerIdx, $loop);
           prevEl.focus();
-        } else if (e.key === kbd$1.ENTER || e.key === kbd$1.SPACE) {
+        } else if (e.key === kbd.ENTER || e.key === kbd.SPACE) {
           e.preventDefault();
           value.set(tabValue);
-        } else if (e.key === kbd$1.HOME) {
+        } else if (e.key === kbd.HOME) {
           e.preventDefault();
           const firstTrigger = enabledTriggers[0];
           firstTrigger.focus();
-        } else if (e.key === kbd$1.END) {
+        } else if (e.key === kbd.END) {
           e.preventDefault();
           const lastTrigger = last(enabledTriggers);
           lastTrigger.focus();
@@ -3767,7 +3745,7 @@ function createTabs(props) {
     options
   };
 }
-function generateId$1() {
+function generateId() {
   return nanoid(10);
 }
 function removeUndefined(obj) {
@@ -3791,26 +3769,26 @@ function getOptionUpdater(options) {
   };
 }
 function getAvatarData() {
-  const NAME2 = "avatar";
-  const PARTS2 = ["root", "image", "fallback"];
+  const NAME = "avatar";
+  const PARTS = ["root", "image", "fallback"];
   return {
-    NAME: NAME2,
-    PARTS: PARTS2
+    NAME,
+    PARTS
   };
 }
 function setCtx$4(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getAvatarData();
-  const getAttrs = createBitAttrs$1(NAME2, PARTS2);
+  const { NAME, PARTS } = getAvatarData();
+  const getAttrs = createBitAttrs(NAME, PARTS);
   const avatar = { ...createAvatar(removeUndefined(props)), getAttrs };
-  setContext(NAME2, avatar);
+  setContext(NAME, avatar);
   return {
     ...avatar,
     updateOption: getOptionUpdater(avatar.options)
   };
 }
 function getImage(src = "") {
-  const { NAME: NAME2 } = getAvatarData();
-  const avatar = getContext(NAME2);
+  const { NAME } = getAvatarData();
+  const avatar = getContext(NAME);
   if (!src) {
     avatar.options.src.set("");
   } else {
@@ -3819,8 +3797,8 @@ function getImage(src = "") {
   return avatar;
 }
 function getCtx$4() {
-  const { NAME: NAME2 } = getAvatarData();
-  return getContext(NAME2);
+  const { NAME } = getAvatarData();
+  return getContext(NAME);
 }
 const Avatar$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["delayMs", "loadingStatus", "onLoadingStatusChange", "asChild", "el"]);
@@ -3942,13 +3920,13 @@ function joinPlacement(side, align) {
   return `${side}-${align}`;
 }
 function getMenuData() {
-  const NAME2 = "menu";
+  const NAME = "menu";
   const SUB_NAME = "menu-submenu";
   const RADIO_GROUP_NAME = "menu-radiogroup";
   const CHECKBOX_ITEM_NAME = "menu-checkboxitem";
   const RADIO_ITEM_NAME = "menu-radioitem";
   const GROUP_NAME = "menu-group";
-  const PARTS2 = [
+  const PARTS = [
     "arrow",
     "checkbox-indicator",
     "checkbox-item",
@@ -3965,27 +3943,27 @@ function getMenuData() {
     "trigger"
   ];
   return {
-    NAME: NAME2,
+    NAME,
     SUB_NAME,
     RADIO_GROUP_NAME,
     CHECKBOX_ITEM_NAME,
     RADIO_ITEM_NAME,
     GROUP_NAME,
-    PARTS: PARTS2
+    PARTS
   };
 }
 function getCtx$3() {
-  const { NAME: NAME2 } = getMenuData();
-  return getContext(NAME2);
+  const { NAME } = getMenuData();
+  return getContext(NAME);
 }
 function setCtx$3(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getMenuData();
-  const getAttrs = createBitAttrs$1("menu", PARTS2);
+  const { NAME, PARTS } = getMenuData();
+  const getAttrs = createBitAttrs("menu", PARTS);
   const dropdownMenu = {
     ...createDropdownMenu({ ...removeUndefined(props), forceVisible: true }),
     getAttrs
   };
-  setContext(NAME2, dropdownMenu);
+  setContext(NAME, dropdownMenu);
   return {
     ...dropdownMenu,
     updateOption: getOptionUpdater(dropdownMenu.options)
@@ -3993,7 +3971,7 @@ function setCtx$3(props) {
 }
 function getGroupLabel() {
   const { GROUP_NAME } = getMenuData();
-  const id = getContext(GROUP_NAME) ?? generateId$1();
+  const id = getContext(GROUP_NAME) ?? generateId();
   const { elements: { groupLabel }, getAttrs } = getCtx$3();
   return { groupLabel, id, getAttrs };
 }
@@ -4080,16 +4058,16 @@ const Menu_separator = create_ssr_component(($$result, $$props, $$bindings, slot
   return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object($separator), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>`}`;
 });
 function getPopoverData() {
-  const NAME2 = "popover";
-  const PARTS2 = ["arrow", "close", "content", "trigger"];
+  const NAME = "popover";
+  const PARTS = ["arrow", "close", "content", "trigger"];
   return {
-    NAME: NAME2,
-    PARTS: PARTS2
+    NAME,
+    PARTS
   };
 }
 function setCtx$2(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getPopoverData();
-  const getAttrs = createBitAttrs$1(NAME2, PARTS2);
+  const { NAME, PARTS } = getPopoverData();
+  const getAttrs = createBitAttrs(NAME, PARTS);
   const popover = {
     ...createPopover({
       positioning: {
@@ -4101,15 +4079,15 @@ function setCtx$2(props) {
     }),
     getAttrs
   };
-  setContext(NAME2, popover);
+  setContext(NAME, popover);
   return {
     ...popover,
     updateOption: getOptionUpdater(popover.options)
   };
 }
 function getCtx$2() {
-  const { NAME: NAME2 } = getPopoverData();
-  return getContext(NAME2);
+  const { NAME } = getPopoverData();
+  return getContext(NAME);
 }
 function updatePositioning(props) {
   const defaultPlacement = {
@@ -4543,8 +4521,8 @@ const Popover_trigger = create_ssr_component(($$result, $$props, $$bindings, slo
   return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
 });
 function getRangeCalendarData() {
-  const NAME2 = "calendar";
-  const PARTS2 = [
+  const NAME = "calendar";
+  const PARTS = [
     "root",
     "prev-button",
     "next-button",
@@ -4558,21 +4536,21 @@ function getRangeCalendarData() {
     "cell",
     "grid-row"
   ];
-  return { NAME: NAME2, PARTS: PARTS2 };
+  return { NAME, PARTS };
 }
 function setCtx$1(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getRangeCalendarData();
-  const getAttrs = createBitAttrs$1(NAME2, PARTS2);
+  const { NAME, PARTS } = getRangeCalendarData();
+  const getAttrs = createBitAttrs(NAME, PARTS);
   const rangeCalendar = { ...createRangeCalendar(removeUndefined(props)), getAttrs };
-  setContext(NAME2, rangeCalendar);
+  setContext(NAME, rangeCalendar);
   return {
     ...rangeCalendar,
     updateOption: getOptionUpdater(rangeCalendar.options)
   };
 }
 function getCtx$1() {
-  const { NAME: NAME2 } = getRangeCalendarData();
-  return getContext(NAME2);
+  const { NAME } = getRangeCalendarData();
+  return getContext(NAME);
 }
 const Range_calendar$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let builder;
@@ -4953,26 +4931,26 @@ const Range_calendar_prev_button$1 = create_ssr_component(($$result, $$props, $$
   return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
 });
 function getTabsData() {
-  const NAME2 = "tabs";
-  const PARTS2 = ["root", "content", "list", "trigger"];
+  const NAME = "tabs";
+  const PARTS = ["root", "content", "list", "trigger"];
   return {
-    NAME: NAME2,
-    PARTS: PARTS2
+    NAME,
+    PARTS
   };
 }
 function setCtx(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getTabsData();
-  const getAttrs = createBitAttrs$1(NAME2, PARTS2);
+  const { NAME, PARTS } = getTabsData();
+  const getAttrs = createBitAttrs(NAME, PARTS);
   const tabs = { ...createTabs(removeUndefined(props)), getAttrs };
-  setContext(NAME2, tabs);
+  setContext(NAME, tabs);
   return {
     ...tabs,
     updateOption: getOptionUpdater(tabs.options)
   };
 }
 function getCtx() {
-  const { NAME: NAME2 } = getTabsData();
-  return getContext(NAME2);
+  const { NAME } = getTabsData();
+  return getContext(NAME);
 }
 const Tabs = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let builder;
@@ -5103,74 +5081,6 @@ const Tabs_trigger$1 = create_ssr_component(($$result, $$props, $$bindings, slot
   $$unsubscribe_trigger();
   return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
 });
-const Avatar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "delayMs"]);
-  let { class: className = void 0 } = $$props;
-  let { delayMs = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.delayMs === void 0 && $$bindings.delayMs && delayMs !== void 0) $$bindings.delayMs(delayMs);
-  return `${validate_component(Avatar$1, "AvatarPrimitive.Root").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { delayMs },
-      {
-        class: cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Avatar_image = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "src", "alt"]);
-  let { class: className = void 0 } = $$props;
-  let { src = void 0 } = $$props;
-  let { alt = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.src === void 0 && $$bindings.src && src !== void 0) $$bindings.src(src);
-  if ($$props.alt === void 0 && $$bindings.alt && alt !== void 0) $$bindings.alt(alt);
-  return `${validate_component(Avatar_image$1, "AvatarPrimitive.Image").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { src },
-      { alt },
-      {
-        class: cn("aspect-square h-full w-full", className)
-      },
-      $$restProps
-    ),
-    {},
-    {}
-  )}`;
-});
-const Avatar_fallback = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Avatar_fallback$1, "AvatarPrimitive.Fallback").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn("bg-muted flex h-full w-full items-center justify-center rounded-full", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
 const Dropdown_menu_item = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["class", "inset"]);
   let { class: className = void 0 } = $$props;
@@ -5288,6 +5198,74 @@ const Chevron_right = create_ssr_component(($$result, $$props, $$bindings, slots
 });
 const Root$2 = Menu;
 const Trigger$1 = Menu_trigger;
+const Avatar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class", "delayMs"]);
+  let { class: className = void 0 } = $$props;
+  let { delayMs = void 0 } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  if ($$props.delayMs === void 0 && $$bindings.delayMs && delayMs !== void 0) $$bindings.delayMs(delayMs);
+  return `${validate_component(Avatar$1, "AvatarPrimitive.Root").$$render(
+    $$result,
+    Object.assign(
+      {},
+      { delayMs },
+      {
+        class: cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)
+      },
+      $$restProps
+    ),
+    {},
+    {
+      default: () => {
+        return `${slots.default ? slots.default({}) : ``}`;
+      }
+    }
+  )}`;
+});
+const Avatar_image = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class", "src", "alt"]);
+  let { class: className = void 0 } = $$props;
+  let { src = void 0 } = $$props;
+  let { alt = void 0 } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  if ($$props.src === void 0 && $$bindings.src && src !== void 0) $$bindings.src(src);
+  if ($$props.alt === void 0 && $$bindings.alt && alt !== void 0) $$bindings.alt(alt);
+  return `${validate_component(Avatar_image$1, "AvatarPrimitive.Image").$$render(
+    $$result,
+    Object.assign(
+      {},
+      { src },
+      { alt },
+      {
+        class: cn("aspect-square h-full w-full", className)
+      },
+      $$restProps
+    ),
+    {},
+    {}
+  )}`;
+});
+const Avatar_fallback = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class"]);
+  let { class: className = void 0 } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  return `${validate_component(Avatar_fallback$1, "AvatarPrimitive.Fallback").$$render(
+    $$result,
+    Object.assign(
+      {},
+      {
+        class: cn("bg-muted flex h-full w-full items-center justify-center rounded-full", className)
+      },
+      $$restProps
+    ),
+    {},
+    {
+      default: () => {
+        return `${slots.default ? slots.default({}) : ``}`;
+      }
+    }
+  )}`;
+});
 const User_nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $user, $$unsubscribe_user;
   $$unsubscribe_user = subscribe(user, (value) => $user = value);
@@ -5340,250 +5318,6 @@ const User_nav = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     }
   })}`;
 });
-function generateId() {
-  return nanoid(10);
-}
-({
-  ids: {
-    root: generateId(),
-    list: generateId(),
-    label: generateId(),
-    input: generateId()
-  }
-});
-function styleToString$1(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0)
-      return str;
-    return str + `${key}:${style[key]};`;
-  }, "");
-}
-({
-  style: styleToString$1({
-    position: "absolute",
-    opacity: 0,
-    "pointer-events": "none",
-    margin: 0,
-    transform: "translateX(-100%)"
-  })
-});
-function addEventListener(target, event, handler, options) {
-  const events = Array.isArray(event) ? event : [event];
-  events.forEach((_event) => target.addEventListener(_event, handler, options));
-  return () => {
-    events.forEach((_event) => target.removeEventListener(_event, handler, options));
-  };
-}
-const kbd = {
-  ESCAPE: "Escape"
-};
-readable(void 0, (set) => {
-  function clicked(event) {
-    set(event);
-    set(void 0);
-  }
-  const unsubscribe = addEventListener(document, "pointerup", clicked, {
-    passive: false,
-    capture: true
-  });
-  return unsubscribe;
-});
-readable(void 0, (set) => {
-  function keydown(event) {
-    if (event && event.key === kbd.ESCAPE) {
-      set(event);
-    }
-    set(void 0);
-  }
-  const unsubscribe = addEventListener(document, "keydown", keydown, {
-    passive: false,
-    capture: true
-  });
-  return unsubscribe;
-});
-function createBitAttrs(bit, parts) {
-  const attrs = {};
-  parts.forEach((part) => {
-    attrs[part] = {
-      [`data-bits-${bit}-${part}`]: ""
-    };
-  });
-  return (part) => attrs[part];
-}
-function styleToString(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0)
-      return str;
-    return str + `${key}:${style[key]};`;
-  }, "");
-}
-styleToString({
-  position: "absolute",
-  width: "1px",
-  height: "1px",
-  padding: "0",
-  margin: "-1px",
-  overflow: "hidden",
-  clip: "rect(0, 0, 0, 0)",
-  whiteSpace: "nowrap",
-  borderWidth: "0"
-});
-styleToString({
-  position: "absolute",
-  width: "25px",
-  height: "25px",
-  opacity: "0",
-  margin: "0px",
-  pointerEvents: "none",
-  transform: "translateX(-100%)"
-});
-const NAME$l = "accordion";
-const PARTS$l = ["root", "content", "header", "item", "trigger"];
-createBitAttrs(NAME$l, PARTS$l);
-const NAME$k = "alert-dialog";
-const PARTS$k = [
-  "action",
-  "cancel",
-  "content",
-  "description",
-  "overlay",
-  "portal",
-  "title",
-  "trigger"
-];
-createBitAttrs(NAME$k, PARTS$k);
-const NAME$j = "avatar";
-const PARTS$j = ["root", "image", "fallback"];
-createBitAttrs(NAME$j, PARTS$j);
-const NAME$i = "checkbox";
-const PARTS$i = ["root", "input", "indicator"];
-createBitAttrs(NAME$i, PARTS$i);
-const NAME$h = "collapsible";
-const PARTS$h = ["root", "content", "trigger"];
-createBitAttrs(NAME$h, PARTS$h);
-const NAME$g = "context-menu";
-const PARTS$g = [
-  "arrow",
-  "checkbox-indicator",
-  "checkbox-item",
-  "content",
-  "group",
-  "item",
-  "label",
-  "radio-group",
-  "radio-item",
-  "separator",
-  "sub-content",
-  "sub-trigger",
-  "trigger"
-];
-createBitAttrs(NAME$g, PARTS$g);
-const NAME$f = "dialog";
-const PARTS$f = ["close", "content", "description", "overlay", "portal", "title", "trigger"];
-createBitAttrs(NAME$f, PARTS$f);
-const NAME$e = "dropdown-menu";
-const PARTS$e = [
-  "arrow",
-  "checkbox-indicator",
-  "checkbox-item",
-  "content",
-  "group",
-  "item",
-  "label",
-  "radio-group",
-  "radio-item",
-  "separator",
-  "sub-content",
-  "sub-trigger",
-  "trigger"
-];
-createBitAttrs(NAME$e, PARTS$e);
-const NAME$d = "link-preview";
-const PARTS$d = ["arrow", "content", "trigger"];
-createBitAttrs(NAME$d, PARTS$d);
-const NAME$c = "label";
-const PARTS$c = ["root"];
-createBitAttrs(NAME$c, PARTS$c);
-const NAME$b = "menubar";
-const PARTS$b = [
-  "root",
-  "arrow",
-  "checkbox-indicator",
-  "checkbox-item",
-  "content",
-  "group",
-  "item",
-  "label",
-  "radio-group",
-  "radio-item",
-  "separator",
-  "sub-content",
-  "sub-trigger",
-  "trigger"
-];
-createBitAttrs(NAME$b, PARTS$b);
-const NAME$a = "popover";
-const PARTS$a = ["arrow", "close", "content", "trigger"];
-createBitAttrs(NAME$a, PARTS$a);
-const NAME$9 = "progress";
-const PARTS$9 = ["root"];
-createBitAttrs(NAME$9, PARTS$9);
-const NAME$8 = "radio-group";
-const PARTS$8 = ["root", "item", "input"];
-createBitAttrs(NAME$8, PARTS$8);
-const NAME$7 = "select";
-const PARTS$7 = ["arrow", "content", "group", "item", "input", "label", "trigger", "value"];
-createBitAttrs(NAME$7, PARTS$7);
-const NAME$6 = "separator";
-const PARTS$6 = ["root"];
-createBitAttrs(NAME$6, PARTS$6);
-const NAME$5 = "slider";
-const PARTS$5 = ["root", "input", "range", "thumb", "tick"];
-createBitAttrs(NAME$5, PARTS$5);
-const NAME$4 = "switch";
-const PARTS$4 = ["root", "input", "thumb"];
-createBitAttrs(NAME$4, PARTS$4);
-const NAME$3 = "tabs";
-const PARTS$3 = ["root", "content", "list", "trigger"];
-createBitAttrs(NAME$3, PARTS$3);
-const NAME$2 = "toggle";
-const PARTS$2 = ["root", "input"];
-createBitAttrs(NAME$2, PARTS$2);
-const NAME$1 = "toggle-group";
-const PARTS$1 = ["root", "item"];
-createBitAttrs(NAME$1, PARTS$1);
-const NAME = "tooltip";
-const PARTS = ["arrow", "content", "trigger"];
-createBitAttrs(NAME, PARTS);
-const Popover_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
-  let { class: className = void 0 } = $$props;
-  let { transition = flyAndScale } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  return `${validate_component(Popover_content$1, "PopoverPrimitive.Content").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { transition },
-      { transitionConfig },
-      {
-        class: cn("bg-popover text-popover-foreground z-50 w-72 rounded-md border p-4 shadow-md outline-none", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Root$1 = Popover;
-const Trigger = Popover_trigger;
 const Tabs_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["class", "value"]);
   let { class: className = void 0 } = $$props;
@@ -5653,7 +5387,7 @@ const Tabs_trigger = create_ssr_component(($$result, $$props, $$bindings, slots)
     }
   )}`;
 });
-const Root = Tabs;
+const Root$1 = Tabs;
 const Calendar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   const iconNode = [
     ["path", { "d": "M8 2v4" }],
@@ -6008,6 +5742,35 @@ const Range_calendar_prev_button = create_ssr_component(($$result, $$props, $$bi
     }
   )}`;
 });
+const Popover_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
+  let { class: className = void 0 } = $$props;
+  let { transition = flyAndScale } = $$props;
+  let { transitionConfig = void 0 } = $$props;
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
+  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
+  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
+  return `${validate_component(Popover_content$1, "PopoverPrimitive.Content").$$render(
+    $$result,
+    Object.assign(
+      {},
+      { transition },
+      { transitionConfig },
+      {
+        class: cn("bg-popover text-popover-foreground z-50 w-72 rounded-md border p-4 shadow-md outline-none", className)
+      },
+      $$restProps
+    ),
+    {},
+    {
+      default: () => {
+        return `${slots.default ? slots.default({}) : ``}`;
+      }
+    }
+  )}`;
+});
+const Root = Popover;
+const Trigger = Popover_trigger;
 const Date_picker_with_range = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   const df = new DateFormatter("en-US", { dateStyle: "medium" });
   let value = {
@@ -6021,7 +5784,7 @@ const Date_picker_with_range = create_ssr_component(($$result, $$props, $$bindin
   do {
     $$settled = true;
     $$result.head = previous_head;
-    $$rendered = `<div class="grid gap-2">${validate_component(Root$1, "Popover.Root").$$render($$result, { openFocus: true }, {}, {
+    $$rendered = `<div class="grid gap-2">${validate_component(Root, "Popover.Root").$$render($$result, { openFocus: true }, {}, {
       default: () => {
         return `${validate_component(Trigger, "Popover.Trigger").$$render($$result, { asChild: true }, {}, {
           default: ({ builder }) => {
@@ -6332,13 +6095,15 @@ const chartColors = {
     iva: "rgba(255, 99, 132, 0.6)"
   }
 };
+const { saveAs } = pkg;
 const Facturas = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  createEventDispatcher();
+  let { dateRange = {} } = $$props;
   let totalIncome = 0;
   let totalExpenses = 0;
   let netProfit = 0;
   let incomeMap = {};
   let expenseMap = {};
-  let dateRange = {};
   let invoiceData = { months: [], income: [], expenses: [] };
   let invoiceStats = { emitted: 0, received: 0, total: 0 };
   let emitterDistribution = {};
@@ -6441,6 +6206,10 @@ const Facturas = create_ssr_component(($$result, $$props, $$bindings, slots) => 
           options: {
             ...chartCommonOptions,
             cutout: "60%",
+            scales: {
+              x: { display: false },
+              y: { display: false }
+            },
             plugins: {
               ...chartCommonOptions.plugins,
               tooltip: {
@@ -6765,11 +6534,21 @@ const Facturas = create_ssr_component(($$result, $$props, $$bindings, slots) => 
           dateString = dateParts.reverse().join("-");
         }
         const date = new Date(dateString);
-        if (dateRange.from && date < dateRange.from) return;
-        if (dateRange.to && date > dateRange.to) return;
-        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
-        const month = date.toLocaleString("es-ES", { month: "long", year: "numeric" });
-        monthsMap.set(monthKey, month);
+        console.log("Original date:", data.fechaEmision, "Parsed date:", date);
+        if (dateRange.from && date < new Date(dateRange.from)) {
+          console.log("Skipping - before range:", date);
+          return;
+        }
+        if (dateRange.to && date > new Date(dateRange.to)) {
+          console.log("Skipping - after range:", date);
+          return;
+        }
+        console.log("Date within range:", date);
+        const monthKey = date.toLocaleString("es-ES", { month: "long", year: "numeric" });
+        if (!monthsMap.has(monthKey)) {
+          monthsMap.set(monthKey, { income: 0, expenses: 0 });
+        }
+        monthsMap.set(monthKey, monthsMap.get(monthKey));
         if (data.tipoFactura?.toLowerCase() === "emitida") {
           if (data.emisor) {
             emitterRevenue[data.emisor] = (emitterRevenue[data.emisor] || 0) + data.total;
@@ -6793,7 +6572,7 @@ const Facturas = create_ssr_component(($$result, $$props, $$bindings, slots) => 
       });
       netProfit = totalIncome - totalExpenses;
       const sortedMonthKeys = Array.from(monthsMap.keys()).sort();
-      const sortedMonths = sortedMonthKeys.map((key) => monthsMap.get(key));
+      const sortedMonths = sortedMonthKeys.map((key) => key);
       invoiceData = {
         months: sortedMonths,
         income: sortedMonthKeys.map((key) => incomeMap[key] || 0),
@@ -6811,8 +6590,11 @@ const Facturas = create_ssr_component(($$result, $$props, $$bindings, slots) => 
       console.error("Error al obtener datos de Firestore:", error);
     }
   }
+  if ($$props.dateRange === void 0 && $$bindings.dateRange && dateRange !== void 0) $$bindings.dateRange(dateRange);
   if ($$props.loadInvoiceData === void 0 && $$bindings.loadInvoiceData && loadInvoiceData !== void 0) $$bindings.loadInvoiceData(loadInvoiceData);
-  return ` ${totalIncome > 0 || totalExpenses > 0 ? `<div class="grid gap-4 md:grid-cols-3">${validate_component(Card, "Card.Root").$$render(
+  return ` ${totalIncome > 0 || totalExpenses > 0 ? ` <div class="flex justify-end gap-2 mt-4 mb-4"><button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors flex items-center" data-svelte-h="svelte-1028sh5"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+		Exportar CSV</button> <button class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors flex items-center" data-svelte-h="svelte-1ruoxwj"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+		Exportar PDF</button></div> <div class="grid gap-4 md:grid-cols-3">${validate_component(Card, "Card.Root").$$render(
     $$result,
     {
       class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
@@ -7127,57 +6909,168 @@ const Facturas = create_ssr_component(($$result, $$props, $$bindings, slots) => 
   )}</div>`;
 });
 const Itinerarios = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { dateRange } = $$props;
   let selectedProfile = "Programador Junior";
+  let userProgress = {};
+  let userProjects = [];
+  function filterProjectsByDateRange() {
+    const from = new Date(dateRange.from);
+    const to = new Date(dateRange.to);
+    from.setHours(0, 0, 0, 0);
+    to.setHours(23, 59, 59, 999);
+    userProjects = userProjects.filter((project) => {
+      const projectDate = project.fecha?.toDate ? project.fecha.toDate() : new Date(project.fecha);
+      if (!projectDate || isNaN(projectDate.getTime())) {
+        console.warn("Invalid date for project:", project.id);
+        return false;
+      }
+      projectDate.setHours(12, 0, 0, 0);
+      return projectDate >= from && projectDate <= to;
+    });
+    renderCharts();
+  }
   let profileData = {
     "Programador Junior": {
-      skills: {
-        "HTML/CSS": 60,
-        JavaScript: 80,
-        React: 60,
-        "Vue.js": 60
+      "skills": {
+        "HTML/CSS": 2,
+        "JavaScript": 3,
+        "React": 2,
+        "Vue.js": 2
       },
-      objectives: [
-        "Completar curso de JavaScript avanzado",
-        "Crear proyectos usando React y Vue.js",
-        "Aprender conceptos de Git y control de versiones"
+      "objectives": [
+        "Aprender los fundamentos de JavaScript",
+        "Crear pequeños proyectos en React y Vue.js",
+        "Familiarizarse con Git y control de versiones"
+      ]
+    },
+    "Frontend Developer": {
+      "skills": {
+        "React": 4,
+        "Vue.js": 4,
+        "Angular": 3,
+        "Svelte": 2,
+        "Next.js": 2
+      },
+      "objectives": [
+        "Construir una aplicación con Next.js",
+        "Crear una SPA con Vue.js o Angular",
+        "Mejorar el rendimiento con optimización de código"
+      ]
+    },
+    "Backend Developer": {
+      "skills": {
+        "Node.js": 4,
+        "Express.js": 3,
+        "Spring Boot": 3,
+        "Django": 2,
+        "Flask": 2
+      },
+      "objectives": [
+        "Crear una API básica con Node.js",
+        "Aprender autenticación con OAuth/JWT",
+        "Familiarizarse con despliegue en servidores"
       ]
     },
     "Full-Stack Developer": {
-      skills: {
-        React: 100,
-        "Node.js": 100,
-        MongoDB: 60,
-        "Express.js": 60,
-        PostgreSQL: 60,
-        GraphQL: 40
+      "skills": {
+        "React": 4,
+        "Node.js": 4,
+        "MongoDB": 3,
+        "Express.js": 2,
+        "PostgreSQL": 2,
+        "GraphQL": 2
       },
-      objectives: [
-        "Desarrollar una aplicación con GraphQL y React",
-        "Aprender Docker y Kubernetes",
-        "Implementar SSR con Next.js y una API en Express"
+      "objectives": [
+        "Desarrollar una aplicación simple con GraphQL y React",
+        "Aprender conceptos básicos de Docker",
+        "Implementar SSR con Next.js"
+      ]
+    },
+    "Mobile Developer": {
+      "skills": {
+        "Flutter": 3,
+        "React Native": 3,
+        "iOS": 2,
+        "Firebase": 2
+      },
+      "objectives": [
+        "Crear una pequeña app con Flutter",
+        "Aprender Swift o Kotlin",
+        "Explorar almacenamiento en Firebase"
+      ]
+    },
+    "DevOps Engineer": {
+      "skills": {
+        "Docker": 3,
+        "AWS": 3,
+        "CI/CD": 2,
+        "Terraform": 2,
+        "Kubernetes": 2
+      },
+      "objectives": [
+        "Automatizar despliegues simples",
+        "Aprender a usar Terraform",
+        "Implementar pipelines básicos en CI/CD"
       ]
     },
     "Data Scientist": {
-      skills: {
-        Python: 80,
-        "Machine Learning": 60,
-        Pandas: 60,
-        TensorFlow: 60,
-        AWS: 40
+      "skills": {
+        "Python": 3,
+        "Machine Learning": 2,
+        "Pandas": 2,
+        "TensorFlow": 2,
+        "AWS": 2
       },
-      objectives: [
-        "Completar un proyecto de análisis predictivo",
-        "Implementar un modelo de deep learning en TensorFlow",
-        "Crear dashboard interactivo con Plotly/Dash"
+      "objectives": [
+        "Realizar análisis de datos básicos",
+        "Aprender los fundamentos de Machine Learning",
+        "Explorar modelos de predicción con TensorFlow"
       ]
     }
   };
+  let progressChart = null;
   let profileColors = {
     "Programador Junior": "#4F46E5",
-    "Full-Stack Developer": "#7C3AED",
-    "Data Scientist": "#2563EB"
+    "Full-Stack Developer": "#7C3AED"
   };
-  return `<div class="p-6 max-w-7xl mx-auto bg-gray-50 dark:bg-gray-900 rounded-lg"><h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white" data-svelte-h="svelte-1csr94b">Dashboard de Desarrollo Profesional</h1> <div class="grid gap-6 md:grid-cols-4">${validate_component(Card, "Card.Root").$$render(
+  function renderCharts() {
+    if (!Object.keys(userProgress).length) return;
+    if (progressChart) progressChart.destroy();
+    const currentColor = profileColors[selectedProfile];
+    progressChart = new Chart(
+      document.getElementById("progressChart"),
+      {
+        type: "radar",
+        data: {
+          labels: Object.keys(userProgress),
+          datasets: [
+            {
+              label: "Tu progreso",
+              data: Object.values(userProgress),
+              backgroundColor: `${currentColor}33`,
+              borderColor: currentColor,
+              borderWidth: 2,
+              pointBackgroundColor: currentColor,
+              pointRadius: 4
+            }
+          ]
+        },
+        options: {
+          ...chartCommonOptions,
+          scales: { r: { ticks: { display: false } } }
+        }
+      }
+    );
+  }
+  if ($$props.dateRange === void 0 && $$bindings.dateRange && dateRange !== void 0) $$bindings.dateRange(dateRange);
+  {
+    if (dateRange) {
+      if (dateRange.from && dateRange.to) {
+        filterProjectsByDateRange();
+      }
+    }
+  }
+  return `<div class="p-6 mx-auto bg-gray-50 dark:bg-gray-900 rounded-lg"><h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white" data-svelte-h="svelte-1csr94b">Dashboard de Desarrollo Profesional</h1> <div class="grid gap-6 md:grid-cols-4">${validate_component(Card, "Card.Root").$$render(
     $$result,
     {
       class: "shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-all duration-300 rounded-xl border border-gray-100 dark:border-gray-700"
@@ -7339,61 +7232,67 @@ const Itinerarios = create_ssr_component(($$result, $$props, $$bindings, slots) 
   )}</div></div>`;
 });
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Root, "Tabs.Root").$$render($$result, { value: "facturas", class: "space-y-4" }, {}, {
-    default: () => {
-      return `<header class="border-b bg-white dark:bg-gray-800 shadow-sm"><div class="flex h-16 items-center px-4"><nav class="flex items-center space-x-4 lg:space-x-6 mx-6"><img src="logo.jpeg" alt="Company Logo" class="h-12 w-12"> ${validate_component(Tabs_list, "Tabs.List").$$render($$result, { class: "flex space-x-4 border-b" }, {}, {
-        default: () => {
-          return `${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
-            $$result,
-            {
-              value: "facturas",
-              class: "text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 dark:data-[state=active]:border-indigo-400 dark:data-[state=active]:text-indigo-400 transition-colors"
-            },
-            {},
-            {
-              default: () => {
-                return `Facturación`;
-              }
-            }
-          )} ${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
-            $$result,
-            {
-              value: "itinerarios",
-              class: "text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 dark:data-[state=active]:border-indigo-400 dark:data-[state=active]:text-indigo-400 transition-colors"
-            },
-            {},
-            {
-              default: () => {
-                return `Itinerarios`;
-              }
-            }
-          )}`;
-        }
-      })}</nav> <div class="ml-auto flex items-center space-x-4"><div class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">${validate_component(Date_picker_with_range, "DatePickerWithRange").$$render($$result, {}, {}, {})} ${validate_component(Button, "Button").$$render(
-        $$result,
-        {
-          size: "sm",
-          class: "bg-indigo-500 text-white hover:bg-indigo-600",
-          "aria-label": "Descargar Informes"
-        },
-        {},
-        {
+  let facturasComponent;
+  let dateRange = { from: void 0, to: void 0 };
+  let $$settled;
+  let $$rendered;
+  let previous_head = $$result.head;
+  do {
+    $$settled = true;
+    $$result.head = previous_head;
+    $$rendered = `${validate_component(Root$1, "Tabs.Root").$$render($$result, { value: "facturas", class: "space-y-4" }, {}, {
+      default: () => {
+        return `<header class="border-b bg-white dark:bg-gray-800 shadow-sm"><div class="flex h-16 items-center px-4"><nav class="flex items-center space-x-4 lg:space-x-6 mx-6"><img src="logo.jpeg" alt="Company Logo" class="h-12 w-12"> ${validate_component(Tabs_list, "Tabs.List").$$render($$result, { class: "flex space-x-4 border-b" }, {}, {
           default: () => {
-            return `${validate_component(Download, "Download").$$render($$result, { class: "mr-2 h-4 w-4" }, {}, {})}
-						Descargar Informes`;
+            return `${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
+              $$result,
+              {
+                value: "facturas",
+                class: "text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 dark:data-[state=active]:border-indigo-400 dark:data-[state=active]:text-indigo-400 transition-colors"
+              },
+              {},
+              {
+                default: () => {
+                  return `Facturación`;
+                }
+              }
+            )} ${validate_component(Tabs_trigger, "Tabs.Trigger").$$render(
+              $$result,
+              {
+                value: "itinerarios",
+                class: "text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 dark:data-[state=active]:border-indigo-400 dark:data-[state=active]:text-indigo-400 transition-colors"
+              },
+              {},
+              {
+                default: () => {
+                  return `Itinerarios`;
+                }
+              }
+            )}`;
           }
-        }
-      )}</div> ${validate_component(Mode_toggle, "ModeToggle").$$render($$result, {}, {}, {})} ${validate_component(User_nav, "UserNav").$$render($$result, {}, {}, {})}</div></div></header> <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 flex-1 space-y-4 p-4"> ${validate_component(Tabs_content, "Tabs.Content").$$render($$result, { value: "facturas", class: "space-y-4" }, {}, {
-        default: () => {
-          return `${validate_component(Facturas, "Facturas").$$render($$result, {}, {}, {})}`;
-        }
-      })}  ${validate_component(Tabs_content, "Tabs.Content").$$render($$result, { value: "itinerarios", class: "space-y-4" }, {}, {
-        default: () => {
-          return `${validate_component(Itinerarios, "Itinerarios").$$render($$result, {}, {}, {})}`;
-        }
-      })}</div>`;
-    }
-  })}`;
+        })}</nav> <div class="ml-auto flex items-center space-x-4"><div class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">${validate_component(Date_picker_with_range, "DatePickerWithRange").$$render($$result, {}, {}, {})}</div> ${validate_component(Mode_toggle, "ModeToggle").$$render($$result, {}, {}, {})} ${validate_component(User_nav, "UserNav").$$render($$result, {}, {}, {})}</div></div></header> <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 flex-1 space-y-4 p-4"> ${validate_component(Tabs_content, "Tabs.Content").$$render($$result, { value: "facturas", class: "space-y-4" }, {}, {
+          default: () => {
+            return `${validate_component(Facturas, "Facturas").$$render(
+              $$result,
+              { dateRange, this: facturasComponent },
+              {
+                this: ($$value) => {
+                  facturasComponent = $$value;
+                  $$settled = false;
+                }
+              },
+              {}
+            )}`;
+          }
+        })}  ${validate_component(Tabs_content, "Tabs.Content").$$render($$result, { value: "itinerarios", class: "space-y-4" }, {}, {
+          default: () => {
+            return `${validate_component(Itinerarios, "Itinerarios").$$render($$result, { dateRange }, {}, {})}`;
+          }
+        })}</div>`;
+      }
+    })}`;
+  } while (!$$settled);
+  return $$rendered;
 });
 export {
   Page as default

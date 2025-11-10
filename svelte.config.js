@@ -1,7 +1,7 @@
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import adapter from "@sveltejs/adapter-cloudflare";
-import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import adapter from '@sveltejs/adapter-vercel';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -11,23 +11,23 @@ const config = {
 		vitePreprocess({
 			style: {
 				css: {
-					postcss: join(__dirname, "postcss.config.cjs"),
-				},
-			},
-		}),
+					postcss: join(__dirname, 'postcss.config.cjs')
+				}
+			}
+		})
 	],
-	extensions: [".svelte"],
+	extensions: ['.svelte'],
 
 	kit: {
 		// https://kit.svelte.dev/docs/adapter-cloudflare#options
 		adapter: adapter(),
 		prerender: {
 			handleMissingId: (details) => {
-				if (details.id === "#") return;
+				if (details.id === '#') return;
 				console.warn(details.message);
-			},
-		},
-	},
+			}
+		}
+	}
 };
 
 export default config;

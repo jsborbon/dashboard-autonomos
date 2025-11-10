@@ -9,18 +9,18 @@ La aplicación está construida con tecnologías web modernas (por ejemplo, Svel
 
 ## 🚀 Características principales
 
-- Panel de visualización de métricas clave (ingresos, gastos, beneficios, etc.).  
-- Diseño responsivo adaptado a móviles y escritorio.  
-- Organización modular del código para facilitar su mantenimiento y ampliación.  
-- Configuración automatizada con Vite, ESLint, Prettier y demás buenas prácticas.  
+- Panel de visualización de métricas clave (ingresos, gastos, beneficios, etc.).
+- Diseño responsivo adaptado a móviles y escritorio.
+- Organización modular del código para facilitar su mantenimiento y ampliación.
+- Configuración automatizada con Vite, ESLint, Prettier y demás buenas prácticas.
 - Listo para desplegar en entornos de hosting estático o servidores modernos.
 
 ## 🛠️ Tecnologías
 
-- SvelteKit  
-- Tailwind CSS  
-- Vite  
-- ESLint / Prettier  
+- SvelteKit
+- Tailwind CSS
+- Vite
+- ESLint / Prettier
 - JavaScript %
 
 _(Completa aquí el listado exacto de tecnologías, plugins y versiones que estés utilizando.)_
@@ -31,7 +31,8 @@ _(Completa aquí el listado exacto de tecnologías, plugins y versiones que est�
    ```bash
    git clone https://github.com/jsborbon/dashboard-autonomos.git
    cd dashboard-autonomos
-Instala las dependencias:
+   Instala las dependencias:
+   ```
 
 bash
 Copiar código
@@ -55,11 +56,11 @@ npm run preview
 bash
 Copiar código
 /dashboard-autonomos
-├── src/             # Código fuente de la aplicación
-│   ├── routes/      # Rutas de la aplicación
-│   ├── lib/         # Componentes reutilizables
-│   └── assets/      # Imágenes, estilos, fuentes, etc.
-├── static/          # Archivos públicos
+├── src/ # Código fuente de la aplicación
+│ ├── routes/ # Rutas de la aplicación
+│ ├── lib/ # Componentes reutilizables
+│ └── assets/ # Imágenes, estilos, fuentes, etc.
+├── static/ # Archivos públicos
 ├── svelte.config.js
 ├── tailwind.config.js
-└── …                # Otros ficheros de configuración
+└── … # Otros ficheros de configuración
