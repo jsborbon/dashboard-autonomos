@@ -21,9 +21,7 @@ La aplicación está construida con tecnologías web modernas (por ejemplo, Svel
 - Tailwind CSS  
 - Vite  
 - ESLint / Prettier  
-- JavaScript %
-
-_(Completa aquí el listado exacto de tecnologías, plugins y versiones que estés utilizando.)_
+- JavaScript
 
 ## 📦 Instalación
 
@@ -53,6 +51,5 @@ Genera una versión de producción:
    │   └── assets/      # Imágenes, estilos, fuentes, etc.
    ├── static/          # Archivos públicos
    ├── svelte.config.js
-   ├── tailwind.config.js
-   └── …                # Otros ficheros de configuración
+   └── tailwind.config.js
    ```
