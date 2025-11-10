@@ -31,35 +31,28 @@ _(Completa aquí el listado exacto de tecnologías, plugins y versiones que est�
    ```bash
    git clone https://github.com/jsborbon/dashboard-autonomos.git
    cd dashboard-autonomos
+   ```
 Instala las dependencias:
-
-bash
-Copiar código
-npm install
+   ```bash   
+   npm install
+```
 Ejecuta la aplicación en modo desarrollo:
-
-bash
-Copiar código
-npm run dev
+   ```bash
+   npm run dev
+```
 Genera una versión de producción:
-
-bash
-Copiar código
-npm run build
-(Opcional) Previsualiza la versión de producción:
-
-bash
-Copiar código
-npm run preview
+   ```bash
+   npm run build
+```
 🧩 Estructura del proyecto
-bash
-Copiar código
-/dashboard-autonomos
-├── src/             # Código fuente de la aplicación
-│   ├── routes/      # Rutas de la aplicación
-│   ├── lib/         # Componentes reutilizables
-│   └── assets/      # Imágenes, estilos, fuentes, etc.
-├── static/          # Archivos públicos
-├── svelte.config.js
-├── tailwind.config.js
-└── …                # Otros ficheros de configuración
+   ```bash
+   /dashboard-autonomos
+   ├── src/             # Código fuente de la aplicación
+   │   ├── routes/      # Rutas de la aplicación   
+   │   ├── lib/         # Componentes reutilizables
+   │   └── assets/      # Imágenes, estilos, fuentes, etc.
+   ├── static/          # Archivos públicos
+   ├── svelte.config.js
+   ├── tailwind.config.js
+   └── …                # Otros ficheros de configuración
+   ```
